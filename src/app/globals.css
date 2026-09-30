@@ -1,26 +1,108 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-jakarta), system-ui, -apple-system, sans-serif;
+  --color-warm-white: #F7F9FC;
+  --color-royal-blue: #1557A6;
+  --color-deep-blue: #0B2D52;
+  --color-sky-blue: #4B9FE1;
+  --color-soft-blue: #EAF3FB;
+  --color-academic-gold: #D9A441;
+  --color-body-text: #26384A;
+  --color-preloader-bg: #071A2F;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --bg-warm-white: #F7F9FC;
+  --kr-royal-blue: #1557A6;
+  --kr-deep-blue: #0B2D52;
+  --kr-sky-blue: #4B9FE1;
+  --kr-soft-blue: #EAF3FB;
+  --kr-academic-gold: #D9A441;
+  --kr-body-text: #26384A;
+  --kr-preloader-bg: #071A2F;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-warm-white);
+  color: var(--kr-body-text);
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Orbit Ring Keyframes */
+@keyframes spinClockwise {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinCounterClockwise {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes floatParticle {
+
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0.8;
+  }
+}
+
+.animate-spin-clockwise {
+  animation: spinClockwise 8s linear infinite;
+}
+
+.animate-spin-counter {
+  animation: spinCounterClockwise 12s linear infinite;
+}
+
+/* Glassmorphism helpers */
+.glass-nav {
+  background: rgba(247, 249, 252, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(21, 87, 166, 0.1);
+  box-shadow: 0 4px 20px -2px rgba(11, 45, 82, 0.05);
+}
+
+.glass-card {
+  background: rgba(234, 243, 251, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(21, 87, 166, 0.1);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F7F9FC;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1557A6;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0B2D52;
 }
