@@ -2,95 +2,89 @@
 
 import React from "react";
 import { Award, Users, BookOpen, TrendingUp, Sparkles, Building2 } from "lucide-react";
-import { motion } from "framer-motion";
+import ScrollSection from "../Motion/ScrollSection";
+import ScrollTextMotion from "../Motion/ScrollTextMotion";
+import ScrollDepthLayer from "../Motion/ScrollDepthLayer";
 
 export default function Achievements() {
   const stats = [
     {
       icon: Building2,
       value: "27+",
-      label: "Years of Glorious Legacy",
+      label: "YEARS OF EXCELLENCE",
       detail: "Established in 1997 with institutional reputation",
     },
     {
       icon: Users,
       value: "3,500+",
-      label: "Enrolled Students",
+      label: "ENROLLED STUDENTS",
       detail: "Diverse student community across Tamil Nadu",
     },
     {
       icon: BookOpen,
       value: "120+",
-      label: "Qualified Faculty",
+      label: "QUALIFIED FACULTY",
       detail: "Accomplished PhD scholars & research guides",
     },
     {
       icon: Award,
       value: "40+",
-      label: "University Ranks",
+      label: "UNIVERSITY RANKS",
       detail: "Manonmaniam Sundaranar University laureates",
     },
     {
       icon: TrendingUp,
       value: "95%+",
-      label: "Placement Record",
+      label: "PLACEMENT RECORD",
       detail: "Recruited by top IT MNCs & Corporate leaders",
     },
   ];
 
   return (
-    <section className="py-16 bg-[#0B2D52] text-white relative overflow-hidden">
-      
-      {/* Decorative Orbs */}
-      <div className="absolute -top-12 -left-12 w-64 h-64 bg-[#1557A6]/30 rounded-full blur-3xl" />
-      <div className="absolute -bottom-12 -right-12 w-72 h-72 bg-[#D9A441]/15 rounded-full blur-3xl" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="py-20 bg-[#F0F4F8] text-[#234052] relative border-t border-[#D8E3EC]">
+      <ScrollSection className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[#D9A441] text-xs font-semibold uppercase tracking-wider mb-3">
-            <Sparkles className="w-4 h-4 text-[#D9A441]" />
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-[#D8E3EC] text-[#38A9E8] text-xs font-bold uppercase tracking-wider mb-3 shadow-sm">
+            <Sparkles className="w-4 h-4 text-[#F28C6B]" />
             <span>NUMBERS THAT DEFINE EXCELLENCE</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F7F9FC] tracking-tight">
+
+          <ScrollTextMotion as="h2" className="text-3xl sm:text-4xl font-extrabold text-[#234052] tracking-tight">
             Institutional Landmarks
-          </h2>
+          </ScrollTextMotion>
         </div>
 
-        {/* Stats Grid */}
+        {/* Stats Grid with Large Sky-Blue Numbers */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          {stats.map((stat, idx) => {
+          {stats.map((stat) => {
             const IconComp = stat.icon;
             return (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:border-[#D9A441]/50 hover:bg-white/10 transition-all duration-300 text-center flex flex-col items-center justify-between"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#1557A6]/40 flex items-center justify-center text-[#4B9FE1] mb-4">
-                  <IconComp className="w-6 h-6 text-[#D9A441]" />
+              <ScrollDepthLayer key={stat.label} preset="foreground">
+                <div className="bg-white rounded-2xl p-6 border border-[#D8E3EC] hover:border-[#38A9E8] hover:shadow-md transition-all duration-250 text-center flex flex-col items-center justify-between h-full">
+                  <div className="w-12 h-12 rounded-xl bg-[#EBF3F8] border border-[#D8E3EC] flex items-center justify-center text-[#38A9E8] mb-4">
+                    <IconComp className="w-6 h-6" />
+                  </div>
+
+                  <div className="text-4xl sm:text-5xl font-extrabold text-[#38A9E8] tracking-tight mb-2">
+                    {stat.value}
+                  </div>
+
+                  <h3 className="text-xs font-extrabold text-[#234052] tracking-wider uppercase mb-1">
+                    {stat.label}
+                  </h3>
+
+                  <p className="text-xs text-[#5A7080] font-medium">
+                    {stat.detail}
+                  </p>
                 </div>
-
-                <div className="text-4xl sm:text-5xl font-extrabold text-[#D9A441] tracking-tight mb-2">
-                  {stat.value}
-                </div>
-
-                <h3 className="text-base font-bold text-[#F7F9FC] mb-1">
-                  {stat.label}
-                </h3>
-
-                <p className="text-xs text-slate-300">
-                  {stat.detail}
-                </p>
-              </motion.div>
+              </ScrollDepthLayer>
             );
           })}
         </div>
-      </div>
+      </ScrollSection>
     </section>
   );
 }
+

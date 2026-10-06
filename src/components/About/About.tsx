@@ -1,9 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle2, Target, Eye, Compass, Award, Building2, UserCheck, Sparkles, BookOpen } from "lucide-react";
+import { CheckCircle2, Target, Eye, Compass, UserCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import CollegeLogo from "../Common/CollegeLogo";
+import ScrollSection from "../Motion/ScrollSection";
+import ScrollTextMotion from "../Motion/ScrollTextMotion";
+import ScrollImageMotion from "../Motion/ScrollImageMotion";
+import ScrollDepthLayer from "../Motion/ScrollDepthLayer";
 
 export default function About() {
   const [activeTab, setActiveTab] = useState<"vision" | "mission" | "quality" | "leadership">("vision");
@@ -54,91 +58,81 @@ export default function About() {
   const CurrentIcon = tabContents[activeTab].icon;
 
   return (
-    <section id="about" className="py-24 bg-[#F7F9FC] relative overflow-hidden">
-      
-      {/* Decorative Blur Spheres */}
-      <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-[#4B9FE1]/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#D9A441]/10 rounded-full blur-[100px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="about" className="py-24 bg-[#F0F4F8] text-[#234052] relative border-t border-[#D8E3EC]">
+      <ScrollSection className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header with Flying Motion */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <div className="inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full bg-[#EAF3FB] border border-[#1557A6]/20 text-[#1557A6] text-xs font-extrabold uppercase tracking-wider mb-4 shadow-sm">
-            <CollegeLogo className="w-5 h-5 border border-[#1557A6]/30" />
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center space-x-2.5 px-3.5 py-1.5 rounded-full bg-white border border-[#D8E3EC] text-[#38A9E8] text-xs font-extrabold uppercase tracking-wider mb-4 shadow-sm">
+            <CollegeLogo className="w-5 h-5 border border-[#D8E3EC]" />
             <span>INSTITUTIONAL OVERVIEW</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#0B2D52] tracking-tight">
-            A Legacy of Educational Excellence Since 1997
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#26384A] leading-relaxed font-medium">
+
+          <ScrollTextMotion as="h2" className="text-3xl sm:text-5xl font-extrabold text-[#234052] tracking-tight">
+            WHERE EDUCATION MEETS POSSIBILITY
+          </ScrollTextMotion>
+
+          <p className="mt-4 text-base sm:text-lg text-[#5A7080] leading-relaxed font-medium">
             Situated in Kovilpatti, K.R. College of Arts & Science is a premier seat of higher learning producing rank holders and industry leaders for over 27 years.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        {/* Editorial Split Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pt-4">
           
-          {/* Left Column: Campus Image Reveal with Flying Stat Counter */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="lg:col-span-6 relative"
-          >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-[#0B2D52]">
-              <img
+          {/* LEFT COLUMN: Large Photo & Typography Statistics */}
+          <ScrollDepthLayer preset="image" className="lg:col-span-6 space-y-8">
+            <div className="rounded-2xl overflow-hidden border border-[#D8E3EC] bg-white shadow-sm">
+              <ScrollImageMotion
                 src="/library.png"
-                alt="K.R. College Library & Knowledge Center"
-                className="w-full h-[400px] sm:h-[460px] object-cover hover:scale-105 transition-transform duration-700"
+                alt="K.R. College Knowledge Center"
+                minScale={1.00}
+                maxScale={1.05}
+                className="h-[360px] sm:h-[420px]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B2D52]/85 via-transparent to-transparent" />
+            </div>
 
-              {/* Floating Stat Banner at bottom of image */}
-              <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md rounded-2xl p-4 border border-[#1557A6]/20 flex justify-around text-center shadow-xl">
+            {/* Typography Statistics with Thin Horizontal Separators */}
+            <div className="space-y-6 pt-2">
+              <div className="border-t border-[#D8E3EC] pt-4 flex items-center justify-between">
                 <div>
-                  <p className="text-2xl font-extrabold text-[#1557A6]">27+</p>
-                  <p className="text-xs text-[#26384A] font-bold">Years Glory</p>
+                  <span className="text-3xl sm:text-4xl font-extrabold text-[#38A9E8] tracking-tight">27+</span>
+                  <p className="text-xs font-extrabold uppercase tracking-wider text-[#5A7080]">Years of Excellence</p>
                 </div>
-                <div className="w-px bg-slate-200" />
+                <p className="text-xs text-[#5A7080] max-w-xs text-right font-medium">Established in 1997 under National Educational Trust</p>
+              </div>
+
+              <div className="border-t border-[#D8E3EC] pt-4 flex items-center justify-between">
                 <div>
-                  <p className="text-2xl font-extrabold text-[#D9A441]">30,000+</p>
-                  <p className="text-xs text-[#26384A] font-bold">Digital Books</p>
+                  <span className="text-3xl sm:text-4xl font-extrabold text-[#38A9E8] tracking-tight">30,000+</span>
+                  <p className="text-xs font-extrabold uppercase tracking-wider text-[#5A7080]">Digital & Print Volumes</p>
                 </div>
-                <div className="w-px bg-slate-200" />
+                <p className="text-xs text-[#5A7080] max-w-xs text-right font-medium">Comprehensive central library & IEEE journal access</p>
+              </div>
+
+              <div className="border-t border-[#D8E3EC] pt-4 flex items-center justify-between">
                 <div>
-                  <p className="text-2xl font-extrabold text-[#4B9FE1]">100%</p>
-                  <p className="text-xs text-[#26384A] font-bold">Student Support</p>
+                  <span className="text-3xl sm:text-4xl font-extrabold text-[#38A9E8] tracking-tight">100%</span>
+                  <p className="text-xs font-extrabold uppercase tracking-wider text-[#5A7080]">Career Placement Support</p>
                 </div>
+                <p className="text-xs text-[#5A7080] max-w-xs text-right font-medium">Dedicated corporate placement cell & soft skills modules</p>
               </div>
             </div>
-          </motion.div>
+          </ScrollDepthLayer>
 
-          {/* Right Column: Tabbed Interactive Cards */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="lg:col-span-6 flex flex-col space-y-6"
-          >
-            {/* Interactive Tab Navigation */}
-            <div className="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-[#EAF3FB] border border-[#1557A6]/15 shadow-sm">
+          {/* RIGHT COLUMN: Tabbed Governance Cards */}
+          <ScrollDepthLayer preset="content" className="lg:col-span-6 flex flex-col space-y-6">
+            
+            {/* Tab Navigation */}
+            <div className="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-white border border-[#D8E3EC] shadow-sm">
               {(["vision", "mission", "quality", "leadership"] as const).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`flex-1 min-w-[110px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-extrabold capitalize transition-all duration-200 ${
                     activeTab === tab
-                      ? "bg-gradient-to-r from-[#1557A6] to-[#4B9FE1] text-white shadow-md scale-105"
-                      : "text-[#0B2D52] hover:bg-white/70"
+                      ? "bg-[#38A9E8] text-white shadow-sm"
+                      : "text-[#234052] hover:bg-[#F0F4F8]"
                   }`}
                 >
                   {tab}
@@ -146,43 +140,44 @@ export default function About() {
               ))}
             </div>
 
-            {/* Animated Tab Content Card */}
+            {/* Tab Content */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
-                className="bg-white p-7 sm:p-9 rounded-3xl border border-[#1557A6]/15 shadow-xl space-y-5"
+                transition={{ duration: 0.25 }}
+                className="bg-white p-8 rounded-2xl border border-[#D8E3EC] shadow-sm space-y-5"
               >
                 <div className="flex items-center space-x-3.5">
-                  <div className="w-13 h-13 rounded-2xl bg-[#EAF3FB] flex items-center justify-center text-[#1557A6] shadow-sm">
-                    <CurrentIcon className="w-7 h-7 text-[#1557A6]" />
+                  <div className="w-12 h-12 rounded-xl bg-[#EBF3F8] flex items-center justify-center text-[#38A9E8] border border-[#D8E3EC]">
+                    <CurrentIcon className="w-6 h-6 text-[#38A9E8]" />
                   </div>
-                  <h3 className="text-2xl font-extrabold text-[#0B2D52]">
+                  <h3 className="text-2xl font-extrabold text-[#234052]">
                     {tabContents[activeTab].title}
                   </h3>
                 </div>
 
-                <p className="text-[#26384A] text-base leading-relaxed font-medium">
+                <p className="text-[#5A7080] text-base leading-relaxed font-medium">
                   {tabContents[activeTab].text}
                 </p>
 
                 <div className="space-y-3 pt-2">
                   {tabContents[activeTab].points.map((point, index) => (
                     <div key={index} className="flex items-start space-x-3">
-                      <CheckCircle2 className="w-5 h-5 text-[#D9A441] shrink-0 mt-0.5" />
-                      <span className="text-sm text-[#26384A] font-bold">{point}</span>
+                      <CheckCircle2 className="w-5 h-5 text-[#38A9E8] shrink-0 mt-0.5" />
+                      <span className="text-sm text-[#234052] font-bold">{point}</span>
                     </div>
                   ))}
                 </div>
               </motion.div>
             </AnimatePresence>
 
-          </motion.div>
+          </ScrollDepthLayer>
         </div>
-      </div>
+      </ScrollSection>
     </section>
   );
 }
+

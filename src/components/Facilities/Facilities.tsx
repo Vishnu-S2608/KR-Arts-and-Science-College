@@ -2,7 +2,9 @@
 
 import React from "react";
 import { BookOpen, Monitor, Microchip, Bus, Utensils, Award, Sparkles } from "lucide-react";
-import { motion } from "framer-motion";
+import ScrollSection from "../Motion/ScrollSection";
+import ScrollTextMotion from "../Motion/ScrollTextMotion";
+import ScrollImageMotion from "../Motion/ScrollImageMotion";
 
 export default function Facilities() {
   const facilities = [
@@ -45,64 +47,64 @@ export default function Facilities() {
   ];
 
   return (
-    <section id="facilities" className="py-20 bg-[#F7F9FC] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="facilities" className="py-24 bg-[#F0F4F8] text-[#234052] relative border-t border-[#D8E3EC]">
+      <ScrollSection className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#EAF3FB] border border-[#1557A6]/20 text-[#1557A6] text-xs font-semibold uppercase tracking-wider mb-3">
-            <Sparkles className="w-4 h-4 text-[#D9A441]" />
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-[#D8E3EC] text-[#38A9E8] text-xs font-semibold uppercase tracking-wider mb-3 shadow-sm">
+            <Sparkles className="w-4 h-4 text-[#38A9E8]" />
             <span>CAMPUS INFRASTRUCTURE</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0B2D52] tracking-tight">
+
+          <ScrollTextMotion as="h2" className="text-3xl sm:text-4xl font-extrabold text-[#234052] tracking-tight">
             World-Class Learning Facilities
-          </h2>
-          <p className="mt-4 text-base text-[#26384A]">
+          </ScrollTextMotion>
+
+          <p className="mt-4 text-base text-[#5A7080] font-medium">
             Designed to foster intellectual exploration, practical skills, physical fitness, and student comfort.
           </p>
         </div>
 
         {/* Facilities Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {facilities.map((fac, idx) => {
+          {facilities.map((fac) => {
             const IconComponent = fac.icon;
             return (
-              <motion.div
+              <div
                 key={fac.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-[#EAF3FB] rounded-3xl overflow-hidden border border-[#1557A6]/15 hover:border-[#1557A6] hover:bg-white hover:shadow-xl transition-all duration-300 group"
+                className="bg-white rounded-2xl overflow-hidden border border-[#D8E3EC] hover:border-[#38A9E8] hover:shadow-md transition-all duration-250 group flex flex-col justify-between"
               >
                 {/* Image Header */}
-                <div className="relative h-48 overflow-hidden bg-[#0B2D52]">
-                  <img
+                <div className="relative h-48 overflow-hidden bg-white border-b border-[#D8E3EC]">
+                  <ScrollImageMotion
                     src={fac.image}
                     alt={fac.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    minScale={1.00}
+                    maxScale={1.05}
+                    className="w-full h-full"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B2D52]/70 via-transparent to-transparent" />
                   
-                  <div className="absolute top-4 right-4 w-10 h-10 rounded-xl bg-white/90 backdrop-blur-md flex items-center justify-center text-[#1557A6] shadow-md">
+                  <div className="absolute top-4 right-4 w-10 h-10 rounded-xl bg-white border border-[#D8E3EC] flex items-center justify-center text-[#38A9E8] shadow-sm z-10">
                     <IconComponent className="w-5 h-5" />
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-[#0B2D52] mb-2 group-hover:text-[#1557A6] transition-colors">
+                  <h3 className="text-xl font-bold text-[#234052] mb-2 group-hover:text-[#38A9E8] transition-colors">
                     {fac.title}
                   </h3>
-                  <p className="text-sm text-[#26384A] leading-relaxed">
+                  <p className="text-sm text-[#5A7080] leading-relaxed font-medium">
                     {fac.desc}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
-      </div>
+      </ScrollSection>
     </section>
   );
 }
+

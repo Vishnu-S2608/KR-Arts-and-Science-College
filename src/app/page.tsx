@@ -17,6 +17,9 @@ import AdmissionsCTA from "@/components/AdmissionsCTA/AdmissionsCTA";
 import Footer from "@/components/Footer/Footer";
 import { ApplyModal, DepartmentModal, EventModal } from "@/components/Modals/Modals";
 
+import SmoothScrollProvider from "@/components/Motion/SmoothScrollProvider";
+import ScrollProgressIndicator from "@/components/Motion/ScrollProgressIndicator";
+
 export default function Home() {
   const [loadingComplete, setLoadingComplete] = useState(false);
   const [applyModalOpen, setApplyModalOpen] = useState(false);
@@ -30,77 +33,82 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-[#F7F9FC] text-[#26384A] relative">
-      {/* Signature K.R. Identity Orbit Preloader */}
-      <Preloader onComplete={() => setLoadingComplete(true)} />
+    <SmoothScrollProvider>
+      <main className="min-h-screen bg-[#F0F4F8] text-[#234052] relative">
+        {/* Top Scroll Progress Tracking Bar */}
+        <ScrollProgressIndicator />
 
-      {/* Main Production Website (Rendered & Prepared) */}
-      <div className={`transition-opacity duration-700 ${loadingComplete ? "opacity-100" : "opacity-0"}`}>
-        
-        {/* Navigation Bar */}
-        <Navbar onOpenApplyModal={() => handleOpenApply()} />
+        {/* Signature K.R. Identity Orbit Preloader */}
+        <Preloader onComplete={() => setLoadingComplete(true)} />
 
-        {/* Hero Section */}
-        <Hero onOpenApplyModal={() => handleOpenApply()} />
+        {/* Main Production Website */}
+        <div className={`transition-opacity duration-700 ${loadingComplete ? "opacity-100" : "opacity-0"}`}>
+          
+          {/* Navigation Bar */}
+          <Navbar onOpenApplyModal={() => handleOpenApply()} />
 
-        {/* Institutional About Overview */}
-        <About />
+          {/* Hero Section */}
+          <Hero onOpenApplyModal={() => handleOpenApply()} />
 
-        {/* Why Choose K.R. College */}
-        <WhyChoose />
+          {/* Institutional About Overview */}
+          <About />
 
-        {/* Academics & Programs */}
-        <Academics
-          onSelectProgram={(program) => handleOpenApply(program.name)}
-        />
+          {/* Why Choose K.R. College */}
+          <WhyChoose />
 
-        {/* Academic Departments */}
-        <Departments
-          onSelectDept={(dept) => setSelectedDept(dept)}
-        />
+          {/* Academics & Programs */}
+          <Academics
+            onSelectProgram={(program) => handleOpenApply(program.name)}
+          />
 
-        {/* Campus Life & Culture */}
-        <CampusLife />
+          {/* Academic Departments */}
+          <Departments
+            onSelectDept={(dept) => setSelectedDept(dept)}
+          />
 
-        {/* Achievements & Statistics */}
-        <Achievements />
+          {/* Campus Life & Culture */}
+          <CampusLife />
 
-        {/* Campus Infrastructure Facilities */}
-        <Facilities />
+          {/* Achievements & Statistics */}
+          <Achievements />
 
-        {/* Upcoming Events & News */}
-        <Events
-          onSelectEvent={(evt) => setSelectedEvent(evt)}
-        />
+          {/* Campus Infrastructure Facilities */}
+          <Facilities />
 
-        {/* Student & Alumni Testimonials */}
-        <Testimonials />
+          {/* Upcoming Events & News */}
+          <Events
+            onSelectEvent={(evt) => setSelectedEvent(evt)}
+          />
 
-        {/* Admissions Call to Action */}
-        <AdmissionsCTA onOpenApplyModal={() => handleOpenApply()} />
+          {/* Student & Alumni Testimonials */}
+          <Testimonials />
 
-        {/* Institutional Footer */}
-        <Footer />
+          {/* Admissions Call to Action */}
+          <AdmissionsCTA onOpenApplyModal={() => handleOpenApply()} />
 
-        {/* Interactive Modals */}
-        <ApplyModal
-          isOpen={applyModalOpen}
-          onClose={() => setApplyModalOpen(false)}
-          selectedCourseName={selectedCourse}
-        />
+          {/* Institutional Footer */}
+          <Footer />
 
-        <DepartmentModal
-          dept={selectedDept}
-          onClose={() => setSelectedDept(null)}
-          onOpenApply={() => handleOpenApply(selectedDept?.name || "")}
-        />
+          {/* Interactive Modals */}
+          <ApplyModal
+            isOpen={applyModalOpen}
+            onClose={() => setApplyModalOpen(false)}
+            selectedCourseName={selectedCourse}
+          />
 
-        <EventModal
-          event={selectedEvent}
-          onClose={() => setSelectedEvent(null)}
-        />
+          <DepartmentModal
+            dept={selectedDept}
+            onClose={() => setSelectedDept(null)}
+            onOpenApply={() => handleOpenApply(selectedDept?.name || "")}
+          />
 
-      </div>
-    </main>
+          <EventModal
+            event={selectedEvent}
+            onClose={() => setSelectedEvent(null)}
+          />
+
+        </div>
+      </main>
+    </SmoothScrollProvider>
   );
 }

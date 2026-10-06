@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
-import { Compass, Trophy, Music, Shield, HeartHandshake, Sparkles, Users } from "lucide-react";
-import { motion } from "framer-motion";
+import { Compass, Trophy, Music, Shield, Users, ArrowRight } from "lucide-react";
+import ScrollSection from "../Motion/ScrollSection";
+import ScrollTextMotion from "../Motion/ScrollTextMotion";
+import ScrollImageMotion from "../Motion/ScrollImageMotion";
 
 export default function CampusLife() {
   const activities = [
@@ -41,75 +43,73 @@ export default function CampusLife() {
   ];
 
   return (
-    <section id="campus-life" className="py-20 bg-[#F7F9FC] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="campus-life" className="py-24 bg-[#F0F4F8] text-[#234052] relative border-t border-[#D8E3EC]">
+      <ScrollSection className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Title */}
+        {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#EAF3FB] border border-[#1557A6]/20 text-[#1557A6] text-xs font-semibold uppercase tracking-wider mb-3">
-            <Compass className="w-4 h-4 text-[#D9A441]" />
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-[#D8E3EC] text-[#38A9E8] text-xs font-semibold uppercase tracking-wider mb-3 shadow-sm">
+            <Compass className="w-4 h-4 text-[#38A9E8]" />
             <span>VIBRANT CAMPUS CULTURE</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0B2D52] tracking-tight">
-            Life at K.R. College
-          </h2>
-          <p className="mt-4 text-base text-[#26384A]">
-            Education extends far beyond classrooms. Experience an energetic, inclusive campus environment packed with events, sports, and leadership clubs.
+
+          <ScrollTextMotion as="h2" className="text-3xl sm:text-5xl font-extrabold text-[#234052] tracking-tight">
+            MORE THAN A CLASSROOM
+          </ScrollTextMotion>
+
+          <p className="mt-4 text-base sm:text-lg text-[#5A7080] leading-relaxed font-medium">
+            Education extends far beyond classrooms. Experience an energetic, inclusive campus environment packed with events, sports, innovation, and leadership clubs.
           </p>
         </div>
 
-        {/* Editorial Layout Grid */}
+        {/* Storytelling Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {activities.map((item, index) => {
+          {activities.map((item) => {
             const IconComp = item.icon;
             return (
-              <motion.div
+              <div
                 key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`relative rounded-3xl overflow-hidden shadow-xl border border-[#1557A6]/20 group h-80 sm:h-96 ${item.span}`}
+                className={`bg-white rounded-2xl overflow-hidden border border-[#D8E3EC] hover:border-[#38A9E8] hover:shadow-md transition-all duration-250 group flex flex-col justify-between ${item.span}`}
               >
-                {/* Background Image */}
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-
-                {/* Dark Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B2D52] via-[#0B2D52]/60 to-transparent" />
-
-                {/* Content Overlay */}
-                <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-between text-white">
-                  
-                  {/* Top Badge */}
-                  <div className="flex items-center space-x-2">
-                    <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-[#D9A441]">
-                      <IconComp className="w-5 h-5" />
-                    </div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#4B9FE1] bg-[#071A2F]/60 px-3 py-1 rounded-full backdrop-blur-sm border border-[#4B9FE1]/30">
+                {/* Real Photography */}
+                <div className="relative h-64 overflow-hidden bg-white border-b border-[#D8E3EC]">
+                  <ScrollImageMotion
+                    src={item.image}
+                    alt={item.title}
+                    minScale={1.00}
+                    maxScale={1.05}
+                    className="w-full h-full"
+                  />
+                  <div className="absolute top-4 left-4 z-10 flex items-center space-x-2 bg-white/95 px-3 py-1 rounded-full border border-[#D8E3EC] shadow-sm">
+                    <IconComp className="w-3.5 h-3.5 text-[#38A9E8]" />
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#38A9E8]">
                       {item.category}
                     </span>
                   </div>
+                </div>
 
-                  {/* Bottom Text */}
+                {/* Content Area */}
+                <div className="p-6 sm:p-7 flex flex-col justify-between flex-grow">
                   <div>
-                    <h3 className="text-xl sm:text-2xl font-bold mb-2 text-white group-hover:text-[#4B9FE1] transition-colors">
+                    <h3 className="text-xl font-extrabold text-[#234052] mb-3 group-hover:text-[#38A9E8] transition-colors leading-snug">
                       {item.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-200 line-clamp-2 leading-relaxed">
+                    <p className="text-sm text-[#5A7080] leading-relaxed font-medium">
                       {item.desc}
                     </p>
                   </div>
 
+                  <div className="mt-6 pt-4 border-t border-[#D8E3EC] flex items-center justify-between text-xs font-extrabold text-[#38A9E8]">
+                    <span>Explore Life at K.R.</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
-      </div>
+      </ScrollSection>
     </section>
   );
 }
+

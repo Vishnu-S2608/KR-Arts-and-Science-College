@@ -1,9 +1,11 @@
 "use client";
 
 import React from "react";
-import { Laptop, Landmark, TrendingUp, Dna, BookOpen, Calculator, Trophy, ArrowRight, Layers } from "lucide-react";
-import { motion } from "framer-motion";
+import { Laptop, Landmark, TrendingUp, Dna, BookOpen, Calculator, ArrowRight } from "lucide-react";
 import CollegeLogo from "../Common/CollegeLogo";
+import ScrollSection from "../Motion/ScrollSection";
+import ScrollTextMotion from "../Motion/ScrollTextMotion";
+import ScrollDepthLayer from "../Motion/ScrollDepthLayer";
 
 export interface DepartmentItem {
   id: string;
@@ -78,72 +80,66 @@ export default function Departments({ onSelectDept }: DepartmentsProps) {
   ];
 
   return (
-    <section id="departments" className="py-24 bg-[#EAF3FB]/60 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="departments" className="py-24 bg-[#F0F4F8] relative border-t border-[#D8E3EC]">
+      <ScrollSection className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white border border-[#1557A6]/20 text-[#1557A6] text-xs font-extrabold uppercase tracking-wider mb-3 shadow-sm">
-            <CollegeLogo className="w-5 h-5 border border-[#1557A6]/30" />
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white border border-[#D8E3EC] text-[#38A9E8] text-xs font-extrabold uppercase tracking-wider mb-3 shadow-sm">
+            <CollegeLogo className="w-5 h-5 border border-[#D8E3EC]" />
             <span>ACADEMIC DEPARTMENTS</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#0B2D52] tracking-tight">
+
+          <ScrollTextMotion as="h2" className="text-3xl sm:text-5xl font-extrabold text-[#234052] tracking-tight">
             Specialized Faculties & Research Centers
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#26384A] font-medium">
+          </ScrollTextMotion>
+
+          <p className="mt-4 text-base sm:text-lg text-[#5A7080] font-medium">
             Each department at K.R. College is led by distinguished faculty and equipped with dedicated laboratory facilities.
           </p>
-        </motion.div>
+        </div>
 
         {/* Department Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {departments.map((dept, index) => {
             const IconComp = dept.icon;
+            const preset = index % 2 === 0 ? "content" : "foreground";
+
             return (
-              <motion.div
-                key={dept.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-3xl p-8 border border-[#1557A6]/15 shadow-lg hover:shadow-2xl hover:border-[#4B9FE1] hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between group"
-              >
-                <div>
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#1557A6] to-[#4B9FE1] text-white flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-md shadow-[#1557A6]/30">
-                    <IconComp className="w-7 h-7 text-[#D9A441]" />
+              <ScrollDepthLayer key={dept.id} preset={preset}>
+                <div className="bg-white rounded-2xl p-8 border border-[#D8E3EC] hover:border-[#38A9E8] hover:shadow-md transition-all duration-250 flex flex-col justify-between group h-full">
+                  <div>
+                    <div className="w-12 h-12 rounded-xl bg-[#EBF3F8] text-[#38A9E8] flex items-center justify-center mb-6 group-hover:bg-[#38A9E8] group-hover:text-white transition-colors duration-250 border border-[#D8E3EC]">
+                      <IconComp className="w-6 h-6" />
+                    </div>
+
+                    <h3 className="text-xl font-extrabold text-[#234052] mb-2 group-hover:text-[#38A9E8] transition-colors">
+                      {dept.name}
+                    </h3>
+
+                    <p className="text-xs font-extrabold text-[#38A9E8] mb-4">
+                      Head of Dept: {dept.hod}
+                    </p>
+
+                    <p className="text-sm text-[#5A7080] leading-relaxed mb-6 font-medium">
+                      {dept.description}
+                    </p>
                   </div>
 
-                  <h3 className="text-xl font-extrabold text-[#0B2D52] mb-2 group-hover:text-[#1557A6] transition-colors">
-                    {dept.name}
-                  </h3>
-
-                  <p className="text-xs font-extrabold text-[#1557A6] mb-4">
-                    Head of Dept: {dept.hod}
-                  </p>
-
-                  <p className="text-sm text-[#26384A] leading-relaxed mb-6 font-medium">
-                    {dept.description}
-                  </p>
+                  <button
+                    onClick={() => onSelectDept(dept)}
+                    className="inline-flex items-center justify-between w-full pt-4 border-t border-[#D8E3EC] text-sm font-extrabold text-[#38A9E8] group-hover:text-[#234052] transition-colors"
+                  >
+                    <span>Department Overview</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </button>
                 </div>
-
-                <button
-                  onClick={() => onSelectDept(dept)}
-                  className="inline-flex items-center justify-between w-full pt-4 border-t border-[#1557A6]/10 text-sm font-extrabold text-[#1557A6] group-hover:text-[#0B2D52] transition-colors"
-                >
-                  <span>Department Overview</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </motion.div>
+              </ScrollDepthLayer>
             );
           })}
         </div>
-      </div>
+      </ScrollSection>
     </section>
   );
 }
+

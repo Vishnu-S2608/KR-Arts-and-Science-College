@@ -2,91 +2,47 @@
 
 @theme {
   --font-sans: var(--font-jakarta), system-ui, -apple-system, sans-serif;
-  --color-warm-white: #F7F9FC;
-  --color-royal-blue: #1557A6;
-  --color-deep-blue: #0B2D52;
-  --color-sky-blue: #4B9FE1;
-  --color-soft-blue: #EAF3FB;
-  --color-academic-gold: #D9A441;
-  --color-body-text: #26384A;
-  --color-preloader-bg: #071A2F;
+  --font-display: var(--font-outfit), system-ui, sans-serif;
+  --font-space: var(--font-space), monospace, sans-serif;
+  --color-sky-blue: #38A9E8;
+  --color-soft-sky: #EBF3F8;
+  --color-light-bg: #F0F4F8;
+  --color-border-light: #D8E3EC;
+  --color-[#234052]: #234052;
+  --color-secondary-text: #5A7080;
+  --color-coral: #F28C6B;
+  --color-warm-yellow: #F4C95D;
 }
 
 :root {
-  --bg-warm-white: #F7F9FC;
-  --kr-royal-blue: #1557A6;
-  --kr-deep-blue: #0B2D52;
-  --kr-sky-blue: #4B9FE1;
-  --kr-soft-blue: #EAF3FB;
-  --kr-academic-gold: #D9A441;
-  --kr-body-text: #26384A;
-  --kr-preloader-bg: #071A2F;
+  --kr-sky-blue: #38A9E8;
+  --kr-soft-sky: #EBF3F8;
+  --kr-light-bg: #F0F4F8;
+  --kr-border-light: #D8E3EC;
+  --kr-main-text: #234052;
+  --kr-secondary-text: #5A7080;
+  --kr-coral: #F28C6B;
+  --kr-warm-yellow: #F4C95D;
+  --kr-wood-dark: #2A1810;
+  --kr-wood-accent: #E5B869;
 }
 
 body {
-  background-color: var(--bg-warm-white);
-  color: var(--kr-body-text);
+  background-color: #F0F4F8;
+  color: #234052;
   font-family: var(--font-jakarta), system-ui, sans-serif;
   overflow-x: hidden;
 }
 
-/* Custom Orbit Ring Keyframes */
-@keyframes spinClockwise {
-  from {
-    transform: rotate(0deg);
-  }
 
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes spinCounterClockwise {
-  from {
-    transform: rotate(360deg);
-  }
-
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-@keyframes floatParticle {
-
-  0%,
-  100% {
-    transform: translateY(0px) translateX(0px);
-    opacity: 0.3;
-  }
-
-  50% {
-    transform: translateY(-20px) translateX(10px);
-    opacity: 0.8;
-  }
-}
-
-.animate-spin-clockwise {
-  animation: spinClockwise 8s linear infinite;
-}
-
-.animate-spin-counter {
-  animation: spinCounterClockwise 12s linear infinite;
-}
-
-/* Glassmorphism helpers */
-.glass-nav {
-  background: rgba(247, 249, 252, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(21, 87, 166, 0.1);
-  box-shadow: 0 4px 20px -2px rgba(11, 45, 82, 0.05);
-}
-
-.glass-card {
-  background: rgba(234, 243, 251, 0.7);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(21, 87, 166, 0.1);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-outfit), var(--font-jakarta), sans-serif;
+  letter-spacing: -0.02em;
 }
 
 /* Custom Scrollbar */
@@ -95,14 +51,77 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #F7F9FC;
+  background: #F5FBFE;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1557A6;
+  background: #38A9E8;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0B2D52;
+  background: #234052;
+}
+
+/* Smooth left-to-right gold underline growth helper */
+.nav-link-underline {
+  position: relative;
+  cursor: pointer;
+}
+
+.nav-link-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 2.5px;
+  background-color: #E5B869;
+  border-radius: 2px;
+  transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(229, 184, 105, 0.8);
+}
+
+.nav-link-underline:hover::after,
+.nav-link-underline.active::after {
+  width: 100%;
+}
+
+/* Navbar Wooden Gold Shimmer & Radius Morph Button Animation */
+@keyframes woodShimmer {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+  }
+
+  100% {
+    transform: translateX(200%) rotate(25deg);
+  }
+}
+
+.wood-button-shimmer {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 14px;
+  transition: border-radius 350ms cubic-bezier(0.34, 1.56, 0.64, 1), transform 250ms ease, box-shadow 300ms ease, background 300ms ease;
+}
+
+.wood-button-shimmer:hover {
+  border-radius: 9999px;
+}
+
+.wood-button-shimmer::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0) 100%);
+  transform: rotate(25deg);
+  animation: woodShimmer 3.2s infinite;
+  pointer-events: none;
 }
