@@ -1,0 +1,531 @@
+/* ==========================================================================
+   KR Arts And Science College - PLACEMENTS WITH RUNNING ROWS
+   Design: Simple and Human, Handcrafted Editorial Aesthetics
+   Palette: Mist Blue (Zero pure white)
+   ========================================================================== */
+
+/* 1. Section & Container */
+.placements-section {
+  position: relative;
+  background-color: var(--bg, #E8EFF9);
+  color: var(--text, #44516A);
+  width: 100%;
+  overflow-x: clip; /* Never cause horizontal page scroll */
+}
+
+.placements-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 120px 40px 0 40px;
+}
+
+.placements-container:last-child {
+  padding-top: 0;
+  padding-bottom: 120px;
+}
+
+/* ==========================================================================
+   2. Header: Two Columns Aligned to Bottom (64px below it)
+   ========================================================================== */
+.placements-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: flex-end;
+  gap: 48px;
+  margin-bottom: 64px;
+}
+
+.placements-header-title {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Small label "Placements" (blue-700, 14px, uppercase, .12em tracking) */
+.placements-label {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--blue-700, #1F4FCC);
+}
+
+/* Heading: "100% Placement Achievement" clamp(32px, 4vw, 60px), weight 700, navy-900 */
+.placements-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 4vw, 60px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--navy-900, #0B1B3F);
+  margin: 0;
+}
+
+/* RIGHT: Two Plain Numbers Side by Side */
+.placements-stats {
+  display: flex;
+  align-items: flex-end;
+  gap: 32px;
+}
+
+.placements-stat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* Numbers: heading size, weight 700, navy-900 */
+.placements-stat-number {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 4vw, 60px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--navy-900, #0B1B3F);
+}
+
+/* Labels: 14px, text color */
+.placements-stat-label {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text, #44516A);
+  line-height: 1.2;
+}
+
+/* 1px Vertical Line Divider */
+.placements-stat-divider {
+  width: 1px;
+  height: 48px;
+  background-color: var(--line, #C5D1E4);
+  align-self: flex-end;
+  margin-bottom: 6px;
+}
+
+/* ==========================================================================
+   3. RUNNING ROWS MARQUEE (Edge-to-Edge, Full Viewport Width)
+   ========================================================================== */
+.placements-marquee-viewport {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 8px 0;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  will-change: transform, opacity;
+}
+
+.marquee-row-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+/* Student Item inside marquee */
+.student-item {
+  flex-shrink: 0;
+  width: 217px;
+  margin-right: 24px;
+  display: flex;
+  flex-direction: column;
+  outline: none;
+  cursor: default;
+}
+
+.student-item:focus-visible {
+  outline: 2px solid var(--blue-500, #2F6BFF);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+/* Real photo, aspect 4:5, radius 12px, object-fit cover */
+.student-photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--blue-100, #D3E1F6);
+  margin-bottom: 12px;
+  transition: box-shadow 0.4s ease;
+}
+
+.student-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+  transition: transform 0.4s ease;
+}
+
+/* Missing photo initials fallback: blue-100 block, navy-900, 28px */
+.student-initials {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--navy-900, #0B1B3F);
+  background-color: var(--blue-100, #D3E1F6);
+  user-select: none;
+  letter-spacing: -0.02em;
+}
+
+/* Name: 12px below photo, 18px, weight 600, navy-900 */
+.student-name {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--navy-900, #0B1B3F);
+  line-height: 1.25;
+  margin: 0 0 4px 0;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Under name: "5 offers" / "1 offer" (14px, text color) */
+.student-offers {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text, #44516A);
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Desktop Hover: photo scales 1.04, name turns blue-500, soft shadow */
+@media (hover: hover) {
+  .student-item:hover .student-photo {
+    transform: scale(1.04);
+  }
+
+  .student-item:hover .student-photo-frame {
+    box-shadow: 0 8px 24px rgba(11, 27, 63, 0.08);
+  }
+
+  .student-item:hover .student-name {
+    color: var(--blue-500, #2F6BFF);
+  }
+}
+
+/* ==========================================================================
+   3b. Accessibility Pause / Play Button
+   ========================================================================== */
+.marquee-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.marquee-toggle-btn {
+  background: none;
+  border: none;
+  padding: 0 16px;
+  min-height: 44px; /* Touch target */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue-500, #2F6BFF);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  outline: none;
+  transition: color 0.25s ease;
+}
+
+.marquee-toggle-btn:hover {
+  color: var(--blue-700, #1F4FCC);
+}
+
+.marquee-toggle-btn:focus-visible {
+  outline: 2px solid var(--blue-500, #2F6BFF);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   4. Recruiters (64px below rows, separated by 1px line)
+   ========================================================================== */
+.placements-recruiters {
+  margin-top: 64px;
+}
+
+.placements-recruiters-divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--line, #C5D1E4);
+  margin-bottom: 32px;
+}
+
+.recruiters-label {
+  display: block;
+  margin-bottom: 24px;
+}
+
+/* One row of names (text only), 20px, weight 500, navy-900 separated by thin 1px lines */
+.placements-recruiters-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+}
+
+.recruiter-name {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--navy-900, #0B1B3F);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.recruiter-sep {
+  width: 1px;
+  height: 18px;
+  background-color: var(--line, #C5D1E4);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   5. Action Link (48px below)
+   ========================================================================== */
+.placements-action {
+  margin-top: 48px;
+}
+
+/* "Apply for admission" text link (blue-500, 16px, weight 600) with thin sliding underline */
+.placements-apply-link {
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--blue-500, #2F6BFF);
+  text-decoration: none;
+  min-height: 44px;
+  justify-content: center;
+  outline: none;
+}
+
+.placements-apply-link:focus-visible {
+  outline: 2px solid var(--blue-500, #2F6BFF);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.link-underline {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--blue-500, #2F6BFF);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.placements-apply-link:hover .link-underline {
+  transform: scaleX(1);
+}
+
+/* ==========================================================================
+   6. Static Grid Fallback (prefers-reduced-motion)
+   ========================================================================== */
+.placements-static-grid {
+  display: none;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.placements-static-grid .student-item {
+  width: 100%;
+  margin-right: 0;
+}
+
+/* ==========================================================================
+   7. RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+/* TABLET (768 to 1024px): item width 180px, gap 20px */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .placements-container {
+    padding: 96px 32px 0 32px;
+  }
+  .placements-container:last-child {
+    padding-top: 0;
+    padding-bottom: 96px;
+  }
+
+  .placements-marquee-viewport {
+    gap: 20px;
+  }
+
+  .student-item {
+    width: 180px;
+    margin-right: 20px;
+  }
+
+  .placements-header {
+    gap: 32px;
+  }
+
+  .placements-static-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+/* MOBILE (< 768px): item width 140px, gap 16px, name 15px, offers 13px */
+@media (max-width: 767px) {
+  .placements-container {
+    padding: 72px 20px 0 20px;
+  }
+  .placements-container:last-child {
+    padding-top: 0;
+    padding-bottom: 72px;
+  }
+
+  /* Header stacks */
+  .placements-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .placements-heading {
+    font-size: clamp(28px, 8vw, 36px);
+  }
+
+  .placements-stats {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 24px;
+  }
+
+  .placements-stat-number {
+    font-size: clamp(28px, 8vw, 36px);
+  }
+
+  /* Running rows mobile */
+  .placements-marquee-viewport {
+    gap: 16px;
+    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  .student-item {
+    width: 140px;
+    margin-right: 16px;
+  }
+
+  .student-photo-frame {
+    margin-bottom: 8px;
+  }
+
+  .student-name {
+    font-size: 15px;
+  }
+
+  .student-offers {
+    font-size: 13px;
+  }
+
+  .student-initials {
+    font-size: 20px;
+  }
+
+  /* Recruiters: vertical list, 18px */
+  .placements-recruiters {
+    margin-top: 48px;
+  }
+
+  .placements-recruiters-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .recruiter-name {
+    font-size: 18px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line, #C5D1E4);
+    white-space: normal;
+  }
+
+  .recruiter-name:first-child {
+    padding-top: 0;
+  }
+
+  .recruiter-sep {
+    display: none;
+  }
+
+  .placements-action {
+    margin-top: 36px;
+  }
+
+  .placements-static-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+/* LANDSCAPE PHONE (height under 500px): 2 rows */
+@media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
+  .placements-marquee-viewport {
+    gap: 16px;
+  }
+
+  .student-item {
+    width: 150px;
+    margin-right: 16px;
+  }
+}
+
+/* ==========================================================================
+   8. PREFERS-REDUCED-MOTION
+   No running, show static grid (6 cols desktop, 2 mobile)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .placements-marquee-viewport {
+    display: none !important;
+  }
+
+  .marquee-controls {
+    display: none !important;
+  }
+
+  .placements-static-grid {
+    display: grid !important;
+  }
+
+  .link-underline {
+    transform: scaleX(1) !important;
+    transition: none !important;
+  }
+}

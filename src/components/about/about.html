@@ -1,0 +1,337 @@
+<!-- =======================================================================
+     2. ABOUT SECTION: "WINDOWS"
+     Scene 1: Headline with inline photo window pills (We build [A] / futures in [B] / Peraiyur, [C] for all.)
+     Scene 2: Pinned photo window expanding from 38vw x 52svh to 100vw x 100svh + caption card
+     Scene 3: Three facts (2023 Founded, 11 Programmes, 100% Placement achievement) with odometers
+     Palette: Mist Blue (Zero pure white)
+     Stack: Vite + vanilla JS + GSAP + ScrollTrigger + Lenis
+     ======================================================================= -->
+
+<section class="about-windows-section" id="about" aria-label="About KR Arts And Science College">
+  
+  <!-- =====================================================================
+       SCENE 1: SPLIT PANEL
+       Left: 55% Solid Blue Panel (#1F4FCC) with Text & Facts
+       Right: 45% Edge-to-Edge Photo Accordion Strips
+       Seam: 112px Seal Badge
+       Bottom: 64px Navy Ribbon (#0B1B3F)
+       ===================================================================== -->
+  <div class="split-panel-scene-1" id="windowsScene1">
+    
+    <!-- MAIN SPLIT (desktop: 55% left, 45% right) -->
+    <div class="split-panel-body" id="splitPanelBody">
+
+      <!-- LEFT PANEL (55% width, #1F4FCC, min-padding 48px) -->
+      <div class="split-left-panel" id="splitLeftPanel">
+        <div class="split-left-content" id="splitLeftContent">
+
+          <!-- Eyebrow: gold 36px line + "ABOUT US", #E8EFF9, 13px, .14em tracking -->
+          <div class="split-eyebrow">
+            <span class="eyebrow-line" id="splitEyebrowLine" aria-hidden="true"></span>
+            <span class="eyebrow-text" id="splitEyebrowText">ABOUT US</span>
+          </div>
+
+          <!-- Headline: 3 lines, weight 800, #E8EFF9, tight tracking, line-height 1.08, clamp(38px, 5vw, 84px), nowrap per line -->
+          <h2 class="split-headline" id="splitHeadline">
+            <span class="sr-only">We build futures in Peraiyur, for everyone.</span>
+
+            <!-- Line 1: We build futures -->
+            <span class="headline-line" aria-hidden="true">
+              <span class="word-mask"><span class="word">We</span></span>
+              <span class="word-mask"><span class="word">build</span></span>
+              <span class="word-mask">
+                <span class="word styled-futures">
+                  futures
+                  <!-- Wavy SVG underline (stroke #E8EFF9 at 60%, 5px) that draws left to right -->
+                  <svg class="wavy-underline-svg" viewBox="0 0 160 18" fill="none" aria-hidden="true">
+                    <path class="wavy-underline-path" id="splitWavyUnderlinePath" d="M4 11 C 28 3, 44 17, 68 11 C 92 5, 108 17, 132 11 C 142 8, 150 10, 156 11" stroke="rgba(232, 239, 249, 0.6)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </span>
+            </span>
+
+            <!-- Line 2: in Peraiyur, -->
+            <span class="headline-line" aria-hidden="true">
+              <span class="word-mask"><span class="word">in</span></span>
+              <span class="word-mask"><span class="word">Peraiyur,</span></span>
+            </span>
+
+            <!-- Line 3: for everyone. -->
+            <span class="headline-line" aria-hidden="true">
+              <span class="word-mask"><span class="word">for</span></span>
+              <span class="word-mask"><span class="word">everyone.</span></span>
+            </span>
+          </h2>
+
+          <!-- 32px below: one line (#B9CBEE, 17px) -->
+          <p class="split-subline" id="splitSubline">
+            KR Arts And Science College · Madurai Kamaraj University · Est. 2023
+          </p>
+
+          <!-- 48px below: three facts in a row separated by 1px vertical lines -->
+          <div class="split-facts-row" id="splitFactsRow" role="group" aria-label="Key College Facts">
+            <div class="fact-col" data-target="2023" data-suffix="">
+              <span class="fact-number" id="splitFactNum1">2023</span>
+              <span class="fact-label">Founded</span>
+            </div>
+            <div class="fact-divider" aria-hidden="true"></div>
+            <div class="fact-col" data-target="11" data-suffix="">
+              <span class="fact-number" id="splitFactNum2">11</span>
+              <span class="fact-label">Programmes</span>
+            </div>
+            <div class="fact-divider" aria-hidden="true"></div>
+            <div class="fact-col" data-target="100" data-suffix="%">
+              <span class="fact-number" id="splitFactNum3">100%</span>
+              <span class="fact-label">Placement</span>
+            </div>
+          </div>
+
+          <!-- 40px below: text link "Our story" (#E8EFF9, weight 600, underline slides in on hover) -->
+          <div class="split-cta-wrap">
+            <a href="#windowsScene2" class="split-link" id="splitLink">
+              <span class="link-label">Our story</span>
+              <span class="link-sliding-line" aria-hidden="true"></span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE: Three tall edge-to-edge photo strips (45% width) -->
+      <div class="split-right-strips" id="splitRightStrips" role="tablist" aria-label="Campus Highlights">
+        
+        <!-- STRIP 1: STUDENTS -->
+        <button type="button" class="photo-strip is-active" id="stripStudents" role="tab" aria-selected="true" aria-controls="stripPanelStudents" tabindex="0">
+          <div class="strip-image-wrap">
+            <img 
+              class="strip-photo" 
+              id="stripPhotoStudents"
+              src="/images/about/students.jpg" 
+              srcset="/images/about/students.jpg 640w, /images/about/students.jpg 960w, /images/about/students.jpg 1400w"
+              sizes="(max-width: 768px) 100vw, 45vw"
+              alt="Students collaborating at KR Arts and Science College" 
+              loading="lazy" 
+              width="640" 
+              height="853" 
+            />
+            <div class="strip-overlay" aria-hidden="true"></div>
+          </div>
+          <!-- Inactive Vertical Label -->
+          <span class="strip-label-vertical" aria-hidden="true">STUDENTS</span>
+          <!-- Active Bottom-Left Card Label -->
+          <div class="strip-label-card" id="stripPanelStudents" role="tabpanel">
+            <span class="strip-card-title">STUDENTS</span>
+          </div>
+          <!-- 2px Gold Progress Line -->
+          <div class="strip-progress-bar" aria-hidden="true">
+            <span class="strip-progress-fill"></span>
+          </div>
+        </button>
+
+        <!-- STRIP 2: CAMPUS -->
+        <button type="button" class="photo-strip" id="stripCampus" role="tab" aria-selected="false" aria-controls="stripPanelCampus" tabindex="-1">
+          <div class="strip-image-wrap">
+            <img 
+              class="strip-photo" 
+              id="stripPhotoCampus"
+              src="/images/about/campus.jpg" 
+              srcset="/images/about/campus.jpg 640w, /images/about/campus.jpg 960w, /images/about/campus.jpg 1400w"
+              sizes="(max-width: 768px) 100vw, 45vw"
+              alt="Campus entrance gate of KR Arts and Science College" 
+              loading="lazy" 
+              width="640" 
+              height="640" 
+            />
+            <div class="strip-overlay" aria-hidden="true"></div>
+          </div>
+          <span class="strip-label-vertical" aria-hidden="true">CAMPUS</span>
+          <div class="strip-label-card" id="stripPanelCampus" role="tabpanel">
+            <span class="strip-card-title">CAMPUS</span>
+          </div>
+          <div class="strip-progress-bar" aria-hidden="true">
+            <span class="strip-progress-fill"></span>
+          </div>
+        </button>
+
+        <!-- STRIP 3: EVENTS -->
+        <button type="button" class="photo-strip" id="stripEvents" role="tab" aria-selected="false" aria-controls="stripPanelEvents" tabindex="-1">
+          <div class="strip-image-wrap">
+            <img 
+              class="strip-photo" 
+              id="stripPhotoEvents"
+              src="/images/about/events.jpg" 
+              srcset="/images/about/events.jpg 640w, /images/about/events.jpg 960w, /images/about/events.jpg 1400w"
+              sizes="(max-width: 768px) 100vw, 45vw"
+              alt="Learning commons and campus events at KR Arts and Science College" 
+              loading="lazy" 
+              width="640" 
+              height="640" 
+            />
+            <div class="strip-overlay" aria-hidden="true"></div>
+          </div>
+          <span class="strip-label-vertical" aria-hidden="true">EVENTS</span>
+          <div class="strip-label-card" id="stripPanelEvents" role="tabpanel">
+            <span class="strip-card-title">EVENTS</span>
+          </div>
+          <div class="strip-progress-bar" aria-hidden="true">
+            <span class="strip-progress-fill"></span>
+          </div>
+        </button>
+
+        <!-- SEAL BADGE: 112px circle centered on seam between left panel and photos at 50% -->
+        <div class="split-seam-seal" id="splitSeamSeal" aria-hidden="true">
+          <div class="seal-inner-circle">
+            <img class="seal-college-logo" src="/kr-logo.png" alt="" width="52" height="52" />
+            <svg class="seal-text-ring-svg" viewBox="0 0 112 112" width="112" height="112">
+              <defs>
+                <path id="splitBadgeSealPath" d="M 56, 56 m -42, 0 a 42,42 0 1,1 84,0 a 42,42 0 1,1 -84,0" fill="none" />
+              </defs>
+              <text class="seal-badge-text">
+                <textPath href="#splitBadgeSealPath" startOffset="0%">
+                  KR ARTS AND SCIENCE COLLEGE • EST. 2023 •
+                </textPath>
+              </text>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- BOTTOM RIBBON (full width, directly under the split, background #0B1B3F, height 64px, no tilt) -->
+    <div class="split-bottom-ribbon" id="splitBottomRibbon" aria-hidden="true">
+      <div class="split-ribbon-track" id="splitRibbonTrack">
+        <div class="split-ribbon-content">
+          <span>ARTS</span><span class="ribbon-gold-dot"></span>
+          <span>SCIENCE</span><span class="ribbon-gold-dot"></span>
+          <span>COMMERCE</span><span class="ribbon-gold-dot"></span>
+          <span>TECHNOLOGY</span><span class="ribbon-gold-dot"></span>
+          <span>AVIATION</span><span class="ribbon-gold-dot"></span>
+          <span>LEADERSHIP</span><span class="ribbon-gold-dot"></span>
+          <span>TAMIL</span><span class="ribbon-gold-dot"></span>
+          <span>ENGLISH</span><span class="ribbon-gold-dot"></span>
+          <span>COMPUTER SCIENCE</span><span class="ribbon-gold-dot"></span>
+          <span>AI</span><span class="ribbon-gold-dot"></span>
+          <span>CRIMINOLOGY</span><span class="ribbon-gold-dot"></span>
+          <span>MATHEMATICS</span><span class="ribbon-gold-dot"></span>
+          <span>CHEMISTRY</span><span class="ribbon-gold-dot"></span>
+          <span>HOME SCIENCE</span><span class="ribbon-gold-dot"></span>
+          <span>PHYSICAL EDUCATION</span><span class="ribbon-gold-dot"></span>
+        </div>
+        <div class="split-ribbon-content" aria-hidden="true">
+          <span>ARTS</span><span class="ribbon-gold-dot"></span>
+          <span>SCIENCE</span><span class="ribbon-gold-dot"></span>
+          <span>COMMERCE</span><span class="ribbon-gold-dot"></span>
+          <span>TECHNOLOGY</span><span class="ribbon-gold-dot"></span>
+          <span>AVIATION</span><span class="ribbon-gold-dot"></span>
+          <span>LEADERSHIP</span><span class="ribbon-gold-dot"></span>
+          <span>TAMIL</span><span class="ribbon-gold-dot"></span>
+          <span>ENGLISH</span><span class="ribbon-gold-dot"></span>
+          <span>COMPUTER SCIENCE</span><span class="ribbon-gold-dot"></span>
+          <span>AI</span><span class="ribbon-gold-dot"></span>
+          <span>CRIMINOLOGY</span><span class="ribbon-gold-dot"></span>
+          <span>MATHEMATICS</span><span class="ribbon-gold-dot"></span>
+          <span>CHEMISTRY</span><span class="ribbon-gold-dot"></span>
+          <span>HOME SCIENCE</span><span class="ribbon-gold-dot"></span>
+          <span>PHYSICAL EDUCATION</span><span class="ribbon-gold-dot"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visually hidden list for screen readers -->
+    <div class="sr-only">
+      <h3>Academic Disciplines and Specializations</h3>
+      <ul>
+        <li>Arts</li><li>Science</li><li>Commerce</li><li>Technology</li><li>Aviation</li><li>Leadership</li>
+        <li>Tamil</li><li>English</li><li>Computer Science</li><li>AI</li><li>Criminology</li><li>Mathematics</li><li>Chemistry</li><li>Home Science</li><li>Physical Education</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- =====================================================================
+       SCENE 2: THE WINDOW OPENS (pinned, full screen)
+       ===================================================================== -->
+  <div class="windows-scene-2" id="windowsScene2">
+    <div class="window-pin-viewport" id="windowPinViewport">
+      
+      <!-- Expanding window container -->
+      <div class="window-reveal-box" id="windowRevealBox">
+        <img class="window-hero-img" id="windowHeroImg" src="/images/about/campus-wide.jpg" alt="Panoramic view of KR Arts And Science College Campus, Peraiyur" width="1920" height="1080" loading="lazy" />
+        <div class="window-scrim" aria-hidden="true"></div>
+      </div>
+
+      <!-- Caption Card (sits over the viewport at bottom-left, never clipped by reveal-box) -->
+      <div class="window-caption-card" id="windowCaptionCard">
+        <span class="caption-tag">PERAIYUR, MADURAI</span>
+        <p class="caption-heading">Where KR Arts and Science College stands.</p>
+      </div>
+
+      <!-- 2px Blue progress line along bottom of screen -->
+      <div class="window-progress-track" aria-hidden="true">
+        <div class="window-progress-bar" id="windowProgressBar"></div>
+      </div>
+
+      <!-- Slide-up transition panel (bg-alt) to smoothly introduce Scene 3 -->
+      <div class="scene-transition-curtain" id="sceneTransitionCurtain" aria-hidden="true"></div>
+
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       SCENE 3: AT A GLANCE (2-Column 12-col Layout with 2x2 Facts Cross)
+       ===================================================================== -->
+  <div class="windows-scene-3" id="windowsScene3">
+    <div class="scene-3-container">
+      
+      <!-- LEFT (cols 1 to 5): Sticky Title & About Info -->
+      <div class="scene-3-left">
+        <span class="scene-3-label">At a glance</span>
+        <h3 class="scene-3-heading">KR Arts and Science College</h3>
+        <p class="scene-3-subline">Affiliated to Madurai Kamaraj University, Peraiyur, Madurai.</p>
+        <a href="#contact" class="scene-3-link">
+          <span class="link-text">Know more about us</span>
+          <span class="link-underline" aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <!-- RIGHT (cols 6 to 12): 2 x 2 Grid of Facts (Cross line divider) -->
+      <div class="scene-3-right">
+        <div class="facts-cross-grid" id="factsCrossGrid">
+          
+          <!-- Cell 1: 2023 Founded -->
+          <div class="fact-cell" data-target="2023" data-suffix="">
+            <span class="fact-number" id="factNum1">2023</span>
+            <span class="fact-label">Founded</span>
+            <span class="fact-detail">Established in Peraiyur</span>
+          </div>
+
+          <!-- Cell 2: 11 Programmes -->
+          <div class="fact-cell" data-target="11" data-suffix="">
+            <span class="fact-number" id="factNum2">11</span>
+            <span class="fact-label">Programmes</span>
+            <span class="fact-detail">Arts, science and commerce</span>
+          </div>
+
+          <!-- Cell 3: 100% Placement -->
+          <div class="fact-cell" data-target="100" data-suffix="%">
+            <span class="fact-number" id="factNum3">100%</span>
+            <span class="fact-label">Placement</span>
+            <span class="fact-detail">Career training achievement</span>
+          </div>
+
+          <!-- Cell 4: 70 Offer letters -->
+          <div class="fact-cell" data-target="70" data-suffix="">
+            <span class="fact-number" id="factNum4">70</span>
+            <span class="fact-label">Offer letters</span>
+            <span class="fact-detail">Secured across recruiters</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>

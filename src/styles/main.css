@@ -1,0 +1,11 @@
+/* ==========================================================================
+   KR Arts And Science College - Main Stylesheet
+   ========================================================================== */
+
+@import "./variables.css";
+@import "./base.css";
+@import "../components/preloader/preloader.css";
+@import "./components.css";
+@import "../components/hero/hero.css";
+@import "../components/about/about.css";
+@import "../components/placements/placements.css";

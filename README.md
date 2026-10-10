@@ -1,38 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KR Arts And Science College - Web Platform
 
-## Getting Started
+Ultra-modern, animation-driven website for **KR Arts And Science College** (Affiliated to Madurai Kamaraj University, Established 2023, Peraiyur, Madurai).
 
-First, run the development server:
+## 🚀 Tech Stack
+- **Build Tool:** Vite
+- **Core:** Vanilla JavaScript (ES Modules), Semantic HTML5
+- **Styling:** Modular CSS with Custom Properties (Design System tokens)
+- **Motion & Interactions:** GSAP 3 (ScrollTrigger, Split-line reveals, Pinned Horizontals)
+- **Smooth Scrolling:** Lenis v1.3
+- **Typography:** Google Fonts (`Plus Jakarta Sans`, `Inter`, `Noto Sans Tamil`, `Sora`)
 
+---
 
-hy
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📁 Clean Folder Structure
+```
+KR-Arts-and-Science-College/
+├── public/
+│   ├── assets/
+│   │   ├── logo.jpeg            # Official circular college seal
+│   │   └── logo.png
+│   └── images/
+│       ├── campus-hero.png      # Real campus photo
+│       ├── college-entrance.jpg # Real entrance photo
+│       ├── computer-lab.png     # Real computing lab photo
+│       └── library.png          # Real library photo
+├── src/
+│   ├── components/              # Component markup snippets
+│   ├── js/
+│   │   ├── cursor.js            # Custom cursor (desktop only)
+│   │   ├── department.js        # 11 Programmes data repository
+│   │   ├── main.js              # Application entrypoint
+│   │   ├── motion.js            # GSAP animations, counters & tickers
+│   │   ├── navbar.js            # Glass navbar & mobile menu
+│   │   ├── page-transitions.js  # Circular clip-path wipe navigation
+│   │   ├── preloader.js         # 3.5s signature logo seal animation
+│   │   └── smooth-scroll.js     # Lenis smooth scroll
+│   └── styles/
+│       ├── base.css             # Typography, reset, utilities, cursor
+│       ├── components.css       # Preloader, navbar, bento-grid, forms
+│       ├── main.css             # Root stylesheet
+│       └── variables.css        # Color tokens & easings
+├── apply.html                   # Provisional admissions application
+├── clubs.html                   # Clubs & NCC page
+├── contact.html                 # Contact, transit facts & interactive form
+├── department.html              # Dynamic 11-programme department template
+├── events.html                  # Campus Chronicle with academic year filters
+├── index.html                   # 13-section award-level homepage
+├── package.json
+└── vite.config.js
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ How to Run & Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Development Server
+```bash
+npm run dev
+```
+Runs the site locally at `http://localhost:5173`.
 
-## Learn More
+### 2. Production Build
+```bash
+npm run build
+```
+Generates a highly-optimized static bundle in `/dist` for all HTML entry points.
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Preview Production Build
+```bash
+npm run preview
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📋 List of TODO Items (Missing Photos & Stats to be Verified)
+As mandated by the prompt's strict rules, no stock photos or unverified metrics have been fabricated. The following items have clean placeholders and visible code comments:
 
-## Deploy on Vercel
+### 1. Photos to be Added (`/public/images`)
+- [ ] **Department Photos:**
+  - B.Com (Computer Applications)
+  - BBA Aviation Management (Classrooms / Airport setup)
+  - B.A Tamil
+  - B.A Criminology & Police Administration
+  - B.A English
+  - B.Sc Physical Education (Grounds / Athletic equipment)
+  - B.Sc Chemistry (Wet chemistry lab)
+  - B.Sc Home Science (Nutrition & Dietetics food lab)
+  - B.Sc Mathematics
+- [ ] **Administration Portraits:**
+  - Mr. K. Pandiaraj (Secretary & Correspondent)
+  - Dr. P. S. Senthilkumar (Principal)
+- [ ] **Placed Students Individual Headshots:** 18 student photos.
+- [ ] **Event Photos:**
+  - NCC Thal Sainik Camp selection
+  - Madurai Airport operational visit
+  - Srivilliputhur athletic championship
+  - Decathlon industrial visit
+  - SPARK innovation exhibition
+  - Shinawatra University MoU signing ceremony
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 2. Data & Stats to be Verified
+- [ ] **Campus Acreage:** Verified as 10+ acres; exact survey acreage pending trust documentation.
+- [ ] **Faculty Credentials:** Full roster with M.Phil / Ph.D. degrees to be updated per department.
+- [ ] **Salary Claims:** Kept excluded as requested ("Do NOT show salary claims unless confirmed").
