@@ -12,6 +12,9 @@ Ultra-modern, animation-driven website for **KR Arts And Science College** (Affi
 
 ---
 
+SIva
+
+
 ## 📁 Clean Folder Structure
 ```
 KR-Arts-and-Science-College/
