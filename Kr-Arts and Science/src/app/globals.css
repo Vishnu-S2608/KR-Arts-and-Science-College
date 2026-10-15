@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-bg: #E8EFF9;
+  --color-brand-bg-alt: #DCE5F2;
+  --color-brand-card: #F1F5FB;
+  --color-brand-line: #C5D1E4;
+  --color-brand-blue-100: #D3E1F6;
+  --color-brand-blue-300: #8FB2F5;
+  --color-brand-blue-500: #2F6BFF;
+  --color-brand-blue-700: #1F4FCC;
+  --color-brand-navy-900: #0B1B3F;
+  --color-brand-navy-800: #12275A;
+  --color-brand-text: #44516A;
+  --color-brand-gold-500: #F5B83D;
+
+  --color-kr-bg: #E8EFF9;
+  --color-kr-bg-alt: #DCE5F2;
+  --color-kr-card: #F1F5FB;
+  --color-kr-line: #C5D1E4;
+  --color-kr-blue-100: #D3E1F6;
+  --color-kr-blue-300: #8FB2F5;
+  --color-kr-blue-500: #2F6BFF;
+  --color-kr-blue-700: #1F4FCC;
+  --color-kr-navy: #0B1B3F;
+  --color-kr-navy-dark: #07090e;
+  --color-kr-text: #44516A;
+  --color-kr-gold: #F5B83D;
+
+  --font-heading: var(--font-heading), 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: var(--font-body), 'Inter', system-ui, sans-serif;
+  --font-tamil: var(--font-tamil), 'Noto Sans Tamil', system-ui, sans-serif;
+  --font-sora: var(--font-sora), 'Sora', system-ui, sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
+
+@import "../styles/main.css";
