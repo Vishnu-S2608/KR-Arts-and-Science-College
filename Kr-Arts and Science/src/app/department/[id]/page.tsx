@@ -1,6 +1,17 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Metadata } from "next";
+import { 
+  GraduationCap, 
+  ArrowRight, 
+  CheckCircle2, 
+  BookOpen, 
+  Briefcase, 
+  Sparkles, 
+  Award,
+  Phone,
+  Clock
+} from "lucide-react";
 import { DEPARTMENTS_DATA } from "@/data/departments";
 
 interface PageProps {
@@ -45,111 +56,152 @@ export default async function DepartmentDetailPage({ params }: PageProps) {
   ];
 
   return (
-    <main className="pt-[calc(var(--header-height)+2rem)] min-h-[80vh]">
-      {/* Department Header & Hero */}
-      <section className="section-wrapper bg-blue-tint !pb-14">
-        <div className="container">
-          {/* Quick Department Selector Tabs */}
-          <div className="mb-8 overflow-x-auto whitespace-nowrap pb-2 flex gap-2">
-            {allDepts.map((d) => {
-              const isActive = d.id === id;
-              return (
-                <Link
-                  key={d.id}
-                  href={`/department/${d.id}`}
-                  className={`inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all ${
-                    isActive
-                      ? "bg-blue-600 text-white border-blue-600 shadow-md"
-                      : "bg-blue-100 text-slate-800 border-blue-200 hover:bg-blue-200"
-                  }`}
-                >
-                  {d.label}
-                </Link>
-              );
-            })}
-          </div>
+    <main className="pt-8 sm:pt-12 pb-20 bg-gradient-to-b from-sky-50/40 via-white to-white min-h-screen">
+      <div className="max-w-[1380px] mx-auto px-4 sm:px-6">
+        {/* Quick Horizontal Department Switcher */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
+          {allDepts.map((d) => {
+            const isActive = d.id === id;
+            return (
+              <Link
+                key={d.id}
+                href={`/department/${d.id}`}
+                className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+                  isActive
+                    ? "bg-sky-600 text-white shadow-md"
+                    : "bg-white text-slate-700 hover:bg-sky-50 hover:text-sky-700 border border-slate-200"
+                }`}
+              >
+                {d.label}
+              </Link>
+            );
+          })}
+        </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-8 lg:gap-16 items-center">
-            <div>
-              <div className="section-label" id="dept-affiliation">
-                {dept.affiliation}
+        {/* Hero Department Header */}
+        <div className="pure-white-card p-6 sm:p-12 mb-10 border-2 border-sky-100 shadow-xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div className="lg:col-span-7 space-y-4">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-50 border border-amber-300 text-amber-900 text-xs font-bold uppercase tracking-wider">
+                <Award className="w-3.5 h-3.5 text-amber-500" />
+                <span>{dept.affiliation}</span>
               </div>
-              <h1 id="dept-title" className="mb-4">
+
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
                 {dept.title}
               </h1>
-              <p
-                id="dept-overview"
-                className="text-[1.1rem] leading-relaxed text-slate-600 mb-8"
-              >
+
+              <div className="flex items-center gap-4 text-xs sm:text-sm font-semibold text-slate-500">
+                <span className="flex items-center gap-1.5 text-sky-700">
+                  <Clock className="w-4 h-4" />
+                  3 Years (6 Semesters) Regular
+                </span>
+                <span>&bull;</span>
+                <span className="flex items-center gap-1.5 text-emerald-700">
+                  <CheckCircle2 className="w-4 h-4" />
+                  100% Placement Assured
+                </span>
+              </div>
+
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
                 {dept.overview}
               </p>
-              <div className="flex gap-4 flex-wrap">
-                <Link href="/apply" className="btn btn-primary magnetic-btn">
-                  Apply for this Degree
+
+              <div className="pt-4 flex flex-wrap gap-3">
+                <Link 
+                  href="/apply"
+                  className="gold-shimmer-btn px-6 py-3 rounded-full text-sm font-bold flex items-center gap-2 shadow-md"
+                >
+                  <Sparkles className="w-4 h-4 text-slate-950" />
+                  <span>Apply for this Degree</span>
+                  <ArrowRight className="w-4 h-4 text-slate-950" />
                 </Link>
-                <a href="tel:+918072297109" className="btn btn-outline magnetic-btn">
-                  Enquire Admission
+
+                <a 
+                  href="tel:+918072297109"
+                  className="px-6 py-3 rounded-full text-sm font-bold text-sky-700 bg-sky-50 border border-sky-200 hover:bg-sky-100 transition-all flex items-center gap-2"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span>Call Admission Counselor</span>
                 </a>
               </div>
             </div>
 
-            {/* Hero Department Media */}
-            <div
-              id="dept-media-box"
-              className="aspect-[4/3] rounded-[24px] overflow-hidden border border-slate-300 bg-brand-card shadow-lg"
-            >
-              {dept.image ? (
-                <img
-                  src={dept.image}
-                  alt={dept.title}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="photo-placeholder">
-                  <div className="placeholder-line"></div>
-                  Photo to be added ({dept.title} Laboratory &amp; Faculty)
+            {/* Department Media Showcase */}
+            <div className="lg:col-span-5">
+              <div className="aspect-[4/3] rounded-3xl overflow-hidden border-2 border-slate-200 shadow-md bg-slate-50 relative">
+                {dept.image ? (
+                  <img 
+                    src={dept.image} 
+                    alt={dept.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-sky-50 to-amber-50">
+                    <GraduationCap className="w-12 h-12 text-sky-500 mb-2" />
+                    <span className="font-bold text-slate-800 text-sm">{dept.title}</span>
+                    <span className="text-xs text-slate-500 mt-1">Laboratory &amp; Faculty Wing</span>
+                  </div>
+                )}
+                <div className="absolute top-4 left-4 bg-white/95 px-3 py-1 rounded-full text-xs font-bold text-slate-900 border border-slate-200 shadow-sm">
+                  MKU Approved Course
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Curriculum & Career Paths */}
-      <section className="section-wrapper bg-white">
-        <div className="container grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14">
-          {/* Core Curriculum Areas */}
-          <div>
-            <div className="section-label">Academic Framework</div>
-            <h2 className="text-[1.85rem] mb-6">Core Curricular Areas</h2>
-            <ul
-              id="dept-curriculum-list"
-              className="list-none flex flex-col gap-3.5 p-0 m-0"
-            >
+        {/* Curricular Areas & Target Career Pathways */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          {/* Core Curricular Areas */}
+          <div className="pure-white-card p-6 sm:p-8">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-sky-50 flex items-center justify-center text-sky-600">
+                <BookOpen className="w-4 h-4" />
+              </div>
+              <h2 className="text-xl font-bold text-slate-900">
+                Core Curricular Syllabus
+              </h2>
+            </div>
+            <p className="text-xs text-slate-500 mb-6">
+              Compliant with Madurai Kamaraj University academic framework, enriched with practical laboratory sessions.
+            </p>
+
+            <ul className="space-y-3">
               {dept.curriculum.map((item, idx) => (
                 <li
                   key={idx}
-                  className="flex items-center gap-3.5 px-5 py-3.5 bg-brand-card rounded-xl border border-slate-300 font-medium text-slate-800"
+                  className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-100 text-sm font-medium text-slate-800"
                 >
-                  <span className="w-2 h-2 rounded-full bg-blue-600 shrink-0"></span>
+                  <span className="w-2 h-2 rounded-full bg-sky-600 shrink-0 mt-1.5"></span>
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Career Pathways */}
-          <div>
-            <div className="section-label">Employability &amp; Placements</div>
-            <h2 className="text-[1.85rem] mb-6">Target Career Pathways</h2>
-            <div id="dept-careers-list" className="flex flex-col gap-3">
+          {/* Target Career Pathways */}
+          <div className="pure-white-card p-6 sm:p-8">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
+                <Briefcase className="w-4 h-4" />
+              </div>
+              <h2 className="text-xl font-bold text-slate-900">
+                Target Career Pathways &amp; Outcomes
+              </h2>
+            </div>
+            <p className="text-xs text-slate-500 mb-6">
+              Proven corporate demand sectors with high entry-level compensation packages and recruitment drives.
+            </p>
+
+            <div className="space-y-3">
               {dept.careers.map((career, idx) => (
                 <div
                   key={idx}
-                  className="px-5 py-4 bg-brand-card border border-slate-300 rounded-xl flex items-center justify-between"
+                  className="p-3.5 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between"
                 >
-                  <span className="font-semibold text-slate-900">{career}</span>
-                  <span className="text-pill text-xs">
+                  <span className="text-sm font-bold text-slate-900">{career}</span>
+                  <span className="text-[10px] font-bold text-sky-800 bg-sky-100 px-2.5 py-0.5 rounded-full">
                     High Demand
                   </span>
                 </div>
@@ -157,25 +209,21 @@ export default async function DepartmentDetailPage({ params }: PageProps) {
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Faculty Neutral Section */}
-      <section className="section-wrapper bg-gray-tint">
-        <div className="container">
-          <div className="section-header">
-            <div className="section-label">Department Mentorship</div>
-            <h2>Faculty &amp; Academic Guides</h2>
+        {/* Bottom Fast Action Banner */}
+        <div className="p-8 bg-gradient-to-r from-sky-50 via-white to-amber-50 rounded-3xl border border-sky-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h3 className="text-lg font-bold text-slate-900">Interested in {dept.title}?</h3>
+            <p className="text-xs sm:text-sm text-slate-600">Secure your priority seat allotment for Academic Year 2026-27.</p>
           </div>
-          <div className="bg-brand-card border-1.5 border-dashed border-slate-300 rounded-[24px] p-8 md:p-12 text-center shadow-[0_14px_36px_rgba(11,27,63,0.08)]">
-            <h3 className="text-xl text-slate-900 mb-2 font-bold">
-              Faculty Directory
-            </h3>
-            <p className="text-slate-600 max-w-[580px] mx-auto text-sm md:text-base">
-              Faculty Directory TODO: Updated faculty roster and Ph.D. mentor credentials to be updated.
-            </p>
-          </div>
+          <Link
+            href="/apply"
+            className="gold-shimmer-btn px-6 py-3 rounded-full text-xs sm:text-sm font-bold shrink-0"
+          >
+            Apply for this Programme
+          </Link>
         </div>
-      </section>
+      </div>
     </main>
   );
 }

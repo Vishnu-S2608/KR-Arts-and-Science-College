@@ -4,15 +4,15 @@
    ========================================================================== */
 
 :root {
-  --kr-pr-bg:           #0B1B3F; /* navy-900 */
-  --kr-pr-rings:        #E8EFF9; /* mist, never pure white */
-  --kr-pr-secondary:    #8FB2F5; /* blue-300 */
-  --kr-pr-progress:     #2F6BFF; /* blue-500 */
-  --kr-pr-gold:         #F5B83D; /* stars, dot, sparks only */
-  --kr-pr-text:         #E8EFF9;
-  --kr-pr-muted:        #B9CBEE;
-  --kr-pr-shutter:      #12275A;
-  --kr-pr-shutter-edge: #8FB2F5;
+  --kr-pr-bg:           #0F172A; /* midnight navy */
+  --kr-pr-rings:        #FFFFFF; /* pure white */
+  --kr-pr-secondary:    #7DD3FC; /* sky-300 */
+  --kr-pr-progress:     #0284C7; /* sky-600 */
+  --kr-pr-gold:         #EAB308; /* prestige gold */
+  --kr-pr-text:         #FFFFFF;
+  --kr-pr-muted:        #BAE6FD;
+  --kr-pr-shutter:      #1E293B;
+  --kr-pr-shutter-edge: #38BDF8;
 }
 
 /* Light version variables (ready for quick toggle if requested)

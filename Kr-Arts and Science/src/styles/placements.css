@@ -7,7 +7,7 @@
 /* 1. Section & Container */
 .placements-section {
   position: relative;
-  background-color: var(--bg, #E8EFF9);
+  background-color: var(--bg, #FFFFFF);
   color: var(--text, #44516A);
   width: 100%;
   overflow-x: clip; /* Never cause horizontal page scroll */

@@ -607,7 +607,7 @@
   bottom: 48px;
   left: 48px;
   z-index: 10;
-  background: rgba(241, 245, 251, 0.92);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--line);

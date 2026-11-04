@@ -1,17 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Award, Briefcase, Sparkles, ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
 import placementsData from "@/data/placements.json";
-
-function getInitials(fullName: string) {
-  if (!fullName) return "";
-  const parts = fullName.trim().split(/\s+/);
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-}
 
 interface Student {
   id: string;
@@ -21,246 +13,188 @@ interface Student {
 }
 
 const RECRUITERS_LIST = [
-  "Besant Technologies",
-  "Best Money Gold",
-  "Maruti Suzuki",
-  "Bhima Jewellers",
-  "Pothys",
-  "Theni Anantham",
-  "BDreamz Global Solution",
+  { name: "Besant Technologies", sector: "IT & Software Training" },
+  { name: "Maruti Suzuki", sector: "Automotive & Logistics" },
+  { name: "Best Money Gold", sector: "Financial Services" },
+  { name: "Bhima Jewellers", sector: "Retail & Operations" },
+  { name: "Pothys Group", sector: "Apparel Retail & E-Commerce" },
+  { name: "Theni Anantham", sector: "Retail & Commercial" },
+  { name: "BDreamz Global Solution", sector: "IT Services & BPO" },
 ];
 
-export default function PlacementsSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [paused, setPaused] = useState(false);
+function getInitials(fullName: string) {
+  if (!fullName) return "";
+  const parts = fullName.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
 
-  // 1. Data Sorting: Highest offers first, ties alphabetical (as in placements.js)
-  const sortedStudents = [...(placementsData as Student[])].sort((a, b) => {
+export default function PlacementsSection() {
+  const [filterOffers, setFilterOffers] = useState<number | "all">("all");
+
+  const students = [...(placementsData as Student[])].sort((a, b) => {
     if (b.offers !== a.offers) return b.offers - a.offers;
     return a.name.localeCompare(b.name);
   });
 
-  const row1 = sortedStudents.slice(0, 6);
-  const row2 = sortedStudents.slice(6, 12);
-  const row3 = sortedStudents.slice(12, 18);
-
-  const track1Ref = useRef<HTMLDivElement>(null);
-  const track2Ref = useRef<HTMLDivElement>(null);
-  const track3Ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    const section = sectionRef.current;
-    if (!section) return;
-
-    // Numbers count-up
-    const placedNum = section.querySelector("#placementsPlacedNum");
-    const offersNum = section.querySelector("#placementsOffersNum");
-
-    if (placedNum) {
-      const obj = { val: 0 };
-      gsap.to(obj, {
-        val: 18,
-        duration: 1.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: placedNum,
-          start: "top 85%",
-          once: true,
-        },
-        onUpdate: () => {
-          placedNum.textContent = `${Math.round(obj.val)}`;
-        },
-      });
-    }
-
-    if (offersNum) {
-      const obj = { val: 0 };
-      gsap.to(obj, {
-        val: 70,
-        duration: 1.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: offersNum,
-          start: "top 85%",
-          once: true,
-        },
-        onUpdate: () => {
-          offersNum.textContent = `${Math.round(obj.val)}`;
-        },
-      });
-    }
-
-    // Running Rows Marquee ticker
-    let x1 = 0;
-    let x2 = 0;
-    let x3 = 0;
-
-    const tickerCb = () => {
-      if (paused) return;
-
-      const t1 = track1Ref.current;
-      const t2 = track2Ref.current;
-      const t3 = track3Ref.current;
-
-      if (t1) {
-        x1 -= 1.0;
-        if (Math.abs(x1) >= t1.scrollWidth / 2) x1 = 0;
-        t1.style.transform = `translateX(${x1}px)`;
-      }
-
-      if (t2) {
-        x2 += 1.0;
-        if (x2 >= 0) x2 = -t2.scrollWidth / 2;
-        t2.style.transform = `translateX(${x2}px)`;
-      }
-
-      if (t3) {
-        x3 -= 1.0;
-        if (Math.abs(x3) >= t3.scrollWidth / 2) x3 = 0;
-        t3.style.transform = `translateX(${x3}px)`;
-      }
-    };
-
-    gsap.ticker.add(tickerCb);
-    return () => gsap.ticker.remove(tickerCb);
-  }, [paused]);
-
-  const renderStudentItem = (student: Student, idx: number, isDup = false) => {
-    return (
-      <div
-        key={`${student.id}-${idx}-${isDup ? "dup" : "orig"}`}
-        className="student-item"
-        tabIndex={isDup ? -1 : 0}
-        role={isDup ? undefined : "listitem"}
-        aria-hidden={isDup ? "true" : undefined}
-      >
-        <div className="student-photo-frame">
-          <img
-            className="student-photo"
-            src={student.photo}
-            alt={isDup ? "" : `${student.name}, placed student`}
-            width={400}
-            height={500}
-            loading="lazy"
-            onError={(e) => {
-              const target = e.currentTarget;
-              target.style.display = "none";
-              const initials = target.nextElementSibling as HTMLElement;
-              if (initials) initials.style.display = "flex";
-            }}
-          />
-          <div className="student-initials" style={{ display: "none" }} aria-hidden="true">
-            {getInitials(student.name)}
-          </div>
-        </div>
-        <h3 className="student-name">{student.name}</h3>
-        <p className="student-offers">{student.offers === 1 ? "1 offer" : `${student.offers} offers`}</p>
-      </div>
-    );
-  };
+  const filteredStudents = filterOffers === "all"
+    ? students
+    : students.filter((s) => s.offers === filterOffers);
 
   return (
-    <section
-      className="placements-section"
-      id="placements"
-      ref={sectionRef}
-      aria-label="Placement Achievements and Placed Students"
-    >
-      {/* 1. HEADER */}
-      <div className="placements-container">
-        <header className="placements-header">
-          <div className="placements-header-title">
-            <span className="placements-label">Placements</span>
-            <h2 className="placements-heading">
-              100% Placement<br />Achievement
+    <section className="py-16 md:py-24 bg-gradient-to-b from-white via-sky-50/30 to-white relative" id="placements">
+      <div className="max-w-[1380px] mx-auto px-4 sm:px-6">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider mb-3">
+              <Award className="w-4 h-4 text-amber-600" />
+              100% Placement Achievement &bull; Batch 2023-26
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+              From Rural Classrooms to High-Growth Corporate Careers
             </h2>
+            <p className="mt-3 text-base sm:text-lg text-slate-600 max-w-2xl">
+              Every single graduating applicant secured multiple appointment letters, proving the efficacy of our 
+              industry-aligned training, soft skills drills, and corporate placement cell.
+            </p>
           </div>
 
-          <div className="placements-stats" aria-label="Placement Statistics">
-            <div className="placements-stat-box">
-              <span className="placements-stat-number" id="placementsPlacedNum" aria-label="18 Students placed">
-                18
-              </span>
-              <span className="placements-stat-label">Students placed</span>
+          <div className="flex items-center gap-3">
+            <div className="p-4 bg-white rounded-2xl border border-sky-100 shadow-md text-center">
+              <div className="text-2xl sm:text-3xl font-black text-sky-600">18 / 18</div>
+              <div className="text-xs font-bold text-slate-500">Students Placed</div>
             </div>
-
-            <div className="placements-stat-divider" aria-hidden="true"></div>
-
-            <div className="placements-stat-box">
-              <span className="placements-stat-number" id="placementsOffersNum" aria-label="70 Offer letters">
-                70
-              </span>
-              <span className="placements-stat-label">Offer letters</span>
+            <div className="p-4 bg-white rounded-2xl border border-amber-200 shadow-md text-center">
+              <div className="text-2xl sm:text-3xl font-black text-amber-500">70+</div>
+              <div className="text-xs font-bold text-slate-500">Offer Letters</div>
             </div>
           </div>
-        </header>
-      </div>
+        </div>
 
-      {/* 2. RUNNING ROWS */}
-      <div className="placements-marquee-viewport" id="placementsMarqueeArea" aria-label="Placed students running rows">
-        {/* Row 1: Leftward */}
-        <div className="marquee-row-wrapper" data-row="1" data-direction="left">
-          <div className="marquee-track" id="marqueeTrack1" ref={track1Ref}>
-            {row1.map((s, i) => renderStudentItem(s, i, false))}
-            {row1.map((s, i) => renderStudentItem(s, i, true))}
+        {/* Corporate Recruiters Grid (REC Inspired) */}
+        <div className="mb-14">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+              Our Prominent Corporate Recruiters
+            </span>
+            <span className="text-xs font-semibold text-sky-600">7+ Participating Corporates</span>
           </div>
-        </div>
 
-        {/* Row 2: Rightward */}
-        <div className="marquee-row-wrapper" data-row="2" data-direction="right">
-          <div className="marquee-track" id="marqueeTrack2" ref={track2Ref}>
-            {row2.map((s, i) => renderStudentItem(s, i, false))}
-            {row2.map((s, i) => renderStudentItem(s, i, true))}
-          </div>
-        </div>
-
-        {/* Row 3: Leftward */}
-        <div className="marquee-row-wrapper" data-row="3" data-direction="left">
-          <div className="marquee-track" id="marqueeTrack3" ref={track3Ref}>
-            {row3.map((s, i) => renderStudentItem(s, i, false))}
-            {row3.map((s, i) => renderStudentItem(s, i, true))}
-          </div>
-        </div>
-      </div>
-
-      <div className="placements-container">
-        {/* Accessibility Pause / Resume Button */}
-        <div className="marquee-controls">
-          <button
-            type="button"
-            className="marquee-toggle-btn"
-            id="marqueeToggleBtn"
-            aria-pressed={paused}
-            onClick={() => setPaused(!paused)}
-          >
-            {paused ? "Resume" : "Pause"}
-          </button>
-        </div>
-
-        {/* 3. RECRUITERS */}
-        <div className="placements-recruiters">
-          <div className="placements-recruiters-divider" aria-hidden="true"></div>
-
-          <span className="placements-label recruiters-label">Our recruiters</span>
-
-          <div className="placements-recruiters-list" id="placementsRecruitersList">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {RECRUITERS_LIST.map((rec, idx) => (
-              <span key={idx} style={{ display: "contents" }}>
-                <span className="recruiter-name">{rec}</span>
-                {idx < RECRUITERS_LIST.length - 1 && (
-                  <span className="recruiter-sep" aria-hidden="true"></span>
-                )}
-              </span>
+              <div 
+                key={idx}
+                className="bg-white p-4 rounded-xl border border-slate-200/80 hover:border-sky-300 shadow-sm hover:shadow-md transition-all flex items-center gap-3 group"
+              >
+                <div className="w-10 h-10 rounded-lg bg-sky-50 flex items-center justify-center text-sky-600 font-bold text-sm shrink-0 group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                  <Briefcase className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-sky-700 transition-colors">
+                    {rec.name}
+                  </h4>
+                  <span className="text-[10px] text-slate-500 block">
+                    {rec.sector}
+                  </span>
+                </div>
+              </div>
             ))}
           </div>
         </div>
 
-        {/* 4. LINK */}
-        <div className="placements-action">
-          <Link href="/apply" className="placements-apply-link">
-            <span className="link-text">Apply for admission</span>
-            <span className="link-underline" aria-hidden="true"></span>
+        {/* Filter Bar for Placed Students */}
+        <div className="flex items-center justify-between flex-wrap gap-4 mb-6 pt-6 border-t border-slate-100">
+          <div>
+            <h3 className="text-lg font-bold text-slate-900">Honor Roll: Placed Graduates</h3>
+            <p className="text-xs text-slate-500">Verifiable corporate offers per graduating student</p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setFilterOffers("all")}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors ${
+                filterOffers === "all"
+                  ? "bg-slate-900 text-white"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+              }`}
+            >
+              All (18)
+            </button>
+            <button
+              type="button"
+              onClick={() => setFilterOffers(7)}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors ${
+                filterOffers === 7
+                  ? "bg-amber-500 text-slate-950 font-black"
+                  : "bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100"
+              }`}
+            >
+              ★ 7 Offers Club
+            </button>
+            <button
+              type="button"
+              onClick={() => setFilterOffers(6)}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors ${
+                filterOffers === 6
+                  ? "bg-sky-600 text-white"
+                  : "bg-sky-50 text-sky-800 border border-sky-200 hover:bg-sky-100"
+              }`}
+            >
+              6 Offers
+            </button>
+          </div>
+        </div>
+
+        {/* Placed Students Grid (Pure White Cards with Golden Badges) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          {filteredStudents.map((student) => (
+            <div 
+              key={student.id}
+              className="bg-white rounded-2xl p-3 border border-slate-200/80 hover:border-amber-400 shadow-sm hover:shadow-lg transition-all group flex flex-col justify-between"
+            >
+              <div className="relative aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-sky-50 via-slate-50 to-amber-50/40 mb-2.5 flex items-center justify-center border border-slate-100">
+                <div className="flex flex-col items-center justify-center text-center p-3">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-sky-500 to-sky-700 text-white flex items-center justify-center font-black text-lg shadow-md mb-2 group-hover:scale-105 transition-transform">
+                    {getInitials(student.name)}
+                  </div>
+                  <span className="text-[11px] font-semibold text-slate-500">Graduating Batch</span>
+                </div>
+
+                {/* Offer Badge Overlay */}
+                <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black shadow-sm flex items-center gap-1">
+                  <Sparkles className="w-2.5 h-2.5" />
+                  <span>{student.offers} {student.offers === 1 ? "Offer" : "Offers"}</span>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 truncate group-hover:text-sky-600 transition-colors">
+                  {student.name}
+                </h4>
+                <div className="flex items-center gap-1 text-[10px] text-emerald-600 font-semibold mt-0.5">
+                  <CheckCircle2 className="w-3 h-3" />
+                  <span>Placed Successfully</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Placement Call to Action Banner */}
+        <div className="mt-12 text-center p-8 bg-gradient-to-r from-sky-50 via-white to-amber-50 rounded-3xl border border-sky-100 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-center sm:text-left">
+            <h4 className="text-lg font-bold text-slate-900">Want to secure an assured career placement?</h4>
+            <p className="text-xs sm:text-sm text-slate-600">Join KR Arts And Science College for the 2026-27 academic session.</p>
+          </div>
+
+          <Link 
+            href="/apply"
+            className="gold-shimmer-btn px-6 py-3 rounded-full text-xs sm:text-sm font-bold inline-flex items-center gap-2 shrink-0"
+          >
+            <span>Apply for Admission Now</span>
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>

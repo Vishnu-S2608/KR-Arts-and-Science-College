@@ -1,45 +1,67 @@
 /* ==========================================================================
-   KR Arts And Science College - "Mist Blue" Design System Tokens
+   KR Arts And Science College - Pure White, Light Blue & Golden Yellow Design Tokens
    ========================================================================== */
 
 :root {
-  /* Mist Blue Palette */
-  --bg:        #E8EFF9;  /* page background */
-  --bg-alt:    #DCE5F2;  /* alternate sections */
-  --card:      #F1F5FB;  /* cards, navbar, panels (lighter than bg, not white) */
-  --line:      #C5D1E4;  /* borders, dividers */
-  --blue-100:  #D3E1F6;  /* hover fills, chips */
-  --blue-300:  #8FB2F5;
-  --blue-500:  #2F6BFF;  /* buttons, links, active */
-  --blue-700:  #1F4FCC;  /* hover */
-  --navy-900:  #0B1B3F;  /* headings, dark section background */
-  --navy-800:  #12275A;  /* radial glow accent on dark surfaces */
-  --text:      #44516A;  /* body text */
-  --gold-500:  #F5B83D;  /* tiny accents only */
+  /* 1. Pure Premium White */
+  --bg:         #FFFFFF;  /* pure premium white page background */
+  --bg-alt:     #F8FAFC;  /* crisp soft off-white for alternating sections */
+  --card:       #FFFFFF;  /* pure white cards & panels */
+  --card-glass: rgba(255, 255, 255, 0.95);
+  --line:       #E2E8F0;  /* clean crisp border */
+  --line-light: #F1F5F9;
+  --white:      #FFFFFF;
 
-  /* Legacy semantic mappings (Never pure white for surfaces) */
+  /* 2. Light Blue / Vibrant Sky Blue */
+  --blue-50:   #F0F9FF;
+  --blue-100:  #E0F2FE;  /* soft sky fill & chips */
+  --blue-200:  #BAE6FD;
+  --blue-300:  #7DD3FC;
+  --blue-400:  #38BDF8;
+  --blue-500:  #0EA5E9;  /* vibrant sky blue */
+  --blue-600:  #0284C7;  /* primary brand sky blue */
+  --blue-700:  #0369A1;  /* deep ocean hover */
+  --navy-900:  #0F172A;  /* rich midnight slate for headings */
+  --navy-800:  #1E293B;  /* secondary dark */
+  --text:      #334155;  /* slate-700 crisp body text */
+  --text-muted:#64748B;  /* slate-500 */
+
+  /* 3. Golden Yellow Prestige */
+  --gold-50:   #FEFCE8;
+  --gold-100:  #FEF9C3;
+  --gold-200:  #FEF08A;
+  --gold-300:  #FDE047;
+  --gold-400:  #FACC15;
+  --gold-500:  #EAB308;  /* rich college prestige gold */
+  --gold-600:  #CA8A04;  /* deep golden amber */
+  --gold-700:  #A16207;
+  --gold-gradient: linear-gradient(135deg, #FACC15 0%, #EAB308 50%, #D97706 100%);
+  --blue-gradient: linear-gradient(135deg, #0284C7 0%, #0EA5E9 50%, #38BDF8 100%);
+
+  /* Semantic aliases */
   --blue-900:  var(--navy-900);
-  --blue-50:   var(--bg);
-  --gray-50:   var(--bg-alt);
-  --gray-100:  var(--card);
-  --gray-300:  var(--line);
+  --gray-50:   #F8FAFC;
+  --gray-100:  #F1F5F9;
+  --gray-200:  #E2E8F0;
+  --gray-300:  #CBD5E1;
   --gray-600:  var(--text);
-  --white:     var(--card); /* Fallback safety: routes any white call to --card */
 
   /* Typography */
   --font-heading: 'Plus Jakarta Sans', 'Sora', system-ui, -apple-system, sans-serif;
   --font-body:    'Inter', system-ui, -apple-system, sans-serif;
   --font-tamil:   'Noto Sans Tamil', 'Inter', system-ui, sans-serif;
 
-  /* Elevation & Shadows (Card shadow: 0 14px 36px rgba(11,27,63,.08)) */
-  --shadow-sm:    0 2px 8px rgba(11, 27, 63, 0.05);
-  --shadow-md:    0 14px 36px rgba(11, 27, 63, 0.08);
-  --shadow-lg:    0 20px 48px rgba(11, 27, 63, 0.12);
-  --shadow-hover: 0 24px 54px rgba(11, 27, 63, 0.16);
+  /* Elevation & Shadows */
+  --shadow-sm:    0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-md:    0 12px 30px -4px rgba(2, 132, 199, 0.08);
+  --shadow-lg:    0 20px 40px -8px rgba(15, 23, 42, 0.1);
+  --shadow-gold:  0 10px 25px -4px rgba(234, 179, 8, 0.35);
+  --shadow-blue:  0 10px 25px -4px rgba(2, 132, 199, 0.35);
+  --shadow-hover: 0 24px 50px -8px rgba(2, 132, 199, 0.15);
 
   /* Animation Easing */
-  --ease-entrance: cubic-bezier(0.215, 0.61, 0.355, 1); /* power3.out */
-  --ease-expo:     cubic-bezier(0.87, 0, 0.13, 1);      /* expo.inOut */
+  --ease-entrance: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-expo:     cubic-bezier(0.87, 0, 0.13, 1);
   --transition-fast: 0.25s var(--ease-entrance);
   --transition-normal: 0.4s var(--ease-entrance);
   --transition-slow: 0.7s var(--ease-expo);
@@ -50,5 +72,6 @@
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
+  --radius-xl: 32px;
   --radius-full: 9999px;
 }

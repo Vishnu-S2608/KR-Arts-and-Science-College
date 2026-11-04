@@ -1,472 +1,188 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { 
+  ShieldCheck, 
+  Award, 
+  Globe, 
+  Cpu, 
+  Bus, 
+  HeartHandshake, 
+  ArrowRight, 
+  Sparkles,
+  BookOpen,
+  CheckCircle2
+} from "lucide-react";
+
+const PILLARS = [
+  {
+    title: "100% Placement Record",
+    description: "Inaugural graduating batch achieved 100% verifiable placements with 70+ offer letters from leading corporate recruiters.",
+    icon: Award,
+    badge: "Documented Milestone",
+    color: "from-amber-400 to-amber-600",
+  },
+  {
+    title: "Global & Industry MoUs",
+    description: "Active bilateral exchange with Shinawatra University (Thailand) and professional aviation training linkage with LKP Academy.",
+    icon: Globe,
+    badge: "International Reach",
+    color: "from-sky-500 to-blue-600",
+  },
+  {
+    title: "Hi-Tech Air-Conditioned Labs",
+    description: "Equipped with dedicated Artificial Intelligence & Computing labs, modern Chemistry research suites, and high-speed internet.",
+    icon: Cpu,
+    badge: "Advanced Tech",
+    color: "from-blue-600 to-indigo-700",
+  },
+  {
+    title: "Extensive Bus Transport",
+    description: "Dedicated college bus network connecting rural students across Peraiyur, T. Kallupatti, Thirumangalam, and Virudhunagar.",
+    icon: Bus,
+    badge: "Safe Commute",
+    color: "from-emerald-500 to-teal-700",
+  },
+  {
+    title: "NCC & Character Building",
+    description: "National Cadet Corps (NCC) cadet wing with state-level Thal Sainik Camp selections, plus dynamic KR Leaders Club forums.",
+    icon: ShieldCheck,
+    badge: "Leadership & Honor",
+    color: "from-amber-500 to-orange-600",
+  },
+  {
+    title: "Individual Mentorship & Care",
+    description: "Low student-to-faculty ratio ensuring personalized academic counselling, remedial guidance, and rural merit scholarships.",
+    icon: HeartHandshake,
+    badge: "Student-First",
+    color: "from-sky-600 to-sky-400",
+  },
+];
 
 export default function AboutSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [activeStrip, setActiveStrip] = useState<number>(0);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    // 1. Rotating Seal SVG on seam
-    const sealText = section.querySelector<SVGElement>(".seal-text-ring-svg");
-    let sealRot = 0;
-    const sealTicker = () => {
-      sealRot += 0.35;
-      if (sealText) sealText.style.transform = `rotate(${sealRot}deg)`;
-    };
-    gsap.ticker.add(sealTicker);
-
-    // 2. Bottom Ribbon Marquee
-    const ribbonTrack = section.querySelector<HTMLElement>("#splitRibbonTrack");
-    let ribbonX = 0;
-    const ribbonTicker = () => {
-      if (ribbonTrack) {
-        ribbonX -= 0.75;
-        if (Math.abs(ribbonX) >= ribbonTrack.scrollWidth / 2) ribbonX = 0;
-        ribbonTrack.style.transform = `translateX(${ribbonX}px)`;
-      }
-    };
-    gsap.ticker.add(ribbonTicker);
-
-    // Scene 1 Full Entrance Timeline
-    const scene1 = section.querySelector<HTMLElement>("#windowsScene1");
-    const leftPanel = scene1?.querySelector<HTMLElement>("#splitLeftPanel");
-    const eyebrowLine = scene1?.querySelector<HTMLElement>("#splitEyebrowLine");
-    const eyebrowText = scene1?.querySelector<HTMLElement>("#splitEyebrowText");
-    const headlineWords = scene1?.querySelectorAll<HTMLElement>("#splitHeadline .word");
-    const subline = scene1?.querySelector<HTMLElement>("#splitSubline");
-    const factsRow = scene1?.querySelector<HTMLElement>("#splitFactsRow");
-    const link = scene1?.querySelector<HTMLElement>("#splitLink");
-    const stripsEls = scene1?.querySelectorAll<HTMLElement>(".photo-strip");
-    const stripPhotos = scene1?.querySelectorAll<HTMLElement>(".strip-photo");
-    const seamSeal = scene1?.querySelector<HTMLElement>("#splitSeamSeal");
-    const bottomRibbon = scene1?.querySelector<HTMLElement>("#splitBottomRibbon");
-    const wavyPath = section.querySelector<SVGPathElement>("#splitWavyUnderlinePath");
-
-    if (scene1) {
-      const enterTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: scene1,
-          start: "top 70%",
-          once: true,
-        },
-      });
-
-      if (leftPanel) {
-        enterTl.fromTo(
-          leftPanel,
-          { clipPath: "inset(0% 100% 0% 0%)" },
-          { clipPath: "inset(0% 0% 0% 0%)", duration: 1.0, ease: "expo.inOut" },
-          0
-        );
-      }
-
-      if (eyebrowLine) {
-        enterTl.fromTo(eyebrowLine, { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power3.out" }, 0.3);
-      }
-      if (eyebrowText) {
-        enterTl.fromTo(eyebrowText, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.32);
-      }
-      if (headlineWords && headlineWords.length > 0) {
-        enterTl.fromTo(
-          headlineWords,
-          { yPercent: 110 },
-          { yPercent: 0, duration: 0.75, stagger: 0.06, ease: "power3.out" },
-          0.3
-        );
-      }
-
-      if (stripsEls && stripsEls.length > 0) {
-        stripsEls.forEach((strip, idx) => {
-          const photo = strip.querySelector(".strip-photo");
-          const startTime = 0.5 + idx * 0.15;
-          enterTl.fromTo(
-            strip,
-            { clipPath: "inset(100% 0% 0% 0%)" },
-            { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "expo.inOut" },
-            startTime
-          );
-          if (photo) {
-            enterTl.fromTo(
-              photo,
-              { scale: 1.3 },
-              { scale: 1.0, duration: 1.1, ease: "expo.inOut" },
-              startTime
-            );
-          }
-        });
-      }
-
-      if (wavyPath) {
-        const len = wavyPath.getTotalLength() || 180;
-        enterTl.fromTo(
-          wavyPath,
-          { strokeDasharray: len, strokeDashoffset: len },
-          { strokeDashoffset: 0, duration: 0.8, ease: "power2.out" },
-          0.8
-        );
-      }
-
-      if (subline) {
-        enterTl.fromTo(subline, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.75);
-      }
-      if (factsRow) {
-        enterTl.fromTo(factsRow, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.8);
-      }
-      if (link) {
-        enterTl.fromTo(link, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.85);
-      }
-
-      if (seamSeal) {
-        enterTl.fromTo(seamSeal, { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.7)" }, 1.0);
-      }
-      if (bottomRibbon) {
-        enterTl.fromTo(bottomRibbon, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 1.05);
-      }
-    }
-
-    if (isReducedMotion) {
-      return () => {
-        gsap.ticker.remove(sealTicker);
-        gsap.ticker.remove(ribbonTicker);
-      };
-    }
-
-    // 4. Scene 2 Pinned Expanding Window
-    const scene2 = section.querySelector<HTMLElement>("#windowsScene2");
-    const revealBox = section.querySelector<HTMLElement>("#windowRevealBox");
-    const progressBar = section.querySelector<HTMLElement>("#windowProgressBar");
-    const captionCard = section.querySelector<HTMLElement>("#windowCaptionCard");
-
-    if (scene2 && revealBox) {
-      const pinTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: scene2,
-          start: "top top",
-          end: "+=120%",
-          pin: true,
-          scrub: 1,
-        },
-      });
-
-      pinTl.fromTo(
-        revealBox,
-        { width: "42vw", height: "54svh", borderRadius: "24px" },
-        { width: "100vw", height: "100svh", borderRadius: "0px", ease: "none" }
-      );
-
-      if (progressBar) {
-        pinTl.fromTo(progressBar, { width: "0%" }, { width: "100%", ease: "none" }, 0);
-      }
-
-      if (captionCard) {
-        pinTl.fromTo(
-          captionCard,
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, ease: "power2.out" },
-          0.3
-        );
-      }
-    }
-
-    // 5. Scene 3 Facts Cross Grid Count-Up
-    const factCells = section.querySelectorAll<HTMLElement>(".fact-cell[data-target]");
-    factCells.forEach((cell) => {
-      const target = parseFloat(cell.getAttribute("data-target") || "0");
-      const suffix = cell.getAttribute("data-suffix") || "";
-      const numEl = cell.querySelector(".fact-number");
-      if (!numEl) return;
-
-      const obj = { val: 0 };
-      gsap.to(obj, {
-        val: target,
-        duration: 2.0,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: cell,
-          start: "top 90%",
-          toggleActions: "play none none none",
-        },
-        onUpdate: () => {
-          numEl.textContent = `${Math.round(obj.val)}${suffix}`;
-        },
-      });
-    });
-
-    return () => {
-      gsap.ticker.remove(sealTicker);
-      gsap.ticker.remove(ribbonTicker);
-    };
-  }, []);
-
-  const strips = [
-    {
-      id: "stripStudents",
-      title: "STUDENTS",
-      src: "/images/about/students.jpg",
-      alt: "Students collaborating at KR Arts and Science College",
-    },
-    {
-      id: "stripCampus",
-      title: "CAMPUS",
-      src: "/images/about/campus.jpg",
-      alt: "Campus entrance gate of KR Arts and Science College",
-    },
-    {
-      id: "stripEvents",
-      title: "EVENTS",
-      src: "/images/about/events.jpg",
-      alt: "Learning commons and campus events at KR Arts and Science College",
-    },
-  ];
-
   return (
-    <section className="about-windows-section" id="about" ref={sectionRef} aria-label="About KR Arts And Science College">
-      {/* SCENE 1: SPLIT PANEL */}
-      <div className="split-panel-scene-1" id="windowsScene1">
-        <div className="split-panel-body" id="splitPanelBody">
-          {/* LEFT PANEL */}
-          <div className="split-left-panel" id="splitLeftPanel">
-            <div className="split-left-content" id="splitLeftContent">
-              <div className="split-eyebrow">
-                <span className="eyebrow-line" id="splitEyebrowLine" aria-hidden="true"></span>
-                <span className="eyebrow-text" id="splitEyebrowText">ABOUT US</span>
+    <section className="py-16 md:py-24 bg-gradient-to-b from-sky-50/30 via-white to-white relative" id="about">
+      <div className="max-w-[1380px] mx-auto px-4 sm:px-6">
+        {/* Top Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+            Institutional Heritage &bull; Est. 2023
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+            Nurturing Rural Talent into Global Leaders
+          </h2>
+          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+            Founded by the <strong className="text-slate-900">KR Educational and Charitable Trust</strong>, KR Arts And Science College was established with a sacred vision: delivering premier higher education with zero compromise on quality right to Peraiyur, Madurai.
+          </p>
+        </div>
+
+        {/* Bento Grid: Image Hero & Pillars */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16">
+          {/* Left Column: Visual Showcase */}
+          <div className="lg:col-span-5 relative">
+            <div className="relative rounded-3xl overflow-hidden border-2 border-sky-100 shadow-xl bg-white aspect-[4/5]">
+              <img 
+                src="/images/library.png" 
+                alt="KR College Library & Learning Centre" 
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = "/images/computer-lab.png";
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+
+              {/* Floating Badge */}
+              <div className="absolute top-5 left-5 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-sky-100 text-xs font-bold text-sky-800 shadow-md">
+                🎓 Madurai Kamaraj University Affiliation
               </div>
 
-              <h2 className="split-headline" id="splitHeadline">
-                <span className="sr-only">We build futures in Peraiyur, for everyone.</span>
-
-                <span className="headline-line" aria-hidden="true">
-                  <span className="word-mask"><span className="word">We</span></span>
-                  <span className="word-mask"><span className="word">build</span></span>
-                  <span className="word-mask">
-                    <span className="word styled-futures">
-                      futures
-                      <svg className="wavy-underline-svg" viewBox="0 0 160 18" fill="none" aria-hidden="true">
-                        <path
-                          className="wavy-underline-path"
-                          id="splitWavyUnderlinePath"
-                          d="M4 11 C 28 3, 44 17, 68 11 C 92 5, 108 17, 132 11 C 142 8, 150 10, 156 11"
-                          stroke="rgba(232, 239, 249, 0.6)"
-                          strokeWidth="5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </span>
-                  </span>
+              {/* Bottom Quote inside Image */}
+              <div className="absolute bottom-6 left-6 right-6 text-white">
+                <span className="font-tamil text-amber-400 font-bold text-base block mb-1">
+                  உள்ளுவதெல்லாம் உயர்வுள்ளல்
                 </span>
+                <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                  &ldquo;Our mission is to enable every passionate rural scholar to access cutting-edge disciplines, secure top corporate careers, and uplift their families.&rdquo;
+                </p>
+                <div className="mt-3 text-xs font-bold text-amber-300">
+                  &mdash; Management, KR Educational Trust
+                </div>
+              </div>
+            </div>
 
-                <span className="headline-line" aria-hidden="true">
-                  <span className="word-mask"><span className="word">in</span></span>
-                  <span className="word-mask"><span className="word">Peraiyur,</span></span>
-                </span>
-
-                <span className="headline-line" aria-hidden="true">
-                  <span className="word-mask"><span className="word">for</span></span>
-                  <span className="word-mask"><span className="word">everyone.</span></span>
-                </span>
-              </h2>
-
-              <p className="split-subline" id="splitSubline">
-                KR Arts And Science College &bull; Madurai Kamaraj University &bull; Est. 2023
+            {/* Overlapping Mini Card */}
+            <div className="absolute -bottom-5 -right-3 sm:-right-5 bg-white p-4 rounded-2xl border border-amber-200 shadow-xl max-w-[220px]">
+              <div className="flex items-center gap-2 text-amber-600 font-black text-xl">
+                <Award className="w-5 h-5 text-amber-500" />
+                <span>100% Placed</span>
+              </div>
+              <p className="text-[11px] text-slate-600 mt-0.5">
+                Verifiable corporate placements for all registered students.
               </p>
-
-              <div className="split-facts-row" id="splitFactsRow" role="group" aria-label="Key College Facts">
-                <div className="fact-col">
-                  <span className="fact-number">2023</span>
-                  <span className="fact-label">Founded</span>
-                </div>
-                <div className="fact-divider" aria-hidden="true"></div>
-                <div className="fact-col">
-                  <span className="fact-number">11</span>
-                  <span className="fact-label">Programmes</span>
-                </div>
-                <div className="fact-divider" aria-hidden="true"></div>
-                <div className="fact-col">
-                  <span className="fact-number">100%</span>
-                  <span className="fact-label">Placement</span>
-                </div>
-              </div>
-
-              <div className="split-cta-wrap">
-                <a href="#windowsScene2" className="split-link" id="splitLink">
-                  <span className="link-label">Our story</span>
-                  <span className="link-sliding-line" aria-hidden="true"></span>
-                </a>
-              </div>
             </div>
           </div>
 
-          {/* RIGHT SIDE: Photo Accordion Strips */}
-          <div className="split-right-strips" id="splitRightStrips" role="tablist" aria-label="Campus Highlights">
-            {strips.map((strip, idx) => (
-              <button
-                key={strip.id}
-                type="button"
-                className={`photo-strip ${activeStrip === idx ? "is-active" : ""}`}
-                id={strip.id}
-                role="tab"
-                aria-selected={activeStrip === idx}
-                onClick={() => setActiveStrip(idx)}
-                onMouseEnter={() => setActiveStrip(idx)}
-              >
-                <div className="strip-image-wrap">
-                  <img
-                    className="strip-photo"
-                    src={strip.src}
-                    alt={strip.alt}
-                    loading="lazy"
-                    width="640"
-                    height="853"
-                  />
-                  <div className="strip-overlay" aria-hidden="true"></div>
-                </div>
-                <span className="strip-label-vertical" aria-hidden="true">{strip.title}</span>
-                <div className="strip-label-card" role="tabpanel">
-                  <span className="strip-card-title">{strip.title}</span>
-                </div>
-                <div className="strip-progress-bar" aria-hidden="true">
-                  <span className="strip-progress-fill"></span>
-                </div>
-              </button>
-            ))}
+          {/* Right Column: 6 Pillars of Excellence */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {PILLARS.map((pillar, idx) => {
+              const Icon = pillar.icon;
+              return (
+                <div 
+                  key={idx}
+                  className="pure-white-card p-5 group flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${pillar.color} flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform`}>
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">
+                        {pillar.badge}
+                      </span>
+                    </div>
 
-            {/* SEAL BADGE */}
-            <div className="split-seam-seal" id="splitSeamSeal" aria-hidden="true">
-              <div className="seal-inner-circle">
-                <img className="seal-college-logo" src="/assets/logo.jpeg" alt="" width="52" height="52" />
-                <svg className="seal-text-ring-svg" viewBox="0 0 112 112" width="112" height="112">
-                  <defs>
-                    <path id="splitBadgeSealPath" d="M 56, 56 m -42, 0 a 42,42 0 1,1 84,0 a 42,42 0 1,1 -84,0" fill="none" />
-                  </defs>
-                  <text className="seal-badge-text">
-                    <textPath href="#splitBadgeSealPath" startOffset="0%">
-                      KR ARTS AND SCIENCE COLLEGE &bull; EST. 2023 &bull;
-                    </textPath>
-                  </text>
-                </svg>
-              </div>
-            </div>
+                    <h3 className="text-base font-bold text-slate-900 group-hover:text-sky-700 transition-colors">
+                      {pillar.title}
+                    </h3>
+                    <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
+                      {pillar.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* BOTTOM RIBBON */}
-        <div className="split-bottom-ribbon" id="splitBottomRibbon" aria-hidden="true">
-          <div className="split-ribbon-track" id="splitRibbonTrack">
-            <div className="split-ribbon-content">
-              <span>ARTS</span><span className="ribbon-gold-dot"></span>
-              <span>SCIENCE</span><span className="ribbon-gold-dot"></span>
-              <span>COMMERCE</span><span className="ribbon-gold-dot"></span>
-              <span>TECHNOLOGY</span><span className="ribbon-gold-dot"></span>
-              <span>AVIATION</span><span className="ribbon-gold-dot"></span>
-              <span>LEADERSHIP</span><span className="ribbon-gold-dot"></span>
-              <span>TAMIL</span><span className="ribbon-gold-dot"></span>
-              <span>ENGLISH</span><span className="ribbon-gold-dot"></span>
-              <span>COMPUTER SCIENCE</span><span className="ribbon-gold-dot"></span>
-              <span>AI</span><span className="ribbon-gold-dot"></span>
-              <span>CRIMINOLOGY</span><span className="ribbon-gold-dot"></span>
-              <span>MATHEMATICS</span><span className="ribbon-gold-dot"></span>
-              <span>CHEMISTRY</span><span className="ribbon-gold-dot"></span>
-              <span>HOME SCIENCE</span><span className="ribbon-gold-dot"></span>
-              <span>PHYSICAL EDUCATION</span><span className="ribbon-gold-dot"></span>
-            </div>
-            <div className="split-ribbon-content" aria-hidden="true">
-              <span>ARTS</span><span className="ribbon-gold-dot"></span>
-              <span>SCIENCE</span><span className="ribbon-gold-dot"></span>
-              <span>COMMERCE</span><span className="ribbon-gold-dot"></span>
-              <span>TECHNOLOGY</span><span className="ribbon-gold-dot"></span>
-              <span>AVIATION</span><span className="ribbon-gold-dot"></span>
-              <span>LEADERSHIP</span><span className="ribbon-gold-dot"></span>
-              <span>TAMIL</span><span className="ribbon-gold-dot"></span>
-              <span>ENGLISH</span><span className="ribbon-gold-dot"></span>
-              <span>COMPUTER SCIENCE</span><span className="ribbon-gold-dot"></span>
-              <span>AI</span><span className="ribbon-gold-dot"></span>
-              <span>CRIMINOLOGY</span><span className="ribbon-gold-dot"></span>
-              <span>MATHEMATICS</span><span className="ribbon-gold-dot"></span>
-              <span>CHEMISTRY</span><span className="ribbon-gold-dot"></span>
-              <span>HOME SCIENCE</span><span className="ribbon-gold-dot"></span>
-              <span>PHYSICAL EDUCATION</span><span className="ribbon-gold-dot"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* SCENE 2: EXPANDING PINNED WINDOW */}
-      <div className="windows-scene-2" id="windowsScene2">
-        <div className="window-pin-viewport" id="windowPinViewport">
-          <div className="window-reveal-box" id="windowRevealBox">
-            <img
-              className="window-hero-img"
-              id="windowHeroImg"
-              src="/images/about/campus-wide.jpg"
-              alt="Panoramic view of KR Arts And Science College Campus, Peraiyur"
-              width="1920"
-              height="1080"
-              loading="lazy"
-            />
-            <div className="window-scrim" aria-hidden="true"></div>
+        {/* Administration & Leadership Fast Banner */}
+        <div className="p-6 sm:p-10 bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 text-white rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="max-w-xl text-center md:text-left">
+            <span className="text-amber-400 font-bold text-xs uppercase tracking-wider block mb-1">
+              Leadership &bull; Governance
+            </span>
+            <h3 className="text-xl sm:text-2xl font-extrabold text-white">
+              Guided by Visionary Academic Administrators
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+              Under the proactive stewardship of <strong>Mr. K. Pandiaraj</strong> (Secretary &amp; Correspondent) and <strong>Dr. P. S. Senthilkumar</strong> (Principal), maintaining stringent university standards and student welfare.
+            </p>
           </div>
 
-          <div className="window-caption-card" id="windowCaptionCard">
-            <span className="caption-tag">PERAIYUR, MADURAI</span>
-            <p className="caption-heading">Where KR Arts and Science College stands.</p>
-          </div>
-
-          <div className="window-progress-track" aria-hidden="true">
-            <div className="window-progress-bar" id="windowProgressBar"></div>
-          </div>
-        </div>
-      </div>
-
-      {/* SCENE 3: AT A GLANCE */}
-      <div className="windows-scene-3" id="windowsScene3">
-        <div className="scene-3-container">
-          <div className="scene-3-left">
-            <span className="scene-3-label">At a glance</span>
-            <h3 className="scene-3-heading">KR Arts and Science College</h3>
-            <p className="scene-3-subline">Affiliated to Madurai Kamaraj University, Peraiyur, Madurai.</p>
-            <Link href="/contact" className="scene-3-link">
-              <span className="link-text">Know more about us</span>
-              <span className="link-underline" aria-hidden="true"></span>
+          <div className="flex items-center gap-3 shrink-0">
+            <Link 
+              href="/contact"
+              className="px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all"
+            >
+              Meet Administration
             </Link>
-          </div>
-
-          <div className="scene-3-right">
-            <div className="facts-cross-grid" id="factsCrossGrid">
-              <div className="fact-cell" data-target="2023" data-suffix="">
-                <span className="fact-number" id="factNum1">2023</span>
-                <span className="fact-label">Founded</span>
-                <span className="fact-detail">Established in Peraiyur</span>
-              </div>
-
-              <div className="fact-cell" data-target="11" data-suffix="">
-                <span className="fact-number" id="factNum2">11</span>
-                <span className="fact-label">Programmes</span>
-                <span className="fact-detail">Arts, science and commerce</span>
-              </div>
-
-              <div className="fact-cell" data-target="100" data-suffix="%">
-                <span className="fact-number" id="factNum3">100%</span>
-                <span className="fact-label">Placement</span>
-                <span className="fact-detail">Career training achievement</span>
-              </div>
-
-              <div className="fact-cell" data-target="70" data-suffix="">
-                <span className="fact-number" id="factNum4">70</span>
-                <span className="fact-label">Offer letters</span>
-                <span className="fact-detail">Secured across recruiters</span>
-              </div>
-            </div>
+            <Link 
+              href="/apply"
+              className="gold-shimmer-btn px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold flex items-center gap-1.5"
+            >
+              <span>Join Us in 2026</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
       </div>

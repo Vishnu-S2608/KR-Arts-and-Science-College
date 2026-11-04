@@ -1,4 +1,17 @@
 import { Metadata } from "next";
+import Link from "next/link";
+import { 
+  ShieldCheck, 
+  Users, 
+  Briefcase, 
+  Trophy, 
+  Trees, 
+  HeartHandshake, 
+  Palette, 
+  Sparkles, 
+  ArrowRight,
+  CheckCircle2
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Student Clubs & Societies | KR Arts And Science College",
@@ -6,192 +19,149 @@ export const metadata: Metadata = {
     "Discover student clubs, NCC cadet wing, KR Leaders Club, and community outreach bodies at KR Arts And Science College, Madurai.",
 };
 
+const CLUBS = [
+  {
+    title: "National Cadet Corps (NCC)",
+    badge: "Honor & Defense",
+    tagColor: "gold",
+    icon: ShieldCheck,
+    description: "Instilling selfless service, leadership, and national character. Cadets undergo rigorous drill maneuvers, obstacle navigation, weapon training, and national Thal Sainik Camp conditioning.",
+    bullets: ["B & C Certificate Training", "Annual Thal Sainik Trials", "Republic Day Camp Path"],
+    image: "/images/campus-hero.png",
+  },
+  {
+    title: "KR Leaders Club",
+    badge: "New for 2026",
+    tagColor: "gold",
+    icon: Users,
+    description: "Dynamic student platform for parliamentary debates, public policy critiques, civic advocacy, and youth governance dialogues across Peraiyur taluk.",
+    bullets: ["Civic Leadership Forums", "Model Youth Parliament", "Bureaucratic Mentorship"],
+  },
+  {
+    title: "Training & Placement Cell",
+    badge: "100% Placement",
+    tagColor: "sky",
+    icon: Briefcase,
+    description: "Conducting continuous aptitude sessions, corporate technical mock interviews, resume writing labs, and coordinating with 7+ top recruiting companies.",
+    bullets: ["Continuous Aptitude Training", "Corporate Mock Interviews", "Soft Skills Certification"],
+    image: "/images/library.png",
+  },
+  {
+    title: "Sports & Athletics Club",
+    badge: "Championship Ground",
+    tagColor: "emerald",
+    icon: Trophy,
+    description: "Managing inter-collegiate track and field meets, cricket tournaments, volleyball championships, kabaddi, and athletic conditioning programs.",
+    bullets: ["Inter-College Tournament Meets", "Sprint & Relay Honors", "Physical Education Wing"],
+  },
+  {
+    title: "Green Club Eco Preservation",
+    badge: "Clean Campus",
+    tagColor: "emerald",
+    icon: Trees,
+    description: "Dedicated to tree planting drives, rainwater monitoring, eco-friendly plastic separation, and green environmental awareness across Peraiyur.",
+    bullets: ["Eco-Preservation Drives", "Clean Peraiyur Outreach", "Solar Campus Monitoring"],
+    image: "/images/college-entrance.jpg",
+  },
+  {
+    title: "Unnat Bharat Abhiyan",
+    badge: "Flagship Outreach",
+    tagColor: "blue",
+    icon: HeartHandshake,
+    description: "Connecting higher education institutions with rural villages for socio-economic development, digital literacy, and local livelihood enhancement.",
+    bullets: ["Rural Village Baseline Surveys", "Digital Literacy Camps", "Women Empowerment Programs"],
+  },
+  {
+    title: "Art & Literary Society",
+    badge: "Creative Arts",
+    tagColor: "sky",
+    icon: Palette,
+    description: "Fostering fine arts, painting, traditional Tamil rangoli, theatre staging, poetry recitals, and campus cultural festival management.",
+    bullets: ["Annual Arts Exhibits", "Creative Writing Workshops", "Cultural Stage Management"],
+  },
+];
+
 export default function ClubsPage() {
   return (
-    <main className="pt-[calc(var(--header-height)+2rem)] min-h-[80vh]">
-      <section className="section-wrapper bg-blue-tint">
-        <div className="container">
-          <div className="section-label">Campus Leadership &amp; Culture</div>
-          <h1 className="mb-4">Student Clubs &amp; Societies</h1>
-          <p className="max-w-[650px] text-[1.1rem] text-slate-600 mb-10">
+    <main className="pt-8 sm:pt-12 pb-20 bg-gradient-to-b from-sky-50/40 via-white to-white min-h-screen">
+      <div className="max-w-[1380px] mx-auto px-4 sm:px-6">
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3">
+            <Users className="w-3.5 h-3.5 text-sky-600" />
+            Campus Leadership &bull; Student Societies
+          </div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+            Student Clubs, NCC Cadet Wing &amp; Societies
+          </h1>
+          <p className="mt-3 text-base sm:text-lg text-slate-600">
             Active co-curricular organizations fostering patriotic character, creative artistic expression, 
             environmental protection, sportsmanship, and civic leadership.
           </p>
-
-          <div className="bento-grid">
-            {/* 1. NCC */}
-            <article className="bento-card bento-span-2">
-              <div className="bento-media">
-                <div className="photo-placeholder">
-                  <div className="placeholder-line"></div>
-                  Photo to be added (NCC Cadets Parade)
-                </div>
-              </div>
-              <div className="bento-body">
-                <div>
-                  <span className="text-pill mb-2">
-                    National Cadet Corps
-                  </span>
-                  <h3 className="bento-title">National Cadet Corps (NCC)</h3>
-                  <p className="text-sm leading-relaxed">
-                    Instilling self-discipline, national pride, and character. Cadets undergo rigorous obstacle navigation, 
-                    drill maneuvers, weapon handling seminars, and participation in annual Thal Sainik Camp conditioning.
-                  </p>
-                </div>
-                <div className="pills-group mt-4">
-                  <span className="text-pill">B &amp; C Certificate Training</span>
-                  <span className="text-pill">Thal Sainik Trials</span>
-                  <span className="text-pill">Republic Day Camp Path</span>
-                </div>
-              </div>
-            </article>
-
-            {/* 2. KR Leaders Club */}
-            <article className="bento-card">
-              <div className="bento-media">
-                <div className="photo-placeholder">
-                  <div className="placeholder-line"></div>
-                  Photo to be added (KR Leaders Club)
-                </div>
-              </div>
-              <div className="bento-body">
-                <div>
-                  <span className="text-pill mb-2">
-                    New Initiative 2026
-                  </span>
-                  <h3 className="bento-title">KR Leaders Club</h3>
-                  <p className="text-sm">
-                    Platform for debate, policy critique, public diplomacy, and student-driven civic initiatives across Peraiyur taluk.
-                  </p>
-                </div>
-                <div className="pills-group mt-4">
-                  <span className="text-pill">Civic Leadership</span>
-                  <span className="text-pill">Mentorship</span>
-                </div>
-              </div>
-            </article>
-
-            {/* 3. Training & Placement Cell */}
-            <article className="bento-card">
-              <div className="bento-media">
-                <img src="/images/library.png" alt="Placement Training Cell" loading="lazy" className="w-full h-full object-cover" />
-              </div>
-              <div className="bento-body">
-                <div>
-                  <span className="text-pill mb-2">
-                    Career Cell
-                  </span>
-                  <h3 className="bento-title">Training &amp; Placement Cell</h3>
-                  <p className="text-sm">
-                    Conducting continuous aptitude classes, technical mock interviews, and coordinating with 7+ top recruiting corporates.
-                  </p>
-                </div>
-                <div className="pills-group mt-4">
-                  <span className="text-pill">100% Placement Record</span>
-                  <span className="text-pill">Soft Skills</span>
-                </div>
-              </div>
-            </article>
-
-            {/* 4. Sports Club */}
-            <article className="bento-card">
-              <div className="bento-media">
-                <div className="photo-placeholder">
-                  <div className="placeholder-line"></div>
-                  Photo to be added (Sports Grounds)
-                </div>
-              </div>
-              <div className="bento-body">
-                <div>
-                  <span className="text-pill mb-2">
-                    Athletics &amp; Games
-                  </span>
-                  <h3 className="bento-title">Sports Club</h3>
-                  <p className="text-sm">
-                    Coordinating track and field tournaments, cricket, volleyball, kabaddi, and athletic conditioning programs.
-                  </p>
-                </div>
-                <div className="pills-group mt-4">
-                  <span className="text-pill">Inter-College Meets</span>
-                  <span className="text-pill">Yoga &amp; Wellness</span>
-                </div>
-              </div>
-            </article>
-
-            {/* 5. Green Club */}
-            <article className="bento-card">
-              <div className="bento-media">
-                <img src="/images/campus-hero.png" alt="Green Campus" loading="lazy" className="w-full h-full object-cover" />
-              </div>
-              <div className="bento-body">
-                <div>
-                  <span className="text-pill mb-2">
-                    Environmental Action
-                  </span>
-                  <h3 className="bento-title">Green Club</h3>
-                  <p className="text-sm">
-                    Dedicated to tree plantation drives, water conservation monitoring, eco-friendly waste separation, and plastic-free campus drives.
-                  </p>
-                </div>
-                <div className="pills-group mt-4">
-                  <span className="text-pill">Eco Preservation</span>
-                  <span className="text-pill">Clean Peraiyur</span>
-                </div>
-              </div>
-            </article>
-
-            {/* 6. Unnat Bharat Abhiyan */}
-            <article className="bento-card">
-              <div className="bento-media">
-                <div className="photo-placeholder">
-                  <div className="placeholder-line"></div>
-                  Photo to be added (Rural Community Outreach)
-                </div>
-              </div>
-              <div className="bento-body">
-                <div>
-                  <span className="text-pill mb-2">
-                    National Flagship Program
-                  </span>
-                  <h3 className="bento-title">Unnat Bharat Abhiyan</h3>
-                  <p className="text-sm">
-                    Connecting higher education institutions with rural villages for socio-economic development and local livelihood enhancement.
-                  </p>
-                </div>
-                <div className="pills-group mt-4">
-                  <span className="text-pill">Village Surveys</span>
-                  <span className="text-pill">Digital Literacy</span>
-                </div>
-              </div>
-            </article>
-
-            {/* 7. Art & Craft Club */}
-            <article className="bento-card">
-              <div className="bento-media">
-                <div className="photo-placeholder">
-                  <div className="placeholder-line"></div>
-                  Photo to be added (Fine Arts &amp; Craft Exhibition)
-                </div>
-              </div>
-              <div className="bento-body">
-                <div>
-                  <span className="text-pill mb-2">
-                    Creative Arts
-                  </span>
-                  <h3 className="bento-title">Art &amp; Craft Club</h3>
-                  <p className="text-sm">
-                    Fostering painting, clay sculpting, origami, traditional Tamil rangoli, and stage decoration crafts.
-                  </p>
-                </div>
-                <div className="pills-group mt-4">
-                  <span className="text-pill">Annual Exhibits</span>
-                  <span className="text-pill">Workshops</span>
-                </div>
-              </div>
-            </article>
-          </div>
         </div>
-      </section>
+
+        {/* Clubs Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {CLUBS.map((club, idx) => {
+            const Icon = club.icon;
+            return (
+              <div 
+                key={idx}
+                className="pure-white-card p-6 sm:p-7 flex flex-col justify-between group"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-100 flex items-center justify-center text-sky-600 group-hover:scale-110 transition-transform">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <span 
+                      className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
+                        club.tagColor === "gold"
+                          ? "bg-amber-50 text-amber-900 border-amber-300"
+                          : club.tagColor === "emerald"
+                          ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                          : club.tagColor === "sky"
+                          ? "bg-sky-50 text-sky-800 border-sky-200"
+                          : "bg-blue-50 text-blue-800 border-blue-200"
+                      }`}
+                    >
+                      {club.badge}
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-sky-700 transition-colors mb-2">
+                    {club.title}
+                  </h3>
+
+                  <p className="text-sm text-slate-600 leading-relaxed mb-6">
+                    {club.description}
+                  </p>
+
+                  <div className="space-y-2 mb-6">
+                    {club.bullets.map((b, i) => (
+                      <div key={i} className="flex items-center gap-2 text-xs font-semibold text-slate-700">
+                        <CheckCircle2 className="w-4 h-4 text-sky-500 shrink-0" />
+                        <span>{b}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-400">Co-Curricular Wing</span>
+                  <Link 
+                    href="/apply"
+                    className="text-xs font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1 group-hover:translate-x-1 transition-transform"
+                  >
+                    <span>Join Club via Admission</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </main>
   );
 }

@@ -203,7 +203,15 @@ export default function Preloader() {
       gsap.to(skipBtn, { opacity: 1, duration: 0.4, delay: 0.5 });
     }
 
+    let finished = false;
+    const safetyTimer = setTimeout(() => {
+      if (!finished) finishPreloader();
+    }, 1500);
+
     function finishPreloader() {
+      if (finished) return;
+      finished = true;
+      clearTimeout(safetyTimer);
       sessionStorage.setItem("kr-preloader-seen", "true");
 
       // Split curtain / circular iris exit
@@ -227,7 +235,7 @@ export default function Preloader() {
         {
           clipPath: "circle(0% at 50% 50%)",
           opacity: 0,
-          duration: 0.75,
+          duration: 0.5,
           ease: "expo.inOut",
         },
         0
@@ -242,6 +250,7 @@ export default function Preloader() {
     skipBtn?.addEventListener("click", handleSkip);
 
     return () => {
+      clearTimeout(safetyTimer);
       tl.kill();
       skipBtn?.removeEventListener("click", handleSkip);
       document.documentElement.classList.remove("kr-preloader-locked");

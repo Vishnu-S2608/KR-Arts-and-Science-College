@@ -10,28 +10,28 @@ import Footer from "@/components/layout/Footer";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-heading",
+  variable: "--font-heading-next",
   weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-body",
+  variable: "--font-body-next",
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
 const notoSansTamil = Noto_Sans_Tamil({
   subsets: ["tamil"],
-  variable: "--font-tamil",
+  variable: "--font-tamil-next",
   weight: ["400", "600", "700"],
   display: "swap",
 });
 
 const sora = Sora({
   subsets: ["latin"],
-  variable: "--font-sora",
+  variable: "--font-sora-next",
   weight: ["400", "600", "700", "800"],
   display: "swap",
 });
@@ -55,7 +55,7 @@ export default function RootLayout({
       lang="en"
       className={`${plusJakarta.variable} ${inter.variable} ${notoSansTamil.variable} ${sora.variable}`}
     >
-      <body>
+      <body className="font-sans antialiased bg-white text-slate-800">
         <SmoothScrollProvider>
           <ScrollProgress />
           <CustomCursor />
