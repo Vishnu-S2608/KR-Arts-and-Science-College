@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Cpu, Library, Building2, Trophy, Check, Sparkles } from "lucide-react";
+import { Cpu, Library, Building2, Trophy, Check } from "lucide-react";
 
 const facilities = [
   {
@@ -9,7 +9,12 @@ const facilities = [
     image: "/images/computer-lab.png",
     description:
       "Modern terminal suites featuring dedicated high-speed optical fiber connectivity, advanced GPU workstations for deep learning models, and Linux/Windows environments.",
-    perks: ["60+ Workstations", "Gigabit Internet", "Python/AI Toolchains", "Uninterrupted Power Backup"],
+    perks: [
+      "60+ Workstations",
+      "Gigabit Internet",
+      "Python/AI Toolchains",
+      "Uninterrupted Power Backup",
+    ],
   },
   {
     title: "Central Digital Library & Research Center",
@@ -18,7 +23,12 @@ const facilities = [
     image: "/images/library.png",
     description:
       "A quiet sanctuary of scholarship housing thousands of academic textbooks, national and international journal subscriptions, digital e-book databases, and collaborative discussion zones.",
-    perks: ["10,000+ Textbooks", "E-Journal Access", "Quiet Study Pods", "National Repositories"],
+    perks: [
+      "10,000+ Textbooks",
+      "E-Journal Access",
+      "Quiet Study Pods",
+      "National Repositories",
+    ],
   },
   {
     title: "Main Campus & Architectural Gateway",
@@ -27,7 +37,12 @@ const facilities = [
     image: "/images/college-entrance.jpg",
     description:
       "A calm green sanctuary in Peraiyur designed to stimulate academic focus. Features spacious smart classrooms, seminar auditoriums, administrative blocks, and green courtyards.",
-    perks: ["Spacious Classrooms", "Smart Projectors", "Lush Greenery", "24/7 Security CCTV"],
+    perks: [
+      "Spacious Classrooms",
+      "Smart Projectors",
+      "Lush Greenery",
+      "24/7 Security CCTV",
+    ],
   },
   {
     title: "Athletics, NSS/NCC & Student Recreation",
@@ -36,24 +51,33 @@ const facilities = [
     image: "/campus-hero.png",
     description:
       "Full-fledged outdoor athletic grounds for cricket, football, volleyball, and track events, coupled with active NCC and NSS wings building leadership and discipline.",
-    perks: ["Standard Athletic Track", "Inter-Collegiate Tournaments", "Active NCC/NSS Units", "Coached Training"],
+    perks: [
+      "Standard Athletic Track",
+      "Inter-Collegiate Tournaments",
+      "Active NCC/NSS Units",
+      "Coached Training",
+    ],
   },
 ];
 
 export default function CampusTour() {
   return (
-    <section className="section-wrapper" id="facilities" style={{ background: "rgba(10, 14, 24, 0.4)" }}>
+    <section
+      className="section-wrapper"
+      id="facilities"
+      style={{ background: "rgba(10, 14, 24, 0.4)" }}
+    >
       <div className="container">
         <div className="section-header">
-          <span className="badge">
-            <Sparkles size={13} />
-            World-Class Infrastructure
-          </span>
+          <span className="badge">World-Class Infrastructure</span>
           <h2>
-            Designed for <span className="gradient-text">Excellence &amp; Innovation</span>
+            Designed for{" "}
+            <span className="gradient-text">Excellence &amp; Innovation</span>
           </h2>
           <p>
-            Experience a modern college campus tailored for immersive learning, practical technology exploration, and holistic extracurricular growth.
+            Experience a modern college campus tailored for immersive learning,
+            practical technology exploration, and holistic extracurricular
+            growth.
           </p>
         </div>
 
@@ -78,8 +102,12 @@ export default function CampusTour() {
               </div>
 
               <div className="p-7">
-                <h3 className="text-xl md:text-2xl font-bold mb-2 text-white">{f.title}</h3>
-                <p className="text-slate-400 text-[0.92rem] leading-relaxed mb-5">{f.description}</p>
+                <h3 className="text-xl md:text-2xl font-bold mb-2 text-white">
+                  {f.title}
+                </h3>
+                <p className="text-slate-400 text-[0.92rem] leading-relaxed mb-5">
+                  {f.description}
+                </p>
 
                 <div className="flex flex-wrap gap-2">
                   {f.perks.map((perk, pIdx) => (

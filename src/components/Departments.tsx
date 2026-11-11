@@ -2,27 +2,38 @@
 
 import { useState } from "react";
 import { DEPARTMENTS_DATA, Department } from "@/data/departments";
-import { BookOpen, Briefcase, ChevronRight, X, Sparkles, CheckCircle2 } from "lucide-react";
+import {
+  BookOpen,
+  Briefcase,
+  ChevronRight,
+  X,
+  CheckCircle2,
+} from "lucide-react";
 
 interface DepartmentsProps {
   onSelectDepartmentForApply?: (deptTitle: string) => void;
 }
 
-export default function Departments({ onSelectDepartmentForApply }: DepartmentsProps) {
+export default function Departments({
+  onSelectDepartmentForApply,
+}: DepartmentsProps) {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [selectedDept, setSelectedDept] = useState<Department | null>(null);
 
   const departmentsList = Object.values(DEPARTMENTS_DATA);
 
-  const filteredDepts = activeCategory === "all"
-    ? departmentsList
-    : departmentsList.filter((dept) => {
-        if (activeCategory === "computing") return dept.category === "computing";
-        if (activeCategory === "commerce") return dept.category === "commerce";
-        if (activeCategory === "science") return dept.category === "science";
-        if (activeCategory === "arts") return dept.category === "arts";
-        return true;
-      });
+  const filteredDepts =
+    activeCategory === "all"
+      ? departmentsList
+      : departmentsList.filter((dept) => {
+          if (activeCategory === "computing")
+            return dept.category === "computing";
+          if (activeCategory === "commerce")
+            return dept.category === "commerce";
+          if (activeCategory === "science") return dept.category === "science";
+          if (activeCategory === "arts") return dept.category === "arts";
+          return true;
+        });
 
   const handleApplyClick = (deptTitle: string) => {
     if (onSelectDepartmentForApply) {
@@ -38,15 +49,15 @@ export default function Departments({ onSelectDepartmentForApply }: DepartmentsP
     <section className="section-wrapper" id="programmes">
       <div className="container">
         <div className="section-header">
-          <span className="badge">
-            <Sparkles size={13} />
-            Academic Offerings
-          </span>
+          <span className="badge">Academic Offerings</span>
           <h2>
-            Explore Our <span className="gradient-text">11 Undergraduate</span> Programmes
+            Explore Our <span className="gradient-text">11 Undergraduate</span>{" "}
+            Programmes
           </h2>
           <p>
-            Curriculums meticulously structured under Madurai Kamaraj University regulations with specialized industry certifications and practical laboratory training.
+            Curriculums meticulously structured under Madurai Kamaraj University
+            regulations with specialized industry certifications and practical
+            laboratory training.
           </p>
         </div>
 
@@ -85,11 +96,17 @@ export default function Departments({ onSelectDepartmentForApply }: DepartmentsP
                   <span className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-indigo-500/15 text-indigo-300">
                     {dept.degree}
                   </span>
-                  <span className="text-xs text-slate-400 font-medium">{dept.duration}</span>
+                  <span className="text-xs text-slate-400 font-medium">
+                    {dept.duration}
+                  </span>
                 </div>
-                <h3 className="text-xl font-bold mb-1.5 text-white">{dept.title}</h3>
+                <h3 className="text-xl font-bold mb-1.5 text-white">
+                  {dept.title}
+                </h3>
                 <p className="text-sm text-slate-400 mb-3.5">{dept.deptName}</p>
-                <p className="text-sm text-slate-300 leading-relaxed mb-5 line-clamp-3">{dept.overview}</p>
+                <p className="text-sm text-slate-300 leading-relaxed mb-5 line-clamp-3">
+                  {dept.overview}
+                </p>
 
                 {/* Key Curriculum Pills */}
                 <div className="flex flex-wrap gap-1.5 mb-6">
@@ -136,8 +153,14 @@ export default function Departments({ onSelectDepartmentForApply }: DepartmentsP
 
       {/* Syllabus Modal */}
       {selectedDept && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-6" onClick={() => setSelectedDept(null)}>
-          <div className="bg-[#0c101d] border border-slate-700 rounded-[24px] max-w-[680px] w-full max-h-[85vh] overflow-y-auto p-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.7)]" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-6"
+          onClick={() => setSelectedDept(null)}
+        >
+          <div
+            className="bg-[#0c101d] border border-slate-700 rounded-[24px] max-w-[680px] w-full max-h-[85vh] overflow-y-auto p-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.7)]"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               className="absolute top-5 right-5 bg-white/[0.08] hover:bg-white/[0.18] text-white w-9 h-9 rounded-full flex items-center justify-center transition-colors cursor-pointer"
               onClick={() => setSelectedDept(null)}
@@ -152,32 +175,88 @@ export default function Departments({ onSelectDepartmentForApply }: DepartmentsP
             <h2 style={{ fontSize: "1.75rem", marginBottom: "0.5rem" }}>
               {selectedDept.title}
             </h2>
-            <p style={{ color: "var(--text-secondary)", marginBottom: "1.5rem", fontSize: "0.95rem" }}>
+            <p
+              style={{
+                color: "var(--text-secondary)",
+                marginBottom: "1.5rem",
+                fontSize: "0.95rem",
+              }}
+            >
               {selectedDept.deptName} | {selectedDept.affiliation}
             </p>
 
-            <p style={{ lineHeight: "1.6", color: "var(--text-primary)", marginBottom: "2rem" }}>
+            <p
+              style={{
+                lineHeight: "1.6",
+                color: "var(--text-primary)",
+                marginBottom: "2rem",
+              }}
+            >
               {selectedDept.overview}
             </p>
 
-            <h4 style={{ fontSize: "1.1rem", marginBottom: "0.75rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <h4
+              style={{
+                fontSize: "1.1rem",
+                marginBottom: "0.75rem",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+              }}
+            >
               <BookOpen size={17} color="#818cf8" />
               Core Curriculum Modules
             </h4>
-            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.6rem", marginBottom: "2rem" }}>
+            <ul
+              style={{
+                listStyle: "none",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.6rem",
+                marginBottom: "2rem",
+              }}
+            >
               {selectedDept.curriculum.map((item, idx) => (
-                <li key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem", fontSize: "0.92rem", color: "var(--text-secondary)" }}>
-                  <CheckCircle2 size={16} color="#10b981" style={{ flexShrink: 0, marginTop: "2px" }} />
+                <li
+                  key={idx}
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "0.6rem",
+                    fontSize: "0.92rem",
+                    color: "var(--text-secondary)",
+                  }}
+                >
+                  <CheckCircle2
+                    size={16}
+                    color="#10b981"
+                    style={{ flexShrink: 0, marginTop: "2px" }}
+                  />
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
 
-            <h4 style={{ fontSize: "1.1rem", marginBottom: "0.75rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <h4
+              style={{
+                fontSize: "1.1rem",
+                marginBottom: "0.75rem",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+              }}
+            >
               <Briefcase size={17} color="#06b6d4" />
               Career Outcomes &amp; Pathways
             </h4>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "2rem" }}>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "0.5rem",
+                marginBottom: "2rem",
+              }}
+            >
               {selectedDept.careers.map((career, idx) => (
                 <span
                   key={idx}
@@ -195,7 +274,13 @@ export default function Departments({ onSelectDepartmentForApply }: DepartmentsP
               ))}
             </div>
 
-            <div style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                gap: "1rem",
+              }}
+            >
               <button
                 type="button"
                 className="btn btn-secondary"

@@ -17,7 +17,9 @@ export default function CollegeHome() {
       <SmoothScroll />
       <Navbar />
       <Hero />
-      <Departments onSelectDepartmentForApply={(prog) => setSelectedProgramme(prog)} />
+      <Departments
+        onSelectDepartmentForApply={(prog) => setSelectedProgramme(prog)}
+      />
       <CampusTour />
       <AdmissionForm preselectedProgramme={selectedProgramme} />
       <Footer />

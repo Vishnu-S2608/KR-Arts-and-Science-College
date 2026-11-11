@@ -3,7 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { GraduationCap, Phone, MapPin, Menu, X, ArrowRight } from "lucide-react";
+import {
+  GraduationCap,
+  Phone,
+  MapPin,
+  Menu,
+  X,
+  ArrowRight,
+} from "lucide-react";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -43,31 +50,54 @@ export default function Navbar() {
               priority
             />
             <div className="flex flex-col">
-              <span className="text-lg font-extrabold text-white leading-tight tracking-tight">KR Arts &amp; Science</span>
-              <span className="text-[0.72rem] text-slate-400 uppercase tracking-wider font-medium">College &bull; Peraiyur</span>
+              <span className="text-lg font-extrabold text-white leading-tight tracking-tight">
+                KR Arts &amp; Science
+              </span>
+              <span className="text-[0.72rem] text-slate-400 uppercase tracking-wider font-medium">
+                College &bull; Peraiyur
+              </span>
             </div>
           </Link>
 
           <nav className="hidden md:flex items-center gap-7">
-            <Link href="#programmes" className="text-slate-300 text-[0.92rem] font-medium transition-colors hover:text-white">
+            <Link
+              href="#programmes"
+              className="text-slate-300 text-[0.92rem] font-medium transition-colors hover:text-white"
+            >
               Programmes
             </Link>
-            <Link href="#facilities" className="text-slate-300 text-[0.92rem] font-medium transition-colors hover:text-white">
+            <Link
+              href="#facilities"
+              className="text-slate-300 text-[0.92rem] font-medium transition-colors hover:text-white"
+            >
               Campus &amp; Facilities
             </Link>
-            <Link href="#why-kr" className="text-slate-300 text-[0.92rem] font-medium transition-colors hover:text-white">
+            <Link
+              href="#why-kr"
+              className="text-slate-300 text-[0.92rem] font-medium transition-colors hover:text-white"
+            >
               Why KR College
             </Link>
-            <Link href="#admissions" className="text-slate-300 text-[0.92rem] font-medium transition-colors hover:text-white">
+            <Link
+              href="#admissions"
+              className="text-slate-300 text-[0.92rem] font-medium transition-colors hover:text-white"
+            >
               Admissions 2026
             </Link>
-            <Link href="#contact" className="text-slate-300 text-[0.92rem] font-medium transition-colors hover:text-white">
+            <Link
+              href="#contact"
+              className="text-slate-300 text-[0.92rem] font-medium transition-colors hover:text-white"
+            >
               Contact
             </Link>
           </nav>
 
           <div className="flex items-center gap-4">
-            <a href="#admissions" className="btn btn-primary" style={{ padding: "0.55rem 1.2rem", fontSize: "0.88rem" }}>
+            <a
+              href="#admissions"
+              className="btn btn-primary"
+              style={{ padding: "0.55rem 1.2rem", fontSize: "0.88rem" }}
+            >
               Apply Now
               <ArrowRight size={15} />
             </a>

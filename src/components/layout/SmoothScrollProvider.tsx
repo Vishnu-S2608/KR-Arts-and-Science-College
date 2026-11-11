@@ -5,11 +5,17 @@ import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
+export default function SmoothScrollProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReducedMotion) return;
 
     const lenis = new Lenis({
@@ -33,7 +39,30 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
     // Attach to window for global access
     (window as unknown as { __lenis: Lenis }).__lenis = lenis;
 
+    // Handle hash scrolling on page load or navigation
+    const handleHash = () => {
+      if (typeof window !== "undefined" && window.location.hash) {
+        try {
+          const target = document.querySelector(window.location.hash);
+          if (target) {
+            setTimeout(() => {
+              lenis.scrollTo(target as HTMLElement, {
+                offset: -70,
+                duration: 1.0,
+              });
+            }, 100);
+          }
+        } catch {
+          // ignore invalid selectors
+        }
+      }
+    };
+
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+
     return () => {
+      window.removeEventListener("hashchange", handleHash);
       gsap.ticker.remove(tickerCallback);
       lenis.destroy();
       (window as unknown as { __lenis: undefined }).__lenis = undefined;

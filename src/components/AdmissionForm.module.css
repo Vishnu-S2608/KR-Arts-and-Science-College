@@ -1,5 +1,9 @@
 .wrapper {
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.7) 0%, rgba(7, 9, 14, 0.95) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.7) 0%,
+    rgba(7, 9, 14, 0.95) 100%
+  );
   border: 1px solid var(--border-bright);
   border-radius: var(--radius-lg);
   padding: 3rem;

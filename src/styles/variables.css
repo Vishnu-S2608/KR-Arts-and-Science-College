@@ -1,67 +1,74 @@
 /* ==========================================================================
-   KR Arts And Science College - Pure White, Light Blue & Golden Yellow Design Tokens
+   KR Arts And Science College - Royal Blue & Warm Cream Design Tokens
    ========================================================================== */
 
 :root {
-  /* 1. Pure Premium White */
-  --bg:         #FFFFFF;  /* pure premium white page background */
-  --bg-alt:     #F8FAFC;  /* crisp soft off-white for alternating sections */
-  --card:       #FFFFFF;  /* pure white cards & panels */
+  /* 1. Pure Premium White & Ivory */
+  --bg: #ffffff; /* pure premium white page background */
+  --bg-alt: #fafbfd; /* crisp soft off-white for alternating sections */
+  --card: #ffffff; /* pure white cards & panels */
   --card-glass: rgba(255, 255, 255, 0.95);
-  --line:       #E2E8F0;  /* clean crisp border */
-  --line-light: #F1F5F9;
-  --white:      #FFFFFF;
+  --line: #e2e8f0; /* clean crisp border */
+  --line-light: #f1f5f9;
+  --white: #ffffff;
 
-  /* 2. Light Blue / Vibrant Sky Blue */
-  --blue-50:   #F0F9FF;
-  --blue-100:  #E0F2FE;  /* soft sky fill & chips */
-  --blue-200:  #BAE6FD;
-  --blue-300:  #7DD3FC;
-  --blue-400:  #38BDF8;
-  --blue-500:  #0EA5E9;  /* vibrant sky blue */
-  --blue-600:  #0284C7;  /* primary brand sky blue */
-  --blue-700:  #0369A1;  /* deep ocean hover */
-  --navy-900:  #0F172A;  /* rich midnight slate for headings */
-  --navy-800:  #1E293B;  /* secondary dark */
-  --text:      #334155;  /* slate-700 crisp body text */
-  --text-muted:#64748B;  /* slate-500 */
+  /* 2. Royal Blue (Primary Brand Identity) */
+  --primary: #0334a0; /* rgb(3, 52, 160) - Official College Royal Blue */
+  --primary-light: #1a4fbf;
+  --primary-dark: #022878;
+  --blue-50: #ebf0fa;
+  --blue-100: #d6e0f5; /* soft royal fill & chips */
+  --blue-200: #a8bfea;
+  --blue-300: #7a9edf;
+  --blue-400: #3d6dc5;
+  --blue-500: #0334a0; /* vibrant royal blue */
+  --blue-600: #022b85; /* primary brand royal blue */
+  --blue-700: #02236b; /* deep navy royal hover */
+  --navy-900: #011236; /* deep midnight royal for headings */
+  --navy-800: #011a50; /* secondary dark */
+  --text: #1e293b; /* slate-800 crisp body text */
+  --text-muted: #475569; /* slate-600 */
 
-  /* 3. Golden Yellow Prestige */
-  --gold-50:   #FEFCE8;
-  --gold-100:  #FEF9C3;
-  --gold-200:  #FEF08A;
-  --gold-300:  #FDE047;
-  --gold-400:  #FACC15;
-  --gold-500:  #EAB308;  /* rich college prestige gold */
-  --gold-600:  #CA8A04;  /* deep golden amber */
-  --gold-700:  #A16207;
-  --gold-gradient: linear-gradient(135deg, #FACC15 0%, #EAB308 50%, #D97706 100%);
-  --blue-gradient: linear-gradient(135deg, #0284C7 0%, #0EA5E9 50%, #38BDF8 100%);
+  /* 3. Warm Ivory & Cream (Secondary Accent) */
+  --cream: #fbf2d4; /* rgb(251, 242, 212) - Warm Ivory / Soft Cream */
+  --cream-light: #fdf8e8;
+  --cream-dark: #f5e6b8;
+  --gold-50: #fefcf3;
+  --gold-100: #fdf8e8;
+  --gold-200: #fbf2d4;
+  --gold-300: #f5e6b8;
+  --gold-400: #c59b27; /* refined antique gold accent */
+  --gold-500: #a67c1a;
+  --gold-600: #8b6914;
+  --gold-700: #6e510d;
+  /* Solid colors - No gradient texture */
+  --gold-gradient: #0334a0;
+  --blue-gradient: #0334a0;
 
   /* Semantic aliases */
-  --blue-900:  var(--navy-900);
-  --gray-50:   #F8FAFC;
-  --gray-100:  #F1F5F9;
-  --gray-200:  #E2E8F0;
-  --gray-300:  #CBD5E1;
-  --gray-600:  var(--text);
+  --blue-900: var(--navy-900);
+  --gray-50: #fafbfd;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-600: var(--text);
 
   /* Typography */
-  --font-heading: 'Plus Jakarta Sans', 'Sora', system-ui, -apple-system, sans-serif;
-  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
-  --font-tamil:   'Noto Sans Tamil', 'Inter', system-ui, sans-serif;
+  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-tamil: "Noto Sans Tamil", "Inter", system-ui, sans-serif;
 
   /* Elevation & Shadows */
-  --shadow-sm:    0 2px 8px rgba(15, 23, 42, 0.04);
-  --shadow-md:    0 12px 30px -4px rgba(2, 132, 199, 0.08);
-  --shadow-lg:    0 20px 40px -8px rgba(15, 23, 42, 0.1);
-  --shadow-gold:  0 10px 25px -4px rgba(234, 179, 8, 0.35);
-  --shadow-blue:  0 10px 25px -4px rgba(2, 132, 199, 0.35);
-  --shadow-hover: 0 24px 50px -8px rgba(2, 132, 199, 0.15);
+  --shadow-sm: 0 2px 8px rgba(3, 52, 160, 0.04);
+  --shadow-md: 0 12px 30px -4px rgba(3, 52, 160, 0.08);
+  --shadow-lg: 0 20px 40px -8px rgba(3, 52, 160, 0.12);
+  --shadow-gold: 0 8px 20px -4px rgba(3, 52, 160, 0.25);
+  --shadow-blue: 0 8px 20px -4px rgba(3, 52, 160, 0.25);
+  --shadow-hover: 0 20px 40px -8px rgba(3, 52, 160, 0.2);
 
   /* Animation Easing */
   --ease-entrance: cubic-bezier(0.215, 0.61, 0.355, 1);
-  --ease-expo:     cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-expo: cubic-bezier(0.87, 0, 0.13, 1);
   --transition-fast: 0.25s var(--ease-entrance);
   --transition-normal: 0.4s var(--ease-entrance);
   --transition-slow: 0.7s var(--ease-expo);

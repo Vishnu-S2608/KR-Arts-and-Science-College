@@ -3,108 +3,108 @@
     "id": "kasi-raja",
     "name": "Kasi Raja",
     "offers": 8,
-    "photo": "/images/placements/kasi-raja.webp"
+    "photo": "/images/students_v3/kasi.png"
   },
   {
     "id": "manjula-devi",
     "name": "Manjula Devi",
     "offers": 7,
-    "photo": "/images/placements/manjula-devi.webp"
+    "photo": "/images/students_v3/majula.png"
   },
   {
     "id": "pandisowndharya",
     "name": "Pandisowndharya",
     "offers": 7,
-    "photo": "/images/placements/pandisowndharya.webp"
+    "photo": "/images/students_v3/pansisowdhrya.png"
   },
   {
     "id": "muthulakshmi",
     "name": "Muthulakshmi",
     "offers": 6,
-    "photo": "/images/placements/muthulakshmi.webp"
+    "photo": "/images/students_v3/muthulakshmi.png"
   },
   {
     "id": "dharmavathi",
     "name": "Dharmavathi",
     "offers": 5,
-    "photo": "/images/placements/dharmavathi.webp"
+    "photo": "/images/students_v3/dharmavathi.png"
   },
   {
     "id": "mareeswaran",
     "name": "Mareeswaran",
     "offers": 5,
-    "photo": "/images/placements/mareeswaran.webp"
+    "photo": "/images/students_v3/mareeswaran.png"
   },
   {
     "id": "vel",
     "name": "Vel",
     "offers": 5,
-    "photo": "/images/placements/vel.webp"
+    "photo": "/images/students_v3/vel.png"
   },
   {
     "id": "yoga-lakshmi",
     "name": "Yoga Lakshmi",
     "offers": 5,
-    "photo": "/images/placements/yoga-lakshmi.webp"
+    "photo": "/images/students_v3/yogalakshmi.png"
   },
   {
     "id": "dhanalakshmi",
     "name": "Dhanalakshmi",
     "offers": 4,
-    "photo": "/images/placements/dhanalakshmi.webp"
+    "photo": "/images/students_v3/dhanalakshmi.png"
   },
   {
     "id": "machendran",
     "name": "Machendran",
     "offers": 3,
-    "photo": "/images/placements/machendran.webp"
+    "photo": "/images/students_v3/machandren.png"
   },
   {
     "id": "madhupreetha",
     "name": "MadhuPreetha",
     "offers": 3,
-    "photo": "/images/placements/madhupreetha.webp"
+    "photo": "/images/students_v3/madhu.png"
   },
   {
     "id": "madhumitha",
     "name": "Madhumitha",
     "offers": 3,
-    "photo": "/images/placements/madhumitha.webp"
+    "photo": "/images/students_v3/madhumitha.png"
   },
   {
     "id": "thatchayani",
     "name": "Thatchayani",
     "offers": 3,
-    "photo": "/images/placements/thatchayani.webp"
+    "photo": "/images/students_v3/thatchayani.png"
   },
   {
     "id": "deepa",
     "name": "Deepa",
     "offers": 2,
-    "photo": "/images/placements/deepa.webp"
+    "photo": "/images/students_v3/deepa.png"
   },
   {
     "id": "gopika",
     "name": "Gopika",
     "offers": 2,
-    "photo": "/images/placements/gopika.webp"
+    "photo": "/images/students_v3/gopika.png"
   },
   {
     "id": "kaleeswari",
     "name": "Kaleeswari",
     "offers": 2,
-    "photo": "/images/placements/kaleeswari.webp"
+    "photo": "/images/students_v3/kaleeeswari.png"
   },
   {
     "id": "priyanka",
     "name": "Priyanka",
     "offers": 1,
-    "photo": "/images/placements/priyanka.webp"
+    "photo": "/images/students_v3/priyanka.png"
   },
   {
     "id": "tharadevi",
     "name": "Tharadevi",
     "offers": 1,
-    "photo": "/images/placements/tharadevi.webp"
+    "photo": "/images/students_v3/tharadevi.png"
   }
 ]

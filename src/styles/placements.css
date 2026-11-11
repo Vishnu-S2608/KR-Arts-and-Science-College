@@ -7,8 +7,8 @@
 /* 1. Section & Container */
 .placements-section {
   position: relative;
-  background-color: var(--bg, #FFFFFF);
-  color: var(--text, #44516A);
+  background-color: var(--bg, #ffffff);
+  color: var(--text, #44516a);
   width: 100%;
   overflow-x: clip; /* Never cause horizontal page scroll */
 }
@@ -47,7 +47,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--blue-700, #1F4FCC);
+  color: var(--blue-700, #1f4fcc);
 }
 
 /* Heading: "100% Placement Achievement" clamp(32px, 4vw, 60px), weight 700, navy-900 */
@@ -57,7 +57,7 @@
   font-weight: 700;
   line-height: 1.08;
   letter-spacing: -0.03em;
-  color: var(--navy-900, #0B1B3F);
+  color: var(--navy-900, #0b1b3f);
   margin: 0;
 }
 
@@ -82,14 +82,14 @@
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.03em;
-  color: var(--navy-900, #0B1B3F);
+  color: var(--navy-900, #0b1b3f);
 }
 
 /* Labels: 14px, text color */
 .placements-stat-label {
   font-size: 14px;
   font-weight: 400;
-  color: var(--text, #44516A);
+  color: var(--text, #44516a);
   line-height: 1.2;
 }
 
@@ -97,7 +97,7 @@
 .placements-stat-divider {
   width: 1px;
   height: 48px;
-  background-color: var(--line, #C5D1E4);
+  background-color: var(--line, #c5d1e4);
   align-self: flex-end;
   margin-bottom: 6px;
 }
@@ -115,8 +115,20 @@
   flex-direction: column;
   gap: 24px;
   padding: 8px 0;
-  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
   will-change: transform, opacity;
 }
 
@@ -145,7 +157,7 @@
 }
 
 .student-item:focus-visible {
-  outline: 2px solid var(--blue-500, #2F6BFF);
+  outline: 2px solid var(--blue-500, #2f6bff);
   outline-offset: 4px;
   border-radius: 12px;
 }
@@ -157,7 +169,7 @@
   aspect-ratio: 4 / 5;
   border-radius: 12px;
   overflow: hidden;
-  background-color: var(--blue-100, #D3E1F6);
+  background-color: var(--blue-100, #d3e1f6);
   margin-bottom: 12px;
   transition: box-shadow 0.4s ease;
 }
@@ -181,8 +193,8 @@
   font-family: var(--font-heading);
   font-size: 28px;
   font-weight: 700;
-  color: var(--navy-900, #0B1B3F);
-  background-color: var(--blue-100, #D3E1F6);
+  color: var(--navy-900, #0b1b3f);
+  background-color: var(--blue-100, #d3e1f6);
   user-select: none;
   letter-spacing: -0.02em;
 }
@@ -192,7 +204,7 @@
   font-family: var(--font-heading);
   font-size: 18px;
   font-weight: 600;
-  color: var(--navy-900, #0B1B3F);
+  color: var(--navy-900, #0b1b3f);
   line-height: 1.25;
   margin: 0 0 4px 0;
   transition: color 0.3s ease;
@@ -205,7 +217,7 @@
 .student-offers {
   font-size: 14px;
   font-weight: 400;
-  color: var(--text, #44516A);
+  color: var(--text, #44516a);
   margin: 0;
   line-height: 1.2;
 }
@@ -221,7 +233,7 @@
   }
 
   .student-item:hover .student-name {
-    color: var(--blue-500, #2F6BFF);
+    color: var(--blue-500, #2f6bff);
   }
 }
 
@@ -245,7 +257,7 @@
   font-family: var(--font-heading);
   font-size: 14px;
   font-weight: 600;
-  color: var(--blue-500, #2F6BFF);
+  color: var(--blue-500, #2f6bff);
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -254,11 +266,11 @@
 }
 
 .marquee-toggle-btn:hover {
-  color: var(--blue-700, #1F4FCC);
+  color: var(--blue-700, #1f4fcc);
 }
 
 .marquee-toggle-btn:focus-visible {
-  outline: 2px solid var(--blue-500, #2F6BFF);
+  outline: 2px solid var(--blue-500, #2f6bff);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -273,7 +285,7 @@
 .placements-recruiters-divider {
   width: 100%;
   height: 1px;
-  background-color: var(--line, #C5D1E4);
+  background-color: var(--line, #c5d1e4);
   margin-bottom: 32px;
 }
 
@@ -293,7 +305,7 @@
 .recruiter-name {
   font-size: 20px;
   font-weight: 500;
-  color: var(--navy-900, #0B1B3F);
+  color: var(--navy-900, #0b1b3f);
   letter-spacing: -0.01em;
   white-space: nowrap;
 }
@@ -301,7 +313,7 @@
 .recruiter-sep {
   width: 1px;
   height: 18px;
-  background-color: var(--line, #C5D1E4);
+  background-color: var(--line, #c5d1e4);
   flex-shrink: 0;
 }
 
@@ -319,7 +331,7 @@
   position: relative;
   font-size: 16px;
   font-weight: 600;
-  color: var(--blue-500, #2F6BFF);
+  color: var(--blue-500, #2f6bff);
   text-decoration: none;
   min-height: 44px;
   justify-content: center;
@@ -327,7 +339,7 @@
 }
 
 .placements-apply-link:focus-visible {
-  outline: 2px solid var(--blue-500, #2F6BFF);
+  outline: 2px solid var(--blue-500, #2f6bff);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -338,7 +350,7 @@
   left: 0;
   width: 100%;
   height: 1.5px;
-  background-color: var(--blue-500, #2F6BFF);
+  background-color: var(--blue-500, #2f6bff);
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -434,8 +446,20 @@
   /* Running rows mobile */
   .placements-marquee-viewport {
     gap: 16px;
-    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
   }
 
   .student-item {
@@ -473,7 +497,7 @@
   .recruiter-name {
     font-size: 18px;
     padding: 14px 0;
-    border-bottom: 1px solid var(--line, #C5D1E4);
+    border-bottom: 1px solid var(--line, #c5d1e4);
     white-space: normal;
   }
 

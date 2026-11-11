@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowRight, BookOpen, Award, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowRight, BookOpen, Award, CheckCircle2 } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -17,11 +17,15 @@ export default function Hero() {
 
             <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.15] tracking-tight">
               Empowering Minds, <br />
-              <span className="gradient-text">Shaping Tomorrow</span> at KR College
+              <span className="gradient-text">Shaping Tomorrow</span> at KR
+              College
             </h1>
 
             <p className="text-lg text-slate-300 leading-relaxed max-w-[580px]">
-              Affiliated to Madurai Kamaraj University, KR Arts and Science College in Peraiyur provides top-tier academic training across Artificial Intelligence, Computer Science, Commerce, Aviation, and Liberal Arts.
+              Affiliated to Madurai Kamaraj University, KR Arts and Science
+              College in Peraiyur provides top-tier academic training across
+              Artificial Intelligence, Computer Science, Commerce, Aviation, and
+              Liberal Arts.
             </p>
 
             <div className="flex flex-wrap gap-4 mt-2">
@@ -38,20 +42,36 @@ export default function Hero() {
             {/* Quick Stats Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 mt-8 pt-8 border-t border-slate-800">
               <div className="flex flex-col">
-                <span className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">11+</span>
-                <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">UG Programmes</span>
+                <span className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
+                  11+
+                </span>
+                <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">
+                  UG Programmes
+                </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">100%</span>
-                <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">Placement Support</span>
+                <span className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
+                  100%
+                </span>
+                <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">
+                  Placement Support
+                </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">GPU</span>
-                <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">AI &amp; CS Labs</span>
+                <span className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
+                  GPU
+                </span>
+                <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">
+                  AI &amp; CS Labs
+                </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">MKU</span>
-                <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">Affiliated Univ.</span>
+                <span className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
+                  MKU
+                </span>
+                <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">
+                  Affiliated Univ.
+                </span>
               </div>
             </div>
           </div>
@@ -69,10 +89,11 @@ export default function Hero() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#07090e]/95 via-transparent to-transparent flex flex-col justify-end p-7">
                 <span className="inline-flex items-center gap-1.5 bg-indigo-600/85 text-white px-3 py-1 rounded-full text-xs font-semibold w-fit mb-2">
-                  <Sparkles size={13} />
                   State-of-the-Art Campus
                 </span>
-                <h3 className="text-xl font-bold text-white">Peraiyur Main Campus, Madurai</h3>
+                <h3 className="text-xl font-bold text-white">
+                  Peraiyur Main Campus, Madurai
+                </h3>
               </div>
             </div>
 
@@ -82,7 +103,13 @@ export default function Hero() {
                 <Award size={22} />
               </div>
               <div>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.4rem",
+                  }}
+                >
                   <strong style={{ fontSize: "0.92rem", color: "#f8fafc" }}>
                     MKU Affiliated
                   </strong>

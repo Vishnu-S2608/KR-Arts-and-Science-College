@@ -1,34 +1,63 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
-import { Sparkles, ArrowRight } from "lucide-react";
 import gsap from "gsap";
 
-const CLUBS_LIST = [
-  { name: "National Cadet Corps (NCC)", badge: "Military Drill & Honor" },
-  { name: "KR Leaders Club", badge: "New for 2026" },
-  { name: "Training & Placement Cell", badge: "100% Placement Record" },
-  { name: "Sports & Athletics Club", badge: "Championship Ground" },
-  { name: "Green Club Eco Preservation", badge: "Clean Campus" },
-  { name: "Unnat Bharat Abhiyan", badge: "Rural Village Outreach" },
-  { name: "Art, Craft & Literary Society", badge: "Creative Expression" },
+const CLUBS_ROW_1 = [
+  "NATIONAL CADET CORPS (NCC)",
+  "KR LEADERS CLUB",
+  "TRAINING & PLACEMENT CELL",
+  "SPORTS & ATHLETICS CLUB",
+  "GREEN CLUB ECO PRESERVATION",
+  "UNNAT BHARAT ABHIYAN",
+  "ART, CRAFT & LITERARY SOCIETY",
+];
+
+const CLUBS_ROW_2 = [
+  "NATIONAL SERVICE SCHEME (NSS)",
+  "YOUTH RED CROSS (YRC)",
+  "RED RIBBON CLUB",
+  "WOMEN EMPOWERMENT CELL",
+  "INNOVATION & CODING HUB",
+  "FINE ARTS & CULTURAL CLUB",
+  "CITIZEN CONSUMER CLUB",
+  "CAREER GUIDANCE FORUM",
 ];
 
 export default function ClubsMarquee() {
-  const trackRef = useRef<HTMLDivElement>(null);
+  const marqueeA = useRef<HTMLDivElement>(null);
+  const marqueeB = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
+    let xA = 0;
+    let xB = 0;
+    const speed = 0.85;
 
-    let currentX = 0;
+    // Initialize marqueeB offset so it flows seamlessly from left to right
+    if (marqueeB.current) {
+      xB = -marqueeB.current.scrollWidth / 2;
+    }
+
     const ticker = () => {
-      currentX -= 0.75;
-      if (Math.abs(currentX) >= track.scrollWidth / 2) {
-        currentX = 0;
+      // Row 1: Right to Left motion (Soft Tone)
+      if (marqueeA.current) {
+        xA -= speed;
+        const halfWidthA = marqueeA.current.scrollWidth / 2;
+        if (Math.abs(xA) >= halfWidthA) {
+          xA = 0;
+        }
+        marqueeA.current.style.transform = `translateX(${xA}px)`;
       }
-      track.style.transform = `translateX(${currentX}px)`;
+
+      // Row 2: Left to Right motion (Solid Deep Navy)
+      if (marqueeB.current) {
+        xB += speed;
+        const halfWidthB = marqueeB.current.scrollWidth / 2;
+        if (xB >= 0) {
+          xB = -halfWidthB;
+        }
+        marqueeB.current.style.transform = `translateX(${xB}px)`;
+      }
     };
 
     gsap.ticker.add(ticker);
@@ -36,18 +65,46 @@ export default function ClubsMarquee() {
   }, []);
 
   return (
-    <section className="py-6 bg-gradient-to-r from-sky-50 via-white to-sky-50 border-y border-sky-100 overflow-hidden relative" aria-label="Student Clubs and Societies">
-      <div className="flex items-center">
-        <div ref={trackRef} className="flex gap-6 whitespace-nowrap will-change-transform">
-          {[...CLUBS_LIST, ...CLUBS_LIST].map((club, idx) => (
-            <div key={idx} className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white border border-sky-200/80 shadow-sm text-xs sm:text-sm font-bold text-slate-800">
-              <span className="w-2 h-2 rounded-full bg-amber-400"></span>
-              <span>{club.name}</span>
-              <span className="text-[10px] font-semibold text-sky-700 bg-sky-100/70 px-2 py-0.5 rounded-full">
-                {club.badge}
-              </span>
-            </div>
-          ))}
+    <section
+      id="clubs"
+      className="py-4 sm:py-5 bg-gradient-to-r from-[#FBF2D4]/25 via-white to-[#FBF2D4]/25 border-y border-[#0334A0]/10 overflow-hidden relative select-none w-full"
+      aria-label="Student Clubs and Societies"
+    >
+      <div className="flex flex-col gap-3 sm:gap-4 relative z-10">
+        {/* Row 1: Soft-Tone Text — Right to Left motion */}
+        <div className="overflow-hidden whitespace-nowrap flex">
+          <div ref={marqueeA} className="flex shrink-0 will-change-transform">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="flex items-center shrink-0">
+                {CLUBS_ROW_1.map((item, idx) => (
+                  <span key={idx} className="flex items-center">
+                    <span className="font-marquee text-2xl sm:text-3xl lg:text-4xl uppercase text-[#0334A0]/30 tracking-wide">
+                      {item}
+                    </span>
+                    <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400 shrink-0 mx-5 sm:mx-7" />
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Row 2: Deep Midnight Navy Solid Text — Left to Right motion */}
+        <div className="overflow-hidden whitespace-nowrap flex">
+          <div ref={marqueeB} className="flex shrink-0 will-change-transform">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="flex items-center shrink-0">
+                {CLUBS_ROW_2.map((item, idx) => (
+                  <span key={idx} className="flex items-center">
+                    <span className="font-marquee text-2xl sm:text-3xl lg:text-4xl uppercase text-[#021B4E] tracking-wide">
+                      {item}
+                    </span>
+                    <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400 shrink-0 mx-5 sm:mx-7" />
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

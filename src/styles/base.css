@@ -2,8 +2,9 @@
    Base Styles, Typography & Core Utilities
    ========================================================================== */
 
-
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -29,7 +30,12 @@ body {
 }
 
 /* Headings */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   color: var(--navy-900);
   font-weight: 700;
@@ -37,10 +43,22 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.02em;
 }
 
-h1 { font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 800; }
-h2 { font-size: clamp(1.85rem, 3.8vw, 3rem); font-weight: 700; }
-h3 { font-size: clamp(1.35rem, 2.5vw, 1.85rem); font-weight: 700; }
-h4 { font-size: 1.25rem; font-weight: 600; }
+h1 {
+  font-size: clamp(2.4rem, 5vw, 4.25rem);
+  font-weight: 800;
+}
+h2 {
+  font-size: clamp(1.85rem, 3.8vw, 3rem);
+  font-weight: 700;
+}
+h3 {
+  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+  font-weight: 700;
+}
+h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
 
 p {
   color: var(--text);
@@ -112,11 +130,12 @@ img {
   background-color: transparent;
   pointer-events: none;
   mix-blend-mode: normal;
-  transition: width 0.25s var(--ease-entrance),
-              height 0.25s var(--ease-entrance),
-              border-color 0.25s var(--ease-entrance),
-              background-color 0.25s var(--ease-entrance),
-              opacity 0.3s ease;
+  transition:
+    width 0.25s var(--ease-entrance),
+    height 0.25s var(--ease-entrance),
+    border-color 0.25s var(--ease-entrance),
+    background-color 0.25s var(--ease-entrance),
+    opacity 0.3s ease;
 }
 
 .cursor-hover .custom-cursor-ring {

@@ -11,38 +11,50 @@ export default function Preloader() {
     const preloader = containerRef.current;
     if (!preloader) {
       window.dispatchEvent(new CustomEvent("preloader:done"));
-      (window as unknown as { __preloaderDone: boolean }).__preloaderDone = true;
+      (window as unknown as { __preloaderDone: boolean }).__preloaderDone =
+        true;
       return;
     }
 
     const hasSeen = sessionStorage.getItem("kr-preloader-seen") === "true";
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
     if (hasSeen || prefersReduced) {
       requestAnimationFrame(() => {
         setVisible(false);
       });
       window.dispatchEvent(new CustomEvent("preloader:done"));
-      (window as unknown as { __preloaderDone: boolean }).__preloaderDone = true;
+      (window as unknown as { __preloaderDone: boolean }).__preloaderDone =
+        true;
       return;
     }
 
     const goldDot = preloader.querySelector<HTMLElement>("#krGoldDot");
-    const ringOuter = preloader.querySelector<SVGCircleElement>(".kr-ring-outer");
-    const ringProgress = preloader.querySelector<SVGCircleElement>(".kr-ring-progress");
-    const ringMiddle = preloader.querySelector<SVGCircleElement>(".kr-ring-middle");
-    const ringInner = preloader.querySelector<SVGCircleElement>(".kr-ring-inner");
-    const textChars = preloader.querySelectorAll<SVGTSpanElement>(".kr-seal-char");
+    const ringOuter =
+      preloader.querySelector<SVGCircleElement>(".kr-ring-outer");
+    const ringProgress =
+      preloader.querySelector<SVGCircleElement>(".kr-ring-progress");
+    const ringMiddle =
+      preloader.querySelector<SVGCircleElement>(".kr-ring-middle");
+    const ringInner =
+      preloader.querySelector<SVGCircleElement>(".kr-ring-inner");
+    const textChars =
+      preloader.querySelectorAll<SVGTSpanElement>(".kr-seal-char");
     const starLeft = preloader.querySelector<HTMLElement>("#krStarLeft");
     const starRight = preloader.querySelector<HTMLElement>("#krStarRight");
-    const paintingWrap = preloader.querySelector<HTMLElement>("#krPaintingWrap");
+    const paintingWrap =
+      preloader.querySelector<HTMLElement>("#krPaintingWrap");
     const paintingImg = preloader.querySelector<HTMLElement>("#krPaintingImg");
-    const paintingShine = preloader.querySelector<HTMLElement>("#krPaintingShine");
+    const paintingShine =
+      preloader.querySelector<HTMLElement>("#krPaintingShine");
     const mottoWrap = preloader.querySelector<HTMLElement>("#krMottoWrap");
     const counterVal = preloader.querySelector<HTMLElement>("#krCounterVal");
     const skipBtn = preloader.querySelector<HTMLElement>("#krSkipBtn");
     const curtainTop = preloader.querySelector<HTMLElement>(".kr-curtain-top");
-    const curtainBottom = preloader.querySelector<HTMLElement>(".kr-curtain-bottom");
+    const curtainBottom =
+      preloader.querySelector<HTMLElement>(".kr-curtain-bottom");
 
     const C_OUTER = 1495.4;
     const C_MIDDLE = 1325.8;
@@ -90,7 +102,7 @@ export default function Preloader() {
         duration: 1.1,
         ease: "power2.inOut",
       },
-      "-=0.1"
+      "-=0.1",
     );
 
     tl.to(
@@ -100,7 +112,7 @@ export default function Preloader() {
         duration: 0.95,
         ease: "power2.inOut",
       },
-      "<+0.1"
+      "<+0.1",
     );
 
     tl.to(
@@ -110,7 +122,7 @@ export default function Preloader() {
         duration: 0.8,
         ease: "power2.inOut",
       },
-      "<+0.1"
+      "<+0.1",
     );
 
     // 3. Arc text reveal
@@ -125,7 +137,7 @@ export default function Preloader() {
           duration: 0.45,
           ease: "power1.out",
         },
-        "-=0.6"
+        "-=0.6",
       );
     }
 
@@ -140,7 +152,7 @@ export default function Preloader() {
         duration: 0.4,
         ease: "back.out(2.5)",
       },
-      "-=0.3"
+      "-=0.3",
     );
 
     // 5. Center painting reveal & shine
@@ -153,7 +165,7 @@ export default function Preloader() {
         duration: 0.6,
         ease: "power2.out",
       },
-      "-=0.3"
+      "-=0.3",
     );
 
     if (paintingImg) {
@@ -161,7 +173,7 @@ export default function Preloader() {
         paintingImg,
         { filter: "brightness(0.3)" },
         { filter: "brightness(1)", duration: 0.5, ease: "power1.out" },
-        "<"
+        "<",
       );
     }
 
@@ -170,7 +182,7 @@ export default function Preloader() {
         paintingShine,
         { x: "-100%", opacity: 0 },
         { x: "200%", opacity: 0.8, duration: 0.8, ease: "power2.inOut" },
-        "-=0.2"
+        "-=0.2",
       );
     }
 
@@ -179,7 +191,7 @@ export default function Preloader() {
       mottoWrap,
       { opacity: 0, y: 15 },
       { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
-      "-=0.4"
+      "-=0.4",
     );
 
     // 7. Counter animation from 000 to 100
@@ -190,7 +202,8 @@ export default function Preloader() {
       ease: "power2.inOut",
       onUpdate: () => {
         const rounded = Math.floor(countProxy.val);
-        if (counterVal) counterVal.textContent = rounded.toString().padStart(3, "0");
+        if (counterVal)
+          counterVal.textContent = rounded.toString().padStart(3, "0");
         if (ringProgress) {
           const offset = C_OUTER * (1 - rounded / 100);
           ringProgress.style.strokeDashoffset = `${offset}`;
@@ -220,14 +233,23 @@ export default function Preloader() {
           document.documentElement.classList.remove("kr-preloader-locked");
           document.body.classList.remove("kr-preloader-locked");
           setVisible(false);
-          (window as unknown as { __preloaderDone: boolean }).__preloaderDone = true;
+          (window as unknown as { __preloaderDone: boolean }).__preloaderDone =
+            true;
           window.dispatchEvent(new CustomEvent("preloader:done"));
         },
       });
 
       if (curtainTop && curtainBottom) {
-        exitTl.to(curtainTop, { y: "-100%", duration: 0.7, ease: "expo.inOut" }, 0);
-        exitTl.to(curtainBottom, { y: "100%", duration: 0.7, ease: "expo.inOut" }, 0);
+        exitTl.to(
+          curtainTop,
+          { y: "-100%", duration: 0.7, ease: "expo.inOut" },
+          0,
+        );
+        exitTl.to(
+          curtainBottom,
+          { y: "100%", duration: 0.7, ease: "expo.inOut" },
+          0,
+        );
       }
 
       exitTl.to(
@@ -238,7 +260,7 @@ export default function Preloader() {
           duration: 0.5,
           ease: "expo.inOut",
         },
-        0
+        0,
       );
     }
 
@@ -261,7 +283,13 @@ export default function Preloader() {
   if (!visible) return null;
 
   return (
-    <div id="preloader" className="kr-preloader" ref={containerRef} role="status" aria-label="Loading KR Arts And Science College">
+    <div
+      id="preloader"
+      className="kr-preloader"
+      ref={containerRef}
+      role="status"
+      aria-label="Loading KR Arts And Science College"
+    >
       <div className="kr-curtain kr-curtain-top" aria-hidden="true"></div>
       <div className="kr-curtain kr-curtain-bottom" aria-hidden="true"></div>
 
@@ -269,19 +297,52 @@ export default function Preloader() {
 
       <div className="kr-preloader-stage" id="krPreloaderStage">
         <div className="kr-seal-wrap" id="krSealWrap">
-          <svg className="kr-seal-svg" id="krSealSvg" viewBox="0 0 500 500" aria-hidden="true">
+          <svg
+            className="kr-seal-svg"
+            id="krSealSvg"
+            viewBox="0 0 500 500"
+            aria-hidden="true"
+          >
             <defs>
-              <path id="krSealTextArc" d="M 80, 250 A 170, 170 0 0, 1 420, 250" fill="none" />
+              <path
+                id="krSealTextArc"
+                d="M 80, 250 A 170, 170 0 0, 1 420, 250"
+                fill="none"
+              />
             </defs>
 
-            <circle className="kr-ring kr-ring-outer" cx="250" cy="250" r="238" />
-            <circle className="kr-ring kr-ring-progress" cx="250" cy="250" r="238" />
-            <circle className="kr-ring kr-ring-middle" cx="250" cy="250" r="211" />
-            <circle className="kr-ring kr-ring-inner" cx="250" cy="250" r="130" />
+            <circle
+              className="kr-ring kr-ring-outer"
+              cx="250"
+              cy="250"
+              r="238"
+            />
+            <circle
+              className="kr-ring kr-ring-progress"
+              cx="250"
+              cy="250"
+              r="238"
+            />
+            <circle
+              className="kr-ring kr-ring-middle"
+              cx="250"
+              cy="250"
+              r="211"
+            />
+            <circle
+              className="kr-ring kr-ring-inner"
+              cx="250"
+              cy="250"
+              r="130"
+            />
 
             <g className="kr-seal-text-group" id="krSealTextGroup">
               <text className="kr-seal-text">
-                <textPath href="#krSealTextArc" startOffset="50%" textAnchor="middle">
+                <textPath
+                  href="#krSealTextArc"
+                  startOffset="50%"
+                  textAnchor="middle"
+                >
                   {"KR ARTS AND SCIENCE COLLEGE".split("").map((char, idx) => (
                     <tspan key={idx} className="kr-seal-char">
                       {char === " " ? "\u00A0" : char}
@@ -301,7 +362,15 @@ export default function Preloader() {
                 </g>
                 <g className="kr-spark-group" id="krSparkLeft">
                   {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, idx) => (
-                    <line key={idx} className="kr-spark-line" x1="0" y1="-12" x2="0" y2="-22" transform={`rotate(${angle})`} />
+                    <line
+                      key={idx}
+                      className="kr-spark-line"
+                      x1="0"
+                      y1="-12"
+                      x2="0"
+                      y2="-22"
+                      transform={`rotate(${angle})`}
+                    />
                   ))}
                 </g>
               </g>
@@ -317,7 +386,15 @@ export default function Preloader() {
                 </g>
                 <g className="kr-spark-group" id="krSparkRight">
                   {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, idx) => (
-                    <line key={idx} className="kr-spark-line" x1="0" y1="-12" x2="0" y2="-22" transform={`rotate(${angle})`} />
+                    <line
+                      key={idx}
+                      className="kr-spark-line"
+                      x1="0"
+                      y1="-12"
+                      x2="0"
+                      y2="-22"
+                      transform={`rotate(${angle})`}
+                    />
                   ))}
                 </g>
               </g>
@@ -333,9 +410,21 @@ export default function Preloader() {
               width="250"
               height="250"
             />
-            <div className="kr-painting-overlay" id="krPaintingOverlay" aria-hidden="true"></div>
-            <div className="kr-painting-shine" id="krPaintingShine" aria-hidden="true"></div>
-            <div className="kr-shutter-container" id="krShutterContainer" aria-hidden="true"></div>
+            <div
+              className="kr-painting-overlay"
+              id="krPaintingOverlay"
+              aria-hidden="true"
+            ></div>
+            <div
+              className="kr-painting-shine"
+              id="krPaintingShine"
+              aria-hidden="true"
+            ></div>
+            <div
+              className="kr-shutter-container"
+              id="krShutterContainer"
+              aria-hidden="true"
+            ></div>
           </div>
         </div>
 
@@ -348,9 +437,16 @@ export default function Preloader() {
 
       <div className="kr-bottom-bar" id="krBottomBar">
         <div className="kr-counter" id="krCounter" aria-hidden="true">
-          <span className="kr-counter-val" id="krCounterVal">000</span>
+          <span className="kr-counter-val" id="krCounterVal">
+            000
+          </span>
         </div>
-        <button type="button" className="kr-skip-btn" id="krSkipBtn" aria-label="Skip introduction animation">
+        <button
+          type="button"
+          className="kr-skip-btn"
+          id="krSkipBtn"
+          aria-label="Skip introduction animation"
+        >
           Skip
         </button>
       </div>
