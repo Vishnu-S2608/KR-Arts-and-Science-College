@@ -1,57 +1,106 @@
 @import "tailwindcss";
 @import "../styles/preloader.css";
+@import "../styles/about.css";
+
+:root {
+  --font-heading-next: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body-next:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-tamil-next: "Noto Sans Tamil", sans-serif;
+  --font-sora-next: "Sora", sans-serif;
+}
 
 @theme {
-  --font-sans: var(--font-body-next), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-heading: var(--font-heading-next), 'Plus Jakarta Sans', 'Sora', sans-serif;
-  --font-body: var(--font-body-next), 'Inter', sans-serif;
-  --font-tamil: var(--font-tamil-next), 'Noto Sans Tamil', sans-serif;
-  --font-sora: var(--font-sora-next), 'Sora', sans-serif;
+  --font-sans:
+    var(--font-body-next), "Inter", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
+  --font-heading:
+    var(--font-heading-next), "Playfair Display", Georgia, "Times New Roman",
+    serif;
+  --font-body: var(--font-body-next), "Inter", sans-serif;
+  --font-tamil: var(--font-tamil-next), "Noto Sans Tamil", sans-serif;
+  --font-sora: var(--font-sora-next), "Sora", sans-serif;
 
-  --color-brand-bg: #FFFFFF;
-  --color-brand-bg-alt: #F8FAFC;
-  --color-brand-card: #FFFFFF;
-  --color-brand-line: #E2E8F0;
-  
-  --color-brand-blue-50: #F0F9FF;
-  --color-brand-blue-100: #E0F2FE;
-  --color-brand-blue-200: #BAE6FD;
-  --color-brand-blue-300: #7DD3FC;
-  --color-brand-blue-400: #38BDF8;
-  --color-brand-blue-500: #0EA5E9;
-  --color-brand-blue-600: #0284C7;
-  --color-brand-blue-700: #0369A1;
-  --color-brand-navy-900: #0F172A;
-  --color-brand-navy-800: #1E293B;
-  --color-brand-text: #334155;
-  --color-brand-text-muted: #64748B;
-  
-  --color-brand-gold-100: #FEF9C3;
-  --color-brand-gold-200: #FEF08A;
-  --color-brand-gold-400: #FACC15;
-  --color-brand-gold-500: #EAB308;
-  --color-brand-gold-600: #CA8A04;
+  /* === NEW ROYAL BLUE & IVORY PALETTE === */
+  /* Primary: Royal Blue from logo */
+  --color-brand-primary: #0334a0;
+  --color-brand-primary-light: #1a4fbf;
+  --color-brand-primary-dark: #022878;
+  --color-brand-primary-50: #ebf0fa;
+  --color-brand-primary-100: #d6e0f5;
+  --color-brand-primary-200: #a8bfea;
+  --color-brand-primary-300: #7a9edf;
+  --color-brand-primary-400: #3d6dc5;
+  --color-brand-primary-500: #0334a0;
+  --color-brand-primary-600: #022b85;
+  --color-brand-primary-700: #02236b;
+  --color-brand-primary-800: #011a50;
+  --color-brand-primary-900: #011236;
 
-  --color-kr-white: #FFFFFF;
-  --color-kr-bg: #FFFFFF;
-  --color-kr-bg-alt: #F8FAFC;
-  --color-kr-card: #FFFFFF;
-  --color-kr-line: #E2E8F0;
-  --color-kr-sky-50: #F0F9FF;
-  --color-kr-sky-100: #E0F2FE;
-  --color-kr-sky-200: #BAE6FD;
-  --color-kr-sky-300: #7DD3FC;
-  --color-kr-sky-400: #38BDF8;
-  --color-kr-sky-500: #0EA5E9;
-  --color-kr-sky-600: #0284C7;
-  --color-kr-sky-700: #0369A1;
-  --color-kr-navy: #0F172A;
-  --color-kr-navy-dark: #020617;
-  --color-kr-text: #334155;
-  --color-kr-gold-light: #FEF08A;
-  --color-kr-gold: #EAB308;
-  --color-kr-gold-dark: #CA8A04;
-  --color-kr-gold-amber: #F59E0B;
+  /* Secondary: Warm Ivory / Cream */
+  --color-brand-cream: #fbf2d4;
+  --color-brand-cream-light: #fdf8e8;
+  --color-brand-cream-dark: #f5e6b8;
+  --color-brand-cream-50: #fefcf3;
+  --color-brand-cream-100: #fdf8e8;
+  --color-brand-cream-200: #fbf2d4;
+  --color-brand-cream-300: #f5e6b8;
+  --color-brand-cream-400: #edd78f;
+  --color-brand-cream-500: #dfc35e;
+
+  /* Neutral backgrounds */
+  --color-brand-bg: #ffffff;
+  --color-brand-bg-alt: #fafbfd;
+  --color-brand-card: #ffffff;
+  --color-brand-line: #e2e8f0;
+
+  /* Legacy aliases for compatibility */
+  --color-brand-blue-50: #ebf0fa;
+  --color-brand-blue-100: #d6e0f5;
+  --color-brand-blue-200: #a8bfea;
+  --color-brand-blue-300: #7a9edf;
+  --color-brand-blue-400: #3d6dc5;
+  --color-brand-blue-500: #0334a0;
+  --color-brand-blue-600: #022b85;
+  --color-brand-blue-700: #02236b;
+  --color-brand-navy-900: #011236;
+  --color-brand-navy-800: #011a50;
+  --color-brand-text: #1e293b;
+  --color-brand-text-muted: #475569;
+
+  /* Accent Gold (used sparingly as a tertiary accent) */
+  --color-brand-gold-100: #fdf8e8;
+  --color-brand-gold-200: #fbf2d4;
+  --color-brand-gold-400: #c59b27;
+  --color-brand-gold-500: #a67c1a;
+  --color-brand-gold-600: #8b6914;
+
+  /* KR namespace aliases */
+  --color-kr-white: #ffffff;
+  --color-kr-bg: #ffffff;
+  --color-kr-bg-alt: #fafbfd;
+  --color-kr-card: #ffffff;
+  --color-kr-line: #e2e8f0;
+  --color-kr-primary: #0334a0;
+  --color-kr-primary-light: #1a4fbf;
+  --color-kr-primary-dark: #022878;
+  --color-kr-cream: #fbf2d4;
+  --color-kr-cream-light: #fdf8e8;
+  --color-kr-sky-50: #ebf0fa;
+  --color-kr-sky-100: #d6e0f5;
+  --color-kr-sky-200: #a8bfea;
+  --color-kr-sky-300: #7a9edf;
+  --color-kr-sky-400: #3d6dc5;
+  --color-kr-sky-500: #0334a0;
+  --color-kr-sky-600: #022b85;
+  --color-kr-sky-700: #02236b;
+  --color-kr-navy: #011236;
+  --color-kr-navy-dark: #010c24;
+  --color-kr-text: #1e293b;
+  --color-kr-gold-light: #fbf2d4;
+  --color-kr-gold: #c59b27;
+  --color-kr-gold-dark: #8b6914;
+  --color-kr-gold-amber: #a67c1a;
 
   --radius-sm: 8px;
   --radius-md: 16px;
@@ -61,126 +110,235 @@
 
 /* Global Font & Reset Enforcements */
 body {
-  font-family: var(--font-body), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  background-color: #FFFFFF !important;
-  color: #334155 !important;
+  font-family:
+    var(--font-body),
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif !important;
+  background-color: #ffffff !important;
+  color: #1e293b !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  letter-spacing: -0.025em;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family:
+    var(--font-heading), "Playfair Display", Georgia, "Times New Roman", serif !important;
+  letter-spacing: -0.02em;
 }
 
-/* Custom utility styles for smooth presentation */
+/* === PRIMARY CTA BUTTON (Solid Royal Blue — NO gradient, NO box shadow) === */
 .gold-shimmer-btn {
-  background: linear-gradient(135deg, #FACC15 0%, #EAB308 50%, #D97706 100%);
-  color: #0F172A;
+  background: #0334a0;
+  color: #ffffff;
   font-weight: 700;
-  box-shadow: 0 8px 20px -4px rgba(234, 179, 8, 0.4);
+  box-shadow: none !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gold-shimmer-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px -4px rgba(234, 179, 8, 0.55);
-  filter: brightness(1.05);
+  background: #022878;
+  transform: none;
+  box-shadow: none !important;
 }
 
+/* === SECONDARY BUTTON (Cream with Royal Blue text — NO box shadow) === */
 .sky-btn {
-  background: linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%);
-  color: #FFFFFF;
+  background: #fbf2d4;
+  color: #0334a0;
   font-weight: 600;
-  box-shadow: 0 8px 20px -4px rgba(2, 132, 199, 0.35);
+  border: 1.5px solid #0334a0;
+  box-shadow: none !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .sky-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px -4px rgba(2, 132, 199, 0.45);
+  background: #0334a0;
+  color: #ffffff;
+  box-shadow: none !important;
 }
 
 .pure-white-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 20px;
-  box-shadow: 0 10px 30px -5px rgba(2, 132, 199, 0.06);
+  box-shadow: 0 10px 30px -5px rgba(3, 52, 160, 0.06);
   transition: all 0.3s ease;
 }
 
 .pure-white-card:hover {
-  border-color: #BAE6FD;
-  box-shadow: 0 20px 40px -10px rgba(2, 132, 199, 0.12);
+  border-color: #a8bfea;
+  box-shadow: 0 20px 40px -10px rgba(3, 52, 160, 0.12);
   transform: translateY(-4px);
 }
 
-/* Scroll Progress Bar */
-.scroll-progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0%;
-  height: 3.5px;
-  background: linear-gradient(90deg, #0EA5E9, #0284C7);
-  z-index: 99999;
-  pointer-events: none;
-  transition: width 0.1s linear;
+/* Circular Clip-path Transition Wipe (Disabled) */
+.page-wipe-overlay {
+  display: none !important;
 }
 
-/* Custom Cursor (Desktop Only) */
-.custom-cursor-dot,
-.custom-cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 99998;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+/* Specialized Modern Display Typography for Hero Two-Row Marquee */
+.font-marquee {
+  font-family:
+    "Montserrat",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.03em;
 }
 
-.custom-cursor-dot {
-  width: 6px;
-  height: 6px;
-  background-color: #0EA5E9;
+/* Hollow Outline Typography for Marquee */
+.text-stroke-navy {
+  -webkit-text-stroke: 1.5px rgba(2, 27, 78, 0.65);
+  color: transparent;
 }
 
-.custom-cursor-ring {
-  width: 28px;
-  height: 28px;
-  border: 1.5px solid #7DD3FC;
-  background-color: transparent;
-  transition: width 0.25s cubic-bezier(0.215, 0.61, 0.355, 1),
-              height 0.25s cubic-bezier(0.215, 0.61, 0.355, 1),
-              border-color 0.25s cubic-bezier(0.215, 0.61, 0.355, 1),
-              background-color 0.25s cubic-bezier(0.215, 0.61, 0.355, 1),
-              opacity 0.3s ease;
-}
-
-.cursor-hover .custom-cursor-ring {
-  width: 44px;
-  height: 44px;
-  border-color: #0284C7;
-  background-color: rgba(2, 132, 199, 0.08);
-}
-
-@media (pointer: coarse), (max-width: 1024px) {
-  .custom-cursor-dot,
-  .custom-cursor-ring {
-    display: none !important;
+/* Custom Curzr Cursor: Hide default OS cursor globally on desktop/mouse screens */
+@media (pointer: fine) {
+  *,
+  *::before,
+  *::after,
+  input,
+  textarea,
+  select,
+  button,
+  ::-webkit-calendar-picker-indicator,
+  ::-webkit-inner-spin-button,
+  ::-webkit-outer-spin-button,
+  ::-webkit-search-cancel-button,
+  ::-webkit-search-decoration,
+  ::-webkit-file-upload-button {
+    cursor: none !important;
   }
 }
 
-/* Circular Clip-path Transition Wipe */
-.page-wipe-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: #E0F2FE;
-  z-index: 99990;
-  pointer-events: none;
-  clip-path: circle(0% at 50% 50%);
-  will-change: clip-path;
+/* Recruiter Cards Marquee Animation */
+@keyframes recruiterScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-recruiter-marquee {
+  display: flex;
+  width: max-content;
+  animation: recruiterScroll 35s linear infinite;
+}
+
+.animate-recruiter-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Clubs & NSS Interactive Infinite Marquee Animation */
+@keyframes clubsScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-clubs-marquee {
+  display: flex;
+  width: max-content;
+  animation: clubsScroll 32s linear infinite;
+}
+
+.animate-clubs-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Chronicle Milestones Wave Cards Marquee Animation */
+@keyframes chronicleScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-chronicle-marquee {
+  display: flex;
+  width: max-content;
+  animation: chronicleScroll 38s linear infinite;
+}
+
+.animate-chronicle-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Placed Students 3-Row Alternating Marquee Animations */
+@keyframes studentMarqueeLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes studentMarqueeRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-student-row1 {
+  display: flex;
+  width: max-content;
+  animation: studentMarqueeLeft 36s linear infinite;
+}
+
+.animate-student-row2 {
+  display: flex;
+  width: max-content;
+  animation: studentMarqueeRight 40s linear infinite;
+}
+
+.animate-student-row3 {
+  display: flex;
+  width: max-content;
+  animation: studentMarqueeLeft 34s linear infinite;
+}
+
+.animate-student-row1:hover,
+.animate-student-row2:hover,
+.animate-student-row3:hover {
+  animation-play-state: paused;
+}
+
+/* Academic Courses Card Animations */
+@keyframes cardFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-card-fade-in {
+  animation: cardFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

@@ -1,20 +1,32 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { 
-  Phone, 
-  Mail, 
-  Award, 
-  ChevronDown, 
-  GraduationCap, 
-  Menu, 
-  X, 
-  ExternalLink,
-  Sparkles,
-  ArrowRight
-} from "lucide-react";
+import { Phone, ChevronDown, Menu, X, ArrowRight } from "lucide-react";
+
+interface NavItem {
+  id: string;
+  label: string;
+  href: string;
+  isDropdown?: boolean;
+}
+
+const NAV_ITEMS: NavItem[] = [
+  { id: "hero", label: "Home", href: "/" },
+  { id: "about", label: "About", href: "/#about" },
+  {
+    id: "programmes",
+    label: "Academics",
+    href: "/#programmes",
+    isDropdown: true,
+  },
+  { id: "clubs", label: "Clubs & NCC", href: "/#clubs" },
+  { id: "placements", label: "Placements", href: "/#placements" },
+  { id: "chronicle", label: "Chronicle", href: "/#chronicle" },
+  { id: "admissions", label: "Admissions", href: "/#admissions" },
+  { id: "contact", label: "Contact", href: "/#contact" },
+];
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -22,14 +34,181 @@ export default function Navbar() {
   const [academicsDropdown, setAcademicsDropdown] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  const routeSection =
+    pathname.startsWith("/events") || pathname.startsWith("/chronicle")
+      ? "chronicle"
+      : pathname.startsWith("/clubs")
+        ? "clubs"
+        : pathname.startsWith("/apply") || pathname.startsWith("/admission")
+          ? "admissions"
+          : pathname.startsWith("/contact")
+            ? "contact"
+            : pathname.startsWith("/academics") || pathname.startsWith("/programmes")
+              ? "programmes"
+              : null;
+
+  const [homeActiveSection, setHomeActiveSection] = useState<string>("hero");
+  const activeSection =
+    pathname === "/" ? homeActiveSection : routeSection || "hero";
+
+  const isClickScrollingRef = useRef(false);
+  const navContainerRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<Record<string, HTMLElement | null>>({});
+
+  const [indicatorStyle, setIndicatorStyle] = useState<{
+    left: number;
+    width: number;
+    height: number;
+    top: number;
+    opacity: number;
+  }>({ left: 0, width: 0, height: 0, top: 0, opacity: 0 });
+
+  // Update sliding pill position to match ONLY the active / clicked item
+  const updateIndicator = (targetId: string) => {
+    const targetEl = itemRefs.current[targetId];
+    const container = navContainerRef.current;
+
+    if (targetEl && container) {
+      const targetRect = targetEl.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+
+      setIndicatorStyle({
+        left: targetRect.left - containerRect.left,
+        top: targetRect.top - containerRect.top,
+        width: targetRect.width,
+        height: targetRect.height,
+        opacity: 1,
+      });
+    }
+  };
+
+  useEffect(() => {
+    updateIndicator(activeSection);
+    const timer = setTimeout(() => updateIndicator(activeSection), 40);
+    return () => clearTimeout(timer);
+  }, [activeSection, pathname]);
+
+  // Window resize updater
+  useEffect(() => {
+    const handleResize = () => updateIndicator(activeSection);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [activeSection]);
+
+  // Comprehensive Scroll spy detection covering all sections on the home page
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      setScrolled(window.scrollY > 20);
+
+      if (pathname === "/") {
+        if (isClickScrollingRef.current) return;
+
+        const sectionMap: { elId: string; navId: string }[] = [
+          { elId: "hero", navId: "hero" },
+          { elId: "about", navId: "about" },
+          { elId: "life", navId: "about" },
+          { elId: "campus", navId: "about" },
+
+          { elId: "stats", navId: "about" },
+          { elId: "recognitions", navId: "about" },
+          { elId: "programmes", navId: "programmes" },
+
+          { elId: "clubs", navId: "clubs" },
+          { elId: "initiatives", navId: "clubs" },
+          { elId: "global", navId: "chronicle" },
+          { elId: "placements", navId: "placements" },
+          { elId: "admin", navId: "chronicle" },
+          { elId: "chronicle", navId: "chronicle" },
+          { elId: "admissions", navId: "admissions" },
+          { elId: "contact", navId: "contact" },
+        ];
+
+        const threshold = 220;
+        let currentNavId = "hero";
+
+        for (const { elId, navId } of sectionMap) {
+          const el = document.getElementById(elId);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= threshold) {
+              currentNavId = navId;
+            }
+          }
+        }
+        setHomeActiveSection(currentNavId);
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
+
+  const scrollToSection = (
+    e: React.MouseEvent<HTMLElement>,
+    targetId: string,
+  ) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      const el = document.getElementById(targetId);
+      if (el) {
+        isClickScrollingRef.current = true;
+        setHomeActiveSection(targetId);
+
+        const lenis = (
+          window as unknown as {
+            __lenis?: {
+              scrollTo: (
+                target: HTMLElement | number,
+                opts?: { offset?: number; duration?: number },
+              ) => void;
+            };
+          }
+        ).__lenis;
+        if (lenis) {
+          lenis.scrollTo(el, { offset: -70, duration: 0.8 });
+        } else {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+        window.history.pushState(null, "", `#${targetId}`);
+
+        setTimeout(() => {
+          isClickScrollingRef.current = false;
+        }, 1100);
+      }
+    } else {
+      // When navigating back to home page sections from an inner page
+      setHomeActiveSection(targetId);
+    }
+  };
+
+  const scrollToTop = (e: React.MouseEvent<HTMLElement>) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      isClickScrollingRef.current = true;
+      setHomeActiveSection("hero");
+
+      const lenis = (
+        window as unknown as {
+          __lenis?: {
+            scrollTo: (
+              target: HTMLElement | number,
+              opts?: { offset?: number; duration?: number },
+            ) => void;
+          };
+        }
+      ).__lenis;
+      if (lenis) {
+        lenis.scrollTo(0, { duration: 0.8 });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      window.history.pushState(null, "", "/");
+
+      setTimeout(() => {
+        isClickScrollingRef.current = false;
+      }, 1100);
+    }
+  };
 
   const toggleMobile = () => {
     setMobileOpen((prev) => !prev);
@@ -45,249 +224,298 @@ export default function Navbar() {
     document.body.style.overflow = "";
   };
 
-  const allDepts = [
-    { id: "ai", label: "B.Sc Artificial Intelligence", tag: "Tech" },
-    { id: "commerce", label: "B.Com (Computer Applications)", tag: "Commerce" },
-    { id: "aviation", label: "BBA Aviation Management", tag: "Aviation" },
-    { id: "cs", label: "B.Sc Computer Science", tag: "Tech" },
-    { id: "tamil", label: "B.A Tamil", tag: "Arts" },
-    { id: "criminology", label: "B.A Criminology & Police Admin", tag: "Law/Crime" },
-    { id: "english", label: "B.A English", tag: "Arts" },
-    { id: "physical-education", label: "B.Sc Physical Education", tag: "Sports" },
-    { id: "chemistry", label: "B.Sc Chemistry", tag: "Science" },
-    { id: "home-science", label: "B.Sc Home Science (Nutrition)", tag: "Science" },
-    { id: "mathematics", label: "B.Sc Mathematics", tag: "Science" },
+  const artsDepts = [
+    { id: "tamil", label: "B.A Tamil", href: "/academics/tamil" },
+    { id: "english", label: "B.A English Literature", href: "/academics/english" },
+    { id: "criminology", label: "B.A Criminology & Police Admin", href: "/academics/criminology" },
+  ];
+
+  const scienceDepts = [
+    { id: "cs", label: "B.Sc Computer Science", href: "/academics/cs" },
+    { id: "ai", label: "B.Sc Artificial Intelligence", href: "/academics/ai" },
+    { id: "mathematics", label: "B.Sc Mathematics", href: "/academics/mathematics" },
+    { id: "chemistry", label: "B.Sc Chemistry", href: "/academics/chemistry" },
+    { id: "home-science", label: "B.Sc Home Science (Nutrition)", href: "/academics/home-science" },
+    { id: "physical-education", label: "B.Sc Physical Education", href: "/academics/physical-education" },
+  ];
+
+  const aviationDepts = [
+    { id: "aviation", label: "BBA Aviation Management", href: "/academics/aviation" },
+  ];
+
+  const commerceDepts = [
+    { id: "commerce", label: "B.Com (Computer Applications)", href: "/academics/commerce" },
   ];
 
   return (
     <header className="sticky top-0 left-0 w-full z-50 transition-all duration-300">
-      {/* 1. TOP UTILITY & ACCREDITATION BAR (Rajalakshmi Inspired) */}
-      <div className="bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 text-white text-[11px] sm:text-xs py-1.5 px-3 sm:px-6 border-b border-sky-900/40 hidden md:block">
-        <div className="max-w-[1380px] mx-auto flex items-center justify-between">
-          {/* Left: Affiliation & Recognition */}
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 font-medium text-sky-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              Affiliated to Madurai Kamaraj University &bull; Approved by Govt. of TN
-            </span>
-            <span className="text-slate-500">|</span>
-            <span className="inline-flex items-center gap-1 text-amber-400 font-semibold bg-amber-400/10 px-2 py-0.5 rounded-full border border-amber-400/20">
-              <Award className="w-3 h-3 text-amber-400" />
-              100% Placement Assurance
-            </span>
-          </div>
-
-          {/* Right: Quick Contacts & Direct Links */}
-          <div className="flex items-center gap-4 text-slate-300">
-            <a 
-              href="tel:+918072297109" 
-              className="inline-flex items-center gap-1.5 hover:text-sky-300 transition-colors"
-            >
-              <Phone className="w-3 h-3 text-sky-400" />
-              <span>+91 80722 97109</span>
-            </a>
-            <span className="text-slate-600">&bull;</span>
-            <a 
-              href="mailto:info@krcolleges.in" 
-              className="inline-flex items-center gap-1.5 hover:text-sky-300 transition-colors"
-            >
-              <Mail className="w-3 h-3 text-sky-400" />
-              <span>info@krcolleges.in</span>
-            </a>
-            <span className="text-slate-600">&bull;</span>
-            <Link 
-              href="/apply" 
-              className="text-amber-400 font-semibold hover:text-amber-300 transition-colors flex items-center gap-1"
-            >
-              <span>Admissions 2026-27</span>
-              <ExternalLink className="w-2.5 h-2.5" />
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. MAIN NAVIGATION BAR (Pure Premium White Glass) */}
-      <nav 
-        className={`w-full transition-all duration-300 ${
-          scrolled 
-            ? "bg-white/95 backdrop-blur-md shadow-[0_4px_25px_-4px_rgba(2,132,199,0.08)] border-b border-sky-100 py-2.5" 
-            : "bg-white border-b border-slate-100 py-3.5"
+      {/* NAVIGATION BAR WITH GENEROUS TOP SPACING & ZERO BOX SHADOW */}
+      <nav
+        className={`w-full transition-all duration-300 shadow-none ${
+          scrolled
+            ? "bg-white/95 backdrop-blur-md border-b border-slate-200/80 py-2.5 sm:py-3"
+            : "bg-white border-b border-slate-200/80 py-3.5 sm:py-4"
         }`}
         aria-label="Main Navigation"
       >
-        <div className="max-w-[1380px] mx-auto px-4 sm:px-6 flex items-center justify-between">
-          {/* Brand Identity / Seal */}
-          <Link href="/" className="flex items-center gap-3 group" onClick={closeMobile}>
-            <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-sky-200 group-hover:border-amber-400 transition-colors shadow-sm flex items-center justify-center bg-white shrink-0">
-              <img 
-                src="/assets/logo.jpeg" 
-                alt="KR Arts And Science College Seal" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 flex items-center justify-between">
+          {/* 1. College Seal Branding */}
+          <Link
+            href="/"
+            className="flex items-center gap-3 sm:gap-4 group shrink-0"
+            onClick={closeMobile}
+          >
+            <div
+              id="krNavbarLogo"
+              className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-[68px] md:h-[68px] rounded-full overflow-hidden border-2 border-[#0334A0]/25 group-hover:border-[#0334A0] transition-all duration-300 flex items-center justify-center bg-white shrink-0 p-0.5"
+            >
+              <img
+                src="/kr-logo-official.png"
+                alt="KR Arts And Science College Seal"
+                className="w-full h-full object-contain rounded-full group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="flex flex-col">
-              <span className="font-heading font-extrabold text-base sm:text-lg text-slate-900 tracking-tight leading-tight group-hover:text-sky-700 transition-colors">
+            <div className="flex flex-col justify-center">
+              <span className="font-heading font-bold text-base sm:text-lg md:text-[19px] text-slate-900 tracking-tight leading-tight group-hover:text-[#0334A0] transition-colors">
                 KR Arts &amp; Science College
               </span>
-              <span className="text-[11px] sm:text-xs text-slate-500 font-medium">
-                Madurai Kamaraj University Affiliation &bull; Est. 2023
+              <span className="text-[11px] sm:text-xs md:text-[12.5px] text-slate-500 font-medium leading-tight mt-0.5">
+                Madurai Kamaraj University Affiliation
+              </span>
+              <span className="text-[10px] sm:text-[11px] md:text-xs text-slate-400 font-medium leading-tight">
+                Est. 2023
               </span>
             </div>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <div className="hidden lg:flex items-center gap-0.5 xl:gap-1.5">
-            <Link 
-              href="/" 
-              className={`px-2.5 xl:px-3 py-2 rounded-lg text-xs xl:text-sm font-semibold whitespace-nowrap transition-all ${
-                pathname === "/" 
-                  ? "text-sky-600 bg-sky-50" 
-                  : "text-slate-700 hover:text-sky-600 hover:bg-slate-50"
-              }`}
-            >
-              Home
-            </Link>
+          {/* 2. Center Spring-Sliding Diagonal Curved Rectangle Nav (NO box shadow, exact diagonal shape) */}
+          <div
+            ref={navContainerRef}
+            className="hidden lg:flex items-center mx-auto rounded-tl-[22px] rounded-br-[22px] rounded-tr-none rounded-bl-none bg-[#021B4E] border border-[#0334A0]/50 p-1.5 relative isolation-isolate shadow-none"
+          >
+            {/* Universal Spring Sliding Indicator Pill (Solid Royal Blue toggle switch effect, NO box shadow) */}
+            <div
+              className="absolute rounded-tl-[14px] rounded-br-[14px] rounded-tr-none rounded-bl-none pointer-events-none -z-0 will-change-transform"
+              style={{
+                left: `${indicatorStyle.left}px`,
+                top: `${indicatorStyle.top}px`,
+                width: `${indicatorStyle.width}px`,
+                height: `${indicatorStyle.height}px`,
+                opacity: indicatorStyle.opacity,
+                backgroundColor: "#0334A0",
+                boxShadow: "none",
+                transition:
+                  "left 950ms cubic-bezier(0.19, 1, 0.22, 1), width 950ms cubic-bezier(0.19, 1, 0.22, 1), top 950ms cubic-bezier(0.19, 1, 0.22, 1), opacity 400ms ease",
+              }}
+            />
 
-            <Link 
-              href="/#about" 
-              className="px-2.5 xl:px-3 py-2 rounded-lg text-xs xl:text-sm font-semibold whitespace-nowrap text-slate-700 hover:text-sky-600 hover:bg-slate-50 transition-all"
-            >
-              About
-            </Link>
+            {NAV_ITEMS.map((item) => {
+              const isSelected = activeSection === item.id;
 
-            {/* Academics Mega Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => setAcademicsDropdown(true)}
-              onMouseLeave={() => setAcademicsDropdown(false)}
-            >
-              <button 
-                type="button"
-                className={`px-2.5 xl:px-3 py-2 rounded-lg text-xs xl:text-sm font-semibold whitespace-nowrap transition-all inline-flex items-center gap-1 ${
-                  pathname.startsWith("/department") 
-                    ? "text-sky-600 bg-sky-50" 
-                    : "text-slate-700 hover:text-sky-600 hover:bg-slate-50"
-                }`}
-                aria-expanded={academicsDropdown}
-              >
-                <span>Academics</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${academicsDropdown ? "rotate-180" : ""}`} />
-              </button>
+              if (item.isDropdown) {
+                return (
+                  <div
+                    key={item.id}
+                    className="relative"
+                    onMouseEnter={() => setAcademicsDropdown(true)}
+                    onMouseLeave={() => setAcademicsDropdown(false)}
+                  >
+                    <button
+                      ref={(el) => {
+                        itemRefs.current[item.id] = el;
+                      }}
+                      type="button"
+                      onClick={(e) => scrollToSection(e, "programmes")}
+                      className={`relative z-10 px-3 xl:px-3.5 py-1.5 rounded-tl-[12px] rounded-br-[12px] rounded-tr-none rounded-bl-none text-xs xl:text-[13px] font-semibold whitespace-nowrap inline-flex items-center gap-1 transition-colors duration-500 shadow-none ${
+                        isSelected
+                          ? "text-white font-bold"
+                          : "text-slate-200 hover:text-white"
+                      }`}
+                      aria-expanded={academicsDropdown}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown
+                        className={`w-3.5 h-3.5 transition-transform duration-200 ${academicsDropdown ? "rotate-180" : ""}`}
+                      />
+                    </button>
 
-              {/* Dropdown Panel */}
-              {academicsDropdown && (
-                <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[480px] z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                  <div className="bg-white rounded-2xl p-4 shadow-2xl border border-sky-100 ring-1 ring-black/5">
-                    <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
-                      <div className="flex items-center gap-2">
-                        <GraduationCap className="w-4 h-4 text-sky-600" />
-                        <span className="text-xs font-bold uppercase tracking-wider text-slate-900">11 Degree Programmes</span>
+                    {/* Academics Mega Dropdown Menu (Clean categories, NO icons, NO count badges, matching diagonal shape badge) */}
+                    {academicsDropdown && (
+                      <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2.5 w-[760px] z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                        <div className="bg-white rounded-tl-2xl rounded-br-2xl rounded-tr-none rounded-bl-none p-5 border border-slate-200/90 shadow-none">
+                          {/* Top Banner */}
+                          <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+                            <div>
+                              <span className="text-xs font-bold uppercase tracking-wider text-slate-900">
+                                11 Undergraduate Degree Programmes
+                              </span>
+                            </div>
+                            {/* Matching Diagonal Box Shape for MKU Affiliation Badge (Dark Navy bg with White text) */}
+                            <span className="text-[11px] font-semibold text-white bg-[#021B4E] px-3.5 py-1.5 border border-[#0334A0]/50 rounded-tl-[10px] rounded-br-[10px] rounded-tr-none rounded-bl-none shadow-none tracking-wide">
+                              3 Years Regular &bull; MKU Affiliated
+                            </span>
+                          </div>
+
+                          {/* 3 Section Columns: Arts | Science | Aviation & Commerce */}
+                          <div className="grid grid-cols-3 gap-6">
+                            {/* Column 1: Arts (Simple bg & text color hover) */}
+                            <div>
+                              <div className="pb-2 mb-2.5 border-b border-slate-200">
+                                <span className="text-xs font-bold uppercase tracking-wider text-[#0334A0]">
+                                  Arts
+                                </span>
+                              </div>
+                              <div className="flex flex-col gap-1">
+                                {artsDepts.map((d) => (
+                                  <Link
+                                    key={d.id}
+                                    href={d.href}
+                                    className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-100 hover:text-[#0334A0] transition-colors duration-150"
+                                    onClick={() => setAcademicsDropdown(false)}
+                                  >
+                                    <span className="leading-snug">
+                                      {d.label}
+                                    </span>
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Column 2: Science (Simple bg & text color hover) */}
+                            <div>
+                              <div className="pb-2 mb-2.5 border-b border-slate-200">
+                                <span className="text-xs font-bold uppercase tracking-wider text-[#0334A0]">
+                                  Science
+                                </span>
+                              </div>
+                              <div className="flex flex-col gap-1">
+                                {scienceDepts.map((d) => (
+                                  <Link
+                                    key={d.id}
+                                    href={d.href}
+                                    className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-100 hover:text-[#0334A0] transition-colors duration-150"
+                                    onClick={() => setAcademicsDropdown(false)}
+                                  >
+                                    <span className="leading-snug">
+                                      {d.label}
+                                    </span>
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Column 3: Aviation & Commerce (Simple bg & text color hover) */}
+                            <div className="flex flex-col gap-4">
+                              {/* Aviation Section */}
+                              <div>
+                                <div className="pb-2 mb-2.5 border-b border-slate-200">
+                                  <span className="text-xs font-bold uppercase tracking-wider text-[#0334A0]">
+                                    Aviation
+                                  </span>
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                  {aviationDepts.map((d) => (
+                                    <Link
+                                      key={d.id}
+                                      href={d.href}
+                                      className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-100 hover:text-[#0334A0] transition-colors duration-150"
+                                      onClick={() =>
+                                        setAcademicsDropdown(false)
+                                      }
+                                    >
+                                      <span className="leading-snug">
+                                        {d.label}
+                                      </span>
+                                    </Link>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Commerce Section */}
+                              <div>
+                                <div className="pb-2 mb-2.5 border-b border-slate-200">
+                                  <span className="text-xs font-bold uppercase tracking-wider text-[#0334A0]">
+                                    Commerce
+                                  </span>
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                  {commerceDepts.map((d) => (
+                                    <Link
+                                      key={d.id}
+                                      href={d.href}
+                                      className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-100 hover:text-[#0334A0] transition-colors duration-150"
+                                      onClick={() =>
+                                        setAcademicsDropdown(false)
+                                      }
+                                    >
+                                      <span className="leading-snug">
+                                        {d.label}
+                                      </span>
+                                    </Link>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Dropdown Footer */}
+                          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                            <span className="text-slate-500">
+                              MKU Affiliated Curriculum
+                            </span>
+                            <Link
+                              href="/#programmes"
+                              className="font-bold text-[#0334A0] hover:underline flex items-center gap-1 group"
+                              onClick={(e) => {
+                                setAcademicsDropdown(false);
+                                scrollToSection(e, "programmes");
+                              }}
+                            >
+                              <span>Explore All Departments</span>
+                              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                            </Link>
+                          </div>
+                        </div>
                       </div>
-                      <span className="text-[11px] font-semibold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-full">
-                        3 Years Regular
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-1.5 max-h-[340px] overflow-y-auto pr-1">
-                      {allDepts.map((d) => (
-                        <Link
-                          key={d.id}
-                          href={`/department/${d.id}`}
-                          className="flex items-center justify-between p-2 rounded-lg text-xs font-medium text-slate-700 hover:bg-sky-50 hover:text-sky-700 transition-colors"
-                          onClick={() => setAcademicsDropdown(false)}
-                        >
-                          <span className="truncate">{d.label}</span>
-                          <span className="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded shrink-0 font-semibold">
-                            {d.tag}
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-
-                    <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                      <span className="text-slate-500">MKU Affiliated Curriculum</span>
-                      <Link 
-                        href="/department/ai" 
-                        className="font-bold text-sky-600 hover:underline flex items-center gap-1"
-                        onClick={() => setAcademicsDropdown(false)}
-                      >
-                        Explore All Departments &rarr;
-                      </Link>
-                    </div>
+                    )}
                   </div>
-                </div>
-              )}
-            </div>
+                );
+              }
 
-            <Link 
-              href="/apply" 
-              className={`px-2.5 xl:px-3 py-2 rounded-lg text-xs xl:text-sm font-semibold whitespace-nowrap transition-all ${
-                pathname === "/apply" 
-                  ? "text-sky-600 bg-sky-50" 
-                  : "text-slate-700 hover:text-sky-600 hover:bg-slate-50"
-              }`}
-            >
-              Admissions
-            </Link>
-
-            <Link 
-              href="/#placements" 
-              className="px-2.5 xl:px-3 py-2 rounded-lg text-xs xl:text-sm font-semibold whitespace-nowrap text-slate-700 hover:text-sky-600 hover:bg-slate-50 transition-all"
-            >
-              Placements
-            </Link>
-
-            <Link 
-              href="/clubs" 
-              className={`px-2.5 xl:px-3 py-2 rounded-lg text-xs xl:text-sm font-semibold whitespace-nowrap transition-all ${
-                pathname === "/clubs" 
-                  ? "text-sky-600 bg-sky-50" 
-                  : "text-slate-700 hover:text-sky-600 hover:bg-slate-50"
-              }`}
-            >
-              Clubs &amp; NCC
-            </Link>
-
-            <Link 
-              href="/events" 
-              className={`px-2.5 xl:px-3 py-2 rounded-lg text-xs xl:text-sm font-semibold whitespace-nowrap transition-all ${
-                pathname === "/events" 
-                  ? "text-sky-600 bg-sky-50" 
-                  : "text-slate-700 hover:text-sky-600 hover:bg-slate-50"
-              }`}
-            >
-              Chronicle
-            </Link>
-
-            <Link 
-              href="/contact" 
-              className={`px-2.5 xl:px-3 py-2 rounded-lg text-xs xl:text-sm font-semibold whitespace-nowrap transition-all ${
-                pathname === "/contact" 
-                  ? "text-sky-600 bg-sky-50" 
-                  : "text-slate-700 hover:text-sky-600 hover:bg-slate-50"
-              }`}
-            >
-              Contact
-            </Link>
+              return (
+                <Link
+                  key={item.id}
+                  ref={(el) => {
+                    itemRefs.current[item.id] = el;
+                  }}
+                  href={item.href}
+                  onClick={(e) => {
+                    if (item.id === "hero") {
+                      scrollToTop(e);
+                    } else {
+                      scrollToSection(e, item.id);
+                    }
+                  }}
+                  className={`relative z-10 px-3 xl:px-3.5 py-1.5 rounded-tl-[12px] rounded-br-[12px] rounded-tr-none rounded-bl-none text-xs xl:text-[13px] font-semibold whitespace-nowrap transition-colors duration-500 shadow-none ${
+                    isSelected
+                      ? "text-white font-bold"
+                      : "text-slate-200 hover:text-white"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
 
-          {/* Right Action CTAs */}
-          <div className="hidden sm:flex items-center gap-2.5">
-            <a 
-              href="tel:+918072297109" 
-              className="hidden xl:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold text-sky-700 bg-sky-50 border border-sky-200 hover:bg-sky-100 transition-all"
+          {/* 3. Right Primary Action CTA ("Apply Now 2026" - Signature Diagonal Cut with Gold/Navy Invert) */}
+          <div className="hidden sm:flex items-center gap-2.5 shrink-0">
+            <Link
+              href="/apply"
+              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-tl-[10px] rounded-br-[10px] rounded-tr-none rounded-bl-none text-xs sm:text-sm font-bold tracking-wide text-[#F5B83D] bg-[#021B4E] hover:bg-[#FBF2D4] hover:text-[#021B4E] border border-[#C59B27] hover:border-[#0334A0]/30 transition-all duration-300 shadow-none group"
             >
-              <Phone className="w-3.5 h-3.5" />
-              <span>Talk to Counsellor</span>
-            </a>
-
-            <Link 
-              href="/apply" 
-              className="gold-shimmer-btn inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold tracking-wide"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-slate-950" />
               <span>Apply Now 2026</span>
-              <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
+              <ArrowRight className="w-3.5 h-3.5 text-[#C59B27] group-hover:text-[#021B4E] group-hover:translate-x-1 transition-all" />
             </Link>
           </div>
 
@@ -298,100 +526,163 @@ export default function Navbar() {
             className="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
             aria-label="Toggle navigation menu"
           >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
       </nav>
 
-      {/* 3. MOBILE OVERLAY DRAWER */}
+      {/* MOBILE OVERLAY DRAWER */}
       {mobileOpen && (
-        <div className="lg:hidden fixed inset-0 top-[60px] bg-white/95 backdrop-blur-xl z-50 flex flex-col p-6 overflow-y-auto animate-in slide-in-from-right duration-200">
+        <div className="lg:hidden fixed inset-0 top-[65px] bg-white/95 backdrop-blur-xl z-50 flex flex-col p-6 overflow-y-auto animate-in slide-in-from-right duration-200">
           <div className="flex flex-col gap-2">
-            <Link 
-              href="/" 
-              className="p-3 text-base font-semibold text-slate-800 rounded-xl hover:bg-sky-50 hover:text-sky-700"
-              onClick={closeMobile}
+            <Link
+              href="/"
+              className="p-3 text-base font-semibold text-slate-800 rounded-xl hover:bg-[#FBF2D4]/30 hover:text-[#0334A0]"
+              onClick={(e) => {
+                closeMobile();
+                scrollToTop(e);
+              }}
             >
               Home
             </Link>
-            <Link 
-              href="/#about" 
-              className="p-3 text-base font-semibold text-slate-800 rounded-xl hover:bg-sky-50 hover:text-sky-700"
-              onClick={closeMobile}
+            <Link
+              href="/#about"
+              className="p-3 text-base font-semibold text-slate-800 rounded-xl hover:bg-[#FBF2D4]/30 hover:text-[#0334A0]"
+              onClick={(e) => {
+                closeMobile();
+                scrollToSection(e, "about");
+              }}
             >
               About College
             </Link>
 
             {/* Department Accordion in Mobile */}
-            <div className="p-3 bg-slate-50 rounded-xl">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-2">
+            <div className="p-3 bg-slate-50 rounded-xl space-y-3">
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block border-b border-slate-200 pb-1.5">
                 11 Academic Programmes
               </span>
-              <div className="grid grid-cols-1 gap-1 pl-2">
-                {allDepts.map((d) => (
-                  <Link
-                    key={d.id}
-                    href={`/department/${d.id}`}
-                    className="py-1.5 text-sm font-medium text-slate-700 hover:text-sky-600 flex items-center justify-between"
-                    onClick={closeMobile}
-                  >
-                    <span>{d.label}</span>
-                    <span className="text-[10px] bg-white px-2 py-0.5 rounded text-slate-600 border border-slate-200">
-                      {d.tag}
-                    </span>
-                  </Link>
-                ))}
+
+              <div>
+                <span className="text-xs font-bold text-[#0334A0] uppercase tracking-wider block mb-1">
+                  Arts
+                </span>
+                <div className="grid grid-cols-1 gap-1 pl-2">
+                  {artsDepts.map((d) => (
+                    <Link
+                      key={d.id}
+                      href={d.href}
+                      className="py-1 text-sm font-medium text-slate-700 hover:text-[#0334A0] flex items-center gap-2"
+                      onClick={closeMobile}
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0334A0]/40 shrink-0" />
+                      <span>{d.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <span className="text-xs font-bold text-[#0334A0] uppercase tracking-wider block mb-1">
+                  Science
+                </span>
+                <div className="grid grid-cols-1 gap-1 pl-2">
+                  {scienceDepts.map((d) => (
+                    <Link
+                      key={d.id}
+                      href={d.href}
+                      className="py-1 text-sm font-medium text-slate-700 hover:text-[#0334A0] flex items-center gap-2"
+                      onClick={closeMobile}
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0334A0]/40 shrink-0" />
+                      <span>{d.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <span className="text-xs font-bold text-[#0334A0] uppercase tracking-wider block mb-1">
+                  Aviation &amp; Commerce
+                </span>
+                <div className="grid grid-cols-1 gap-1 pl-2">
+                  {[...aviationDepts, ...commerceDepts].map((d) => (
+                    <Link
+                      key={d.id}
+                      href={d.href}
+                      className="py-1 text-sm font-medium text-slate-700 hover:text-[#0334A0] flex items-center gap-2"
+                      onClick={closeMobile}
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0334A0]/40 shrink-0" />
+                      <span>{d.label}</span>
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <Link 
-              href="/apply" 
-              className="p-3 text-base font-semibold text-slate-800 rounded-xl hover:bg-sky-50 hover:text-sky-700"
-              onClick={closeMobile}
+            <Link
+              href="/#admissions"
+              className="p-3 text-base font-semibold text-slate-800 rounded-xl hover:bg-[#0334A0]/8 hover:text-[#0334A0]"
+              onClick={(e) => {
+                closeMobile();
+                scrollToSection(e, "admissions");
+              }}
             >
-              Admissions 2026-27
+              Admissions
             </Link>
-            <Link 
-              href="/#placements" 
-              className="p-3 text-base font-semibold text-slate-800 rounded-xl hover:bg-sky-50 hover:text-sky-700"
-              onClick={closeMobile}
+            <Link
+              href="/#placements"
+              className="p-3 text-base font-semibold text-slate-800 rounded-xl hover:bg-[#0334A0]/8 hover:text-[#0334A0]"
+              onClick={(e) => {
+                closeMobile();
+                scrollToSection(e, "placements");
+              }}
             >
               100% Placements Track Record
             </Link>
-            <Link 
-              href="/clubs" 
-              className="p-3 text-base font-semibold text-slate-800 rounded-xl hover:bg-sky-50 hover:text-sky-700"
+            <Link
+              href="/clubs"
+              className="p-3 text-base font-semibold text-slate-800 rounded-xl hover:bg-[#0334A0]/8 hover:text-[#0334A0]"
               onClick={closeMobile}
             >
-              Clubs &amp; NCC Cadet Wing
+              Clubs, NCC &amp; NSS Outreach
             </Link>
-            <Link 
-              href="/events" 
-              className="p-3 text-base font-semibold text-slate-800 rounded-xl hover:bg-sky-50 hover:text-sky-700"
-              onClick={closeMobile}
+            <Link
+              href="/#chronicle"
+              className="p-3 text-base font-semibold text-slate-800 rounded-xl hover:bg-[#0334A0]/8 hover:text-[#0334A0]"
+              onClick={(e) => {
+                closeMobile();
+                scrollToSection(e, "chronicle");
+              }}
             >
               Campus Chronicle &amp; Events
             </Link>
-            <Link 
-              href="/contact" 
-              className="p-3 text-base font-semibold text-slate-800 rounded-xl hover:bg-sky-50 hover:text-sky-700"
-              onClick={closeMobile}
+            <Link
+              href="/#contact"
+              className="p-3 text-base font-semibold text-slate-800 rounded-xl hover:bg-[#0334A0]/8 hover:text-[#0334A0]"
+              onClick={(e) => {
+                closeMobile();
+                scrollToSection(e, "contact");
+              }}
             >
               Contact &amp; Bus Routes
             </Link>
 
             <div className="mt-6 pt-6 border-t border-slate-200 flex flex-col gap-3">
-              <Link 
-                href="/apply" 
+              <Link
+                href="/apply"
                 className="gold-shimmer-btn w-full text-center py-3.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2"
                 onClick={closeMobile}
               >
-                <Sparkles className="w-4 h-4 text-slate-950" />
                 <span>Apply Online for 2026</span>
               </Link>
-              <a 
-                href="tel:+918072297109" 
-                className="w-full text-center py-3 rounded-xl text-sm font-semibold text-sky-700 bg-sky-50 border border-sky-200 flex items-center justify-center gap-2"
+              <a
+                href="tel:+918072297109"
+                className="w-full text-center py-3 rounded-xl text-sm font-semibold text-white bg-[#021B4E] border border-[#0334A0]/50 flex items-center justify-center gap-2"
               >
                 <Phone className="w-4 h-4" />
                 <span>Call Admissions: +91 80722 97109</span>

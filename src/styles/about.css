@@ -46,7 +46,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #0B1B3F;
+  background: #0b1b3f;
   box-sizing: border-box;
   overflow-x: clip;
 }
@@ -65,9 +65,10 @@
    -------------------------------------------------------------------------- */
 .split-left-panel {
   position: relative;
-  width: 55%;
-  background: #1F4FCC;
-  padding: 120px 64px;
+  width: 33%;
+  background: #1f4fcc;
+  padding: 50px 44px 50px 32px;
+  justify-content: center;
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -78,8 +79,8 @@
 
 .split-left-content {
   width: 100%;
-  max-width: 620px;
-  margin: 0 auto 0 0;
+  max-width: 380px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -97,7 +98,7 @@
   display: inline-block;
   width: 36px;
   height: 2px;
-  background: #F5B83D;
+  background: #f5b83d;
   border-radius: 1px;
   transform-origin: left center;
   will-change: transform;
@@ -106,7 +107,7 @@
 .split-eyebrow .eyebrow-text {
   font-size: 13px;
   font-weight: 700;
-  color: #E8EFF9;
+  color: #e8eff9;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -115,9 +116,9 @@
 .split-headline {
   margin: 0 0 32px 0;
   font-family: inherit;
-  font-size: clamp(38px, 5vw, 84px);
+  font-size: clamp(28px, 3vw, 54px);
   font-weight: 800;
-  color: #E8EFF9;
+  color: #e8eff9;
   line-height: 1.08;
   letter-spacing: -0.035em;
   text-align: left;
@@ -150,7 +151,7 @@
 
 /* Styled "futures": gold with a wavy SVG underline (stroke #E8EFF9 at 60%, 5px) that draws left to right */
 .split-headline .styled-futures {
-  color: #F5B83D;
+  color: #f5b83d;
   position: relative;
   display: inline-block;
 }
@@ -176,45 +177,75 @@
 .split-subline {
   font-size: 17px;
   font-weight: 400;
-  color: #B9CBEE;
+  color: #b9cbee;
   line-height: 1.5;
   margin: 0 0 48px 0;
 }
 
-/* Facts row: 48px below, three facts in a row separated by 1px vertical lines */
+/* Facts: 2 rows (2023, 11) & (100%, 70+), solid crisp white, larger size, NO gradient */
+.split-facts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin: 0;
+  width: 100%;
+}
+
 .split-facts-row {
   display: flex;
   align-items: center;
-  gap: 32px;
-  margin: 0 0 40px 0;
+  gap: 28px;
+  margin: 0;
 }
 
 .split-facts-row .fact-col {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
+  cursor: default;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  min-width: 110px;
+}
+
+.split-facts-row .fact-col:hover {
+  transform: translateY(-2px);
+}
+
+.split-facts-row .fact-col:hover .fact-label {
+  color: #f5b83d;
+}
+
+.split-facts-row .fact-col:hover .fact-number {
+  color: #f5b83d;
+  transform: scale(1.05);
 }
 
 .split-facts-row .fact-number {
-  font-size: 36px;
-  font-weight: 700;
-  color: #E8EFF9;
+  font-size: clamp(34px, 3.2vw, 44px);
+  font-weight: 800;
+  color: #ffffff;
   line-height: 1;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  display: inline-block;
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.25s ease;
 }
 
 .split-facts-row .fact-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #B9CBEE;
-  letter-spacing: 0.02em;
+  font-size: 13px;
+  font-weight: 600;
+  color: #b9cbee;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .split-facts-row .fact-divider {
   width: 1px;
   height: 44px;
-  background: rgba(232, 239, 249, 0.22);
+  background: rgba(232, 239, 249, 0.25);
 }
 
 /* Text link "Our story": 40px below (#E8EFF9, weight 600, underline slides in on hover) */
@@ -229,7 +260,7 @@
   flex-direction: column;
   font-size: 16px;
   font-weight: 600;
-  color: #E8EFF9;
+  color: #e8eff9;
   text-decoration: none;
   padding: 4px 0;
   cursor: pointer;
@@ -245,7 +276,7 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background: #E8EFF9;
+  background: #e8eff9;
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
@@ -262,14 +293,14 @@
    -------------------------------------------------------------------------- */
 .split-right-strips {
   position: relative;
-  width: 45%;
+  width: 67%;
   display: flex;
   height: auto;
   min-height: 100%;
   overflow: visible;
   padding: 0;
   margin: 0;
-  background: #0B1B3F;
+  background: #0b1b3f;
   z-index: 3;
 }
 
@@ -281,7 +312,7 @@
   margin: 0;
   padding: 0;
   border: none;
-  background: #0B1B3F;
+  background: #0b1b3f;
   cursor: pointer;
   overflow: hidden;
   transition: flex 0.9s cubic-bezier(0.77, 0, 0.18, 1);
@@ -295,13 +326,13 @@
 }
 
 .photo-strip:focus-visible {
-  outline: 2px solid #F5B83D;
+  outline: 2px solid #f5b83d;
   outline-offset: -2px;
   z-index: 4;
 }
 
 .photo-strip.is-active {
-  flex: 3;
+  flex: 3.8;
   cursor: default;
 }
 
@@ -360,7 +391,7 @@
   left: 50%;
   transform: translate(-50%, -50%) rotate(180deg);
   writing-mode: vertical-rl;
-  color: #E8EFF9;
+  color: #e8eff9;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -368,7 +399,9 @@
   z-index: 3;
   pointer-events: none;
   opacity: 1;
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
   white-space: nowrap;
 }
 
@@ -383,13 +416,15 @@
   position: absolute;
   bottom: 24px;
   left: 24px;
-  background: #0B1B3F;
+  background: #0b1b3f;
   padding: 12px 16px;
   border-radius: 6px;
   z-index: 3;
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.15s, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.15s;
+  transition:
+    opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.15s,
+    transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.15s;
   pointer-events: none;
   box-shadow: 0 4px 16px rgba(11, 27, 63, 0.4);
 }
@@ -400,7 +435,7 @@
 }
 
 .strip-card-title {
-  color: #E8EFF9;
+  color: #e8eff9;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -431,9 +466,22 @@
   display: block;
   width: 100%;
   height: 100%;
-  background: #F5B83D;
+  background: #f5b83d;
   transform-origin: left center;
   transform: scaleX(0);
+}
+
+.photo-strip.is-active .strip-progress-fill {
+  animation: stripProgressFillAnim 4s linear infinite;
+}
+
+@keyframes stripProgressFillAnim {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -449,8 +497,10 @@
   height: 112px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: #0B1B3F;
-  box-shadow: 0 8px 32px rgba(11, 27, 63, 0.55), 0 0 0 1px rgba(232, 239, 249, 0.12);
+  background: #0b1b3f;
+  box-shadow:
+    0 8px 32px rgba(11, 27, 63, 0.55),
+    0 0 0 1px rgba(232, 239, 249, 0.12);
   z-index: 10;
   display: flex;
   align-items: center;
@@ -500,7 +550,7 @@
   font-size: 8.4px;
   font-weight: 700;
   letter-spacing: 0.155em;
-  fill: #E8EFF9;
+  fill: #e8eff9;
   text-transform: uppercase;
 }
 
@@ -513,7 +563,7 @@
   position: relative;
   width: 100%;
   height: 64px;
-  background: #0B1B3F;
+  background: #0b1b3f;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -547,7 +597,7 @@
   display: inline-block;
   width: 8px;
   height: 8px;
-  background: #F5B83D;
+  background: #f5b83d;
   border-radius: 50%;
   margin: 0 20px;
   vertical-align: middle;
@@ -597,7 +647,12 @@
 .window-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(11, 27, 63, 0.08) 0%, rgba(11, 27, 63, 0.0) 45%, rgba(11, 27, 63, 0.35) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(11, 27, 63, 0.08) 0%,
+    rgba(11, 27, 63, 0) 45%,
+    rgba(11, 27, 63, 0.35) 100%
+  );
   pointer-events: none;
 }
 
@@ -808,7 +863,7 @@
 }
 
 /* Horizontal cross line: 1px border on the bottom of the first 2 cells (1st row) */
-.fact-cell:nth-child(-n+2) {
+.fact-cell:nth-child(-n + 2) {
   border-bottom: 1px solid var(--line);
 }
 
@@ -846,11 +901,11 @@
     flex-direction: row;
   }
   .split-left-panel {
-    width: 55%;
+    width: 33%;
     padding: 80px 40px;
   }
   .split-right-strips {
-    width: 45%;
+    width: 67%;
     height: auto;
     min-height: 100%;
     overflow: visible;

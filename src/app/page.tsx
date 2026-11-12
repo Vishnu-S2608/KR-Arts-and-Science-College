@@ -1,12 +1,14 @@
 import Preloader from "@/components/layout/Preloader";
 import KineticHero from "@/components/home/KineticHero";
 import AboutSection from "@/components/home/AboutSection";
+import CampusZoomSection from "@/components/home/CampusZoomSection";
 import ProgrammesSection from "@/components/home/ProgrammesSection";
 import StatsSection from "@/components/home/StatsSection";
-import LifeAtKR from "@/components/home/LifeAtKR";
+import RecognitionsSection from "@/components/home/RecognitionsSection";
+
 import ClubsMarquee from "@/components/home/ClubsMarquee";
 import InitiativesSection from "@/components/home/InitiativesSection";
-import GlobalSection from "@/components/home/GlobalSection";
+
 import PlacementsSection from "@/components/home/PlacementsSection";
 import AdminSection from "@/components/home/AdminSection";
 import ChronicleSection from "@/components/home/ChronicleSection";
@@ -18,12 +20,16 @@ export default function Home() {
       <Preloader />
       <KineticHero />
       <AboutSection />
-      <ProgrammesSection />
+
+      <CampusZoomSection />
+
       <StatsSection />
-      <LifeAtKR />
+
+      <RecognitionsSection />
+      <ProgrammesSection />
       <ClubsMarquee />
       <InitiativesSection />
-      <GlobalSection />
+
       <PlacementsSection />
       <AdminSection />
       <ChronicleSection />

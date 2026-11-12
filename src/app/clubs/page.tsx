@@ -1,167 +1,126 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { 
-  ShieldCheck, 
-  Users, 
-  Briefcase, 
-  Trophy, 
-  Trees, 
-  HeartHandshake, 
-  Palette, 
-  Sparkles, 
-  ArrowRight,
-  CheckCircle2
-} from "lucide-react";
+import Image from "next/image";
+import { CLUBS_DATA } from "@/data/clubsData";
 
 export const metadata: Metadata = {
-  title: "Student Clubs & Societies | KR Arts And Science College",
+  title: "Student Clubs, NCC Cadet Wing & NSS Societies | KR Arts And Science College",
   description:
-    "Discover student clubs, NCC cadet wing, KR Leaders Club, and community outreach bodies at KR Arts And Science College, Madurai.",
+    "Discover student clubs, NCC cadet wing, NSS community outreach, KR Leaders Club, and sports societies at KR Arts And Science College, Madurai.",
 };
-
-const CLUBS = [
-  {
-    title: "National Cadet Corps (NCC)",
-    badge: "Honor & Defense",
-    tagColor: "gold",
-    icon: ShieldCheck,
-    description: "Instilling selfless service, leadership, and national character. Cadets undergo rigorous drill maneuvers, obstacle navigation, weapon training, and national Thal Sainik Camp conditioning.",
-    bullets: ["B & C Certificate Training", "Annual Thal Sainik Trials", "Republic Day Camp Path"],
-    image: "/images/campus-hero.png",
-  },
-  {
-    title: "KR Leaders Club",
-    badge: "New for 2026",
-    tagColor: "gold",
-    icon: Users,
-    description: "Dynamic student platform for parliamentary debates, public policy critiques, civic advocacy, and youth governance dialogues across Peraiyur taluk.",
-    bullets: ["Civic Leadership Forums", "Model Youth Parliament", "Bureaucratic Mentorship"],
-  },
-  {
-    title: "Training & Placement Cell",
-    badge: "100% Placement",
-    tagColor: "sky",
-    icon: Briefcase,
-    description: "Conducting continuous aptitude sessions, corporate technical mock interviews, resume writing labs, and coordinating with 7+ top recruiting companies.",
-    bullets: ["Continuous Aptitude Training", "Corporate Mock Interviews", "Soft Skills Certification"],
-    image: "/images/library.png",
-  },
-  {
-    title: "Sports & Athletics Club",
-    badge: "Championship Ground",
-    tagColor: "emerald",
-    icon: Trophy,
-    description: "Managing inter-collegiate track and field meets, cricket tournaments, volleyball championships, kabaddi, and athletic conditioning programs.",
-    bullets: ["Inter-College Tournament Meets", "Sprint & Relay Honors", "Physical Education Wing"],
-  },
-  {
-    title: "Green Club Eco Preservation",
-    badge: "Clean Campus",
-    tagColor: "emerald",
-    icon: Trees,
-    description: "Dedicated to tree planting drives, rainwater monitoring, eco-friendly plastic separation, and green environmental awareness across Peraiyur.",
-    bullets: ["Eco-Preservation Drives", "Clean Peraiyur Outreach", "Solar Campus Monitoring"],
-    image: "/images/college-entrance.jpg",
-  },
-  {
-    title: "Unnat Bharat Abhiyan",
-    badge: "Flagship Outreach",
-    tagColor: "blue",
-    icon: HeartHandshake,
-    description: "Connecting higher education institutions with rural villages for socio-economic development, digital literacy, and local livelihood enhancement.",
-    bullets: ["Rural Village Baseline Surveys", "Digital Literacy Camps", "Women Empowerment Programs"],
-  },
-  {
-    title: "Art & Literary Society",
-    badge: "Creative Arts",
-    tagColor: "sky",
-    icon: Palette,
-    description: "Fostering fine arts, painting, traditional Tamil rangoli, theatre staging, poetry recitals, and campus cultural festival management.",
-    bullets: ["Annual Arts Exhibits", "Creative Writing Workshops", "Cultural Stage Management"],
-  },
-];
 
 export default function ClubsPage() {
   return (
-    <main className="pt-8 sm:pt-12 pb-20 bg-gradient-to-b from-sky-50/40 via-white to-white min-h-screen">
-      <div className="max-w-[1380px] mx-auto px-4 sm:px-6">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3">
-            <Users className="w-3.5 h-3.5 text-sky-600" />
-            Campus Leadership &bull; Student Societies
-          </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
-            Student Clubs, NCC Cadet Wing &amp; Societies
-          </h1>
-          <p className="mt-3 text-base sm:text-lg text-slate-600">
-            Active co-curricular organizations fostering patriotic character, creative artistic expression, 
-            environmental protection, sportsmanship, and civic leadership.
-          </p>
-        </div>
-
-        {/* Clubs Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {CLUBS.map((club, idx) => {
-            const Icon = club.icon;
-            return (
-              <div 
-                key={idx}
-                className="pure-white-card p-6 sm:p-7 flex flex-col justify-between group"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-100 flex items-center justify-center text-sky-600 group-hover:scale-110 transition-transform">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <span 
-                      className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
-                        club.tagColor === "gold"
-                          ? "bg-amber-50 text-amber-900 border-amber-300"
-                          : club.tagColor === "emerald"
-                          ? "bg-emerald-50 text-emerald-800 border-emerald-200"
-                          : club.tagColor === "sky"
-                          ? "bg-sky-50 text-sky-800 border-sky-200"
-                          : "bg-blue-50 text-blue-800 border-blue-200"
-                      }`}
-                    >
-                      {club.badge}
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-sky-700 transition-colors mb-2">
-                    {club.title}
-                  </h3>
-
-                  <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                    {club.description}
-                  </p>
-
-                  <div className="space-y-2 mb-6">
-                    {club.bullets.map((b, i) => (
-                      <div key={i} className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                        <CheckCircle2 className="w-4 h-4 text-sky-500 shrink-0" />
-                        <span>{b}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-400">Co-Curricular Wing</span>
-                  <Link 
-                    href="/apply"
-                    className="text-xs font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1 group-hover:translate-x-1 transition-transform"
-                  >
-                    <span>Join Club via Admission</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
+    <div className="min-h-screen bg-[#FDFCF7] text-slate-900">
+      {/* 1. Breadcrumbs Bar */}
+      <div className="bg-[#FAF8F2] border-b border-slate-200/80 py-3.5">
+        <div className="max-w-[1380px] mx-auto px-4 sm:px-6 flex items-center gap-2 text-xs font-semibold text-slate-500">
+          <Link href="/" className="hover:text-[#0334A0] transition-colors">
+            Home
+          </Link>
+          <span className="text-slate-400">/</span>
+          <span className="text-[#021B4E] font-bold">Clubs, NCC &amp; NSS</span>
         </div>
       </div>
-    </main>
+
+      {/* 2. Hero Banner with Signature Diagonal Boxing */}
+      <section className="relative bg-[#021B4E] text-white overflow-hidden py-14 sm:py-20">
+        <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(circle_at_20%_20%,rgba(3,52,160,0.6),transparent_50%),radial-gradient(circle_at_80%_80%,rgba(197,155,39,0.25),transparent_50%)]" />
+
+        <div className="max-w-[1380px] mx-auto px-4 sm:px-6 relative z-10">
+          <div className="max-w-3xl">
+            <div className="flex flex-wrap items-center gap-2.5 mb-4">
+              <span className="px-3.5 py-1.5 rounded-tl-[8px] rounded-br-[8px] rounded-tr-none rounded-bl-none text-[11px] font-bold bg-[#C59B27] text-slate-950 uppercase tracking-wider shadow-none">
+                Co-Curricular Life
+              </span>
+              <span className="px-3.5 py-1.5 rounded-tl-[8px] rounded-br-[8px] rounded-tr-none rounded-bl-none text-[11px] font-bold bg-white/10 text-white border border-white/20 shadow-none">
+                Madurai Kamaraj University &bull; 7 TN BN NCC
+              </span>
+            </div>
+
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+              Student Clubs, NCC Cadet Wing &amp; NSS Outreach
+            </h1>
+
+            <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed">
+              Explore our active co-curricular units fostering patriotic character, rural community empowerment, youth civic governance, athletic championships, and artistic expression.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Clubs Directory Grid (Every Card Completely Clickable, No Clutter, Signature Diagonal Cut) */}
+      <section className="py-16 sm:py-20 bg-white">
+        <div className="max-w-[1380px] mx-auto px-4 sm:px-6">
+          <div className="flex items-center gap-3 mb-10">
+            <span className="w-8 sm:w-12 h-[2px] bg-[#C59B27]" />
+            <span className="text-xs font-bold tracking-widest text-[#0334A0] uppercase">
+              All Recognized Student Wings &amp; Clubs
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+            {CLUBS_DATA.map((club) => (
+              <Link
+                key={club.slug}
+                href={`/clubs/${club.slug}`}
+                className="bg-white rounded-tl-[24px] rounded-br-[24px] rounded-tr-none rounded-bl-none border-2 border-slate-200 hover:border-[#C59B27] transition-all duration-300 flex flex-col justify-between overflow-hidden group shadow-none cursor-pointer hover:-translate-y-1"
+              >
+                <div>
+                  {/* Photo Banner with Zoom on Hover & Light Sweep */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
+                    <Image
+                      src={club.image}
+                      alt={club.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+                    />
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+
+                    <div className="absolute top-4 left-4 z-10">
+                      <span className="px-3.5 py-1.5 rounded-tl-[7px] rounded-br-[7px] text-[10px] font-bold bg-[#021B4E]/95 text-[#F5B83D] border border-[#C59B27]/50 uppercase tracking-wider backdrop-blur-sm shadow-none">
+                        {club.category}
+                      </span>
+                    </div>
+
+                    <div className="absolute bottom-4 left-5 right-5 z-10 text-white">
+                      <span className="text-[11px] font-semibold text-[#F5B83D] block uppercase tracking-wider">
+                        {club.badge}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="p-7 sm:p-8">
+                    <h2 className="font-heading text-xl sm:text-2xl font-bold text-[#021B4E] group-hover:text-[#0334A0] transition-colors leading-snug mb-2.5">
+                      {club.title}
+                    </h2>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                      {club.tagline}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Bottom Action Strip */}
+                <div className="p-7 pt-4 sm:p-8 sm:pt-4 border-t border-slate-100 flex items-center justify-between mt-auto bg-slate-50/50">
+                  <span className="text-xs font-bold text-[#0334A0] group-hover:text-[#021B4E] inline-flex items-center gap-1.5 transition-colors">
+                    <span>View Club Details</span>
+                    <span className="text-[#C59B27] group-hover:translate-x-1.5 transition-transform duration-300 font-bold">
+                      &rarr;
+                    </span>
+                  </span>
+
+                  <span className="text-xs font-bold text-slate-400">
+                    Explore &rarr;
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

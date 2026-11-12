@@ -3,12 +3,14 @@
 Official modern web platform for **K.R. College of Arts & Science** (Affiliated to Madurai Kamaraj University, Established 2023, Peraiyur, Madurai).
 
 ## 🚀 Tech Stack
+
 - **Framework:** Next.js (App Router, Turbopack)
 - **Styling:** Tailwind CSS v4
 - **Language:** TypeScript
 - **Motion & Icons:** Lucide React, Framer Motion
 
 ## 📁 Repository Structure
+
 ```
 KR-Arts-and-Science-College/
 ├── src/
@@ -28,11 +30,14 @@ KR-Arts-and-Science-College/
 npm install
 npm run dev
 ```
+
 Open [http://localhost:3000](http://localhost:3000) to view the application in your browser.
 
 ## 📦 Production Build
+
 ```bash
 npm run build
 npm run start
 ```
+
 56

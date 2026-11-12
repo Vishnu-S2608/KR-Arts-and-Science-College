@@ -15,235 +15,120 @@ export default function Preloader() {
       return;
     }
 
-    const hasSeen = sessionStorage.getItem("kr-preloader-seen") === "true";
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (hasSeen || prefersReduced) {
-      requestAnimationFrame(() => {
-        setVisible(false);
-      });
-      window.dispatchEvent(new CustomEvent("preloader:done"));
-      (window as unknown as { __preloaderDone: boolean }).__preloaderDone = true;
-      return;
-    }
-
-    const goldDot = preloader.querySelector<HTMLElement>("#krGoldDot");
-    const ringOuter = preloader.querySelector<SVGCircleElement>(".kr-ring-outer");
-    const ringProgress = preloader.querySelector<SVGCircleElement>(".kr-ring-progress");
-    const ringMiddle = preloader.querySelector<SVGCircleElement>(".kr-ring-middle");
-    const ringInner = preloader.querySelector<SVGCircleElement>(".kr-ring-inner");
-    const textChars = preloader.querySelectorAll<SVGTSpanElement>(".kr-seal-char");
-    const starLeft = preloader.querySelector<HTMLElement>("#krStarLeft");
-    const starRight = preloader.querySelector<HTMLElement>("#krStarRight");
-    const paintingWrap = preloader.querySelector<HTMLElement>("#krPaintingWrap");
-    const paintingImg = preloader.querySelector<HTMLElement>("#krPaintingImg");
-    const paintingShine = preloader.querySelector<HTMLElement>("#krPaintingShine");
-    const mottoWrap = preloader.querySelector<HTMLElement>("#krMottoWrap");
-    const counterVal = preloader.querySelector<HTMLElement>("#krCounterVal");
-    const skipBtn = preloader.querySelector<HTMLElement>("#krSkipBtn");
-    const curtainTop = preloader.querySelector<HTMLElement>(".kr-curtain-top");
-    const curtainBottom = preloader.querySelector<HTMLElement>(".kr-curtain-bottom");
-
-    const C_OUTER = 1495.4;
-    const C_MIDDLE = 1325.8;
-    const C_INNER = 816.8;
-
-    // Set initial dasharrays
-    if (ringOuter) {
-      ringOuter.style.strokeDasharray = `${C_OUTER}`;
-      ringOuter.style.strokeDashoffset = `${C_OUTER}`;
-    }
-    if (ringProgress) {
-      ringProgress.style.strokeDasharray = `${C_OUTER}`;
-      ringProgress.style.strokeDashoffset = `${C_OUTER}`;
-    }
-    if (ringMiddle) {
-      ringMiddle.style.strokeDasharray = `${C_MIDDLE}`;
-      ringMiddle.style.strokeDashoffset = `${-C_MIDDLE}`;
-    }
-    if (ringInner) {
-      ringInner.style.strokeDasharray = `${C_INNER}`;
-      ringInner.style.strokeDashoffset = `${C_INNER}`;
-    }
-
-    // Lock page scroll during assemble
+    // Lock page scroll during preloader
     document.documentElement.classList.add("kr-preloader-locked");
     document.body.classList.add("kr-preloader-locked");
 
-    const tl = gsap.timeline({
+    const rotatingOuterRing = preloader.querySelector<HTMLDivElement>("#krRotatingOuterRing");
+    const starLeft = preloader.querySelector<HTMLDivElement>("#krStarLeft");
+    const starRight = preloader.querySelector<HTMLDivElement>("#krStarRight");
+    const shockLeft = preloader.querySelector<HTMLDivElement>("#krShockLeft");
+    const shockRight = preloader.querySelector<HTMLDivElement>("#krShockRight");
+    const sealStage = preloader.querySelector<HTMLDivElement>("#krSealStage");
+    const backdrop = preloader.querySelector<HTMLDivElement>("#krPreloaderBg");
+    const skipBtn = preloader.querySelector<HTMLButtonElement>("#krSkipBtn");
+
+    // 1. CONTINUOUS ROTATION OF THE OUTER RING ONLY
+    // Center Goddess Saraswati portrait stays 100% upright & static.
+    // Standard HTML div with 50% 50% origin guarantees perfect concentric rotation.
+    const ringRotateTween = gsap.to(rotatingOuterRing, {
+      rotation: 360,
+      duration: 8,
+      ease: "none",
+      repeat: -1,
+      transformOrigin: "50% 50%",
+    });
+
+    const masterTl = gsap.timeline({
       onComplete: finishPreloader,
     });
 
-    // 1. Initial 6px gold dot pulse
-    tl.to(goldDot, {
-      scale: 1,
-      opacity: 1,
-      duration: 0.35,
-      ease: "back.out(2)",
-    });
-
-    // 2. Rings draw
-    tl.to(
-      ringOuter,
-      {
-        strokeDashoffset: 0,
-        duration: 1.1,
-        ease: "power2.inOut",
-      },
-      "-=0.1"
+    // Initial state: Seal fades in cleanly. Stars are 100% absent (image is starless + opacity: 0)
+    masterTl.fromTo(
+      sealStage,
+      { scale: 0.9, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.45, ease: "power2.out" }
     );
 
-    tl.to(
-      ringMiddle,
-      {
-        strokeDashoffset: 0,
-        duration: 0.95,
-        ease: "power2.inOut",
-      },
-      "<+0.1"
-    );
+    // Outer ring rotates smoothly with NO stars visible for 0.4s
+    masterTl.to({}, { duration: 0.4 });
 
-    tl.to(
-      ringInner,
-      {
-        strokeDashoffset: 0,
-        duration: 0.8,
-        ease: "power2.inOut",
-      },
-      "<+0.1"
-    );
-
-    // 3. Arc text reveal
-    if (textChars && textChars.length > 0) {
-      tl.fromTo(
-        textChars,
-        { opacity: 0, scale: 0.5 },
-        {
-          opacity: 1,
-          scale: 1,
-          stagger: 0.02,
-          duration: 0.45,
-          ease: "power1.out",
-        },
-        "-=0.6"
-      );
-    }
-
-    // 4. Stars fly in with burst
-    tl.fromTo(
+    // 2. FORCEFUL STAMP EFFECT: The two golden stars slam down from above onto the rotating ring!
+    masterTl.to(
       [starLeft, starRight],
-      { opacity: 0, scale: 0 },
       {
         opacity: 1,
         scale: 1,
-        stagger: 0.1,
-        duration: 0.4,
-        ease: "back.out(2.5)",
-      },
-      "-=0.3"
+        duration: 0.28,
+        ease: "power4.in",
+      }
     );
 
-    // 5. Center painting reveal & shine
-    tl.fromTo(
-      paintingWrap,
-      { opacity: 0, scale: 0.7 },
+    // Golden shockwaves burst outward upon stamp impact
+    masterTl.fromTo(
+      [shockLeft, shockRight],
+      { scale: 0.6, opacity: 1 },
+      { scale: 3.2, opacity: 0, duration: 0.45, ease: "power2.out" },
+      "<+0.05"
+    );
+
+    // Micro impact jolt on the seal
+    masterTl.to(
+      sealStage,
       {
-        opacity: 1,
-        scale: 1,
-        duration: 0.6,
-        ease: "power2.out",
+        x: 3,
+        y: -3,
+        duration: 0.04,
+        yoyo: true,
+        repeat: 3,
+        ease: "power1.inOut",
       },
-      "-=0.3"
+      "<"
     );
 
-    if (paintingImg) {
-      tl.fromTo(
-        paintingImg,
-        { filter: "brightness(0.3)" },
-        { filter: "brightness(1)", duration: 0.5, ease: "power1.out" },
-        "<"
-      );
-    }
+    // 3. Seal continues rotating with the stars now stamped in (~0.4s)
+    masterTl.to({}, { duration: 0.4 });
 
-    if (paintingShine) {
-      tl.fromTo(
-        paintingShine,
-        { x: "-100%", opacity: 0 },
-        { x: "200%", opacity: 0.8, duration: 0.8, ease: "power2.inOut" },
-        "-=0.2"
-      );
-    }
-
-    // 6. Tamil motto
-    tl.fromTo(
-      mottoWrap,
-      { opacity: 0, y: 15 },
-      { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
-      "-=0.4"
+    // 4. EXPAND & OPEN WEBSITE: While continuing to rotate, the outer circle expands outward!
+    masterTl.to(
+      sealStage,
+      {
+        scale: 14,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.in",
+      }
     );
 
-    // 7. Counter animation from 000 to 100
-    const countProxy = { val: 0 };
-    gsap.to(countProxy, {
-      val: 100,
-      duration: 2.2,
-      ease: "power2.inOut",
-      onUpdate: () => {
-        const rounded = Math.floor(countProxy.val);
-        if (counterVal) counterVal.textContent = rounded.toString().padStart(3, "0");
-        if (ringProgress) {
-          const offset = C_OUTER * (1 - rounded / 100);
-          ringProgress.style.strokeDashoffset = `${offset}`;
-        }
+    masterTl.to(
+      backdrop,
+      {
+        opacity: 0,
+        duration: 0.65,
+        ease: "power2.inOut",
       },
-    });
-
-    // Fade in skip button
-    if (skipBtn) {
-      gsap.to(skipBtn, { opacity: 1, duration: 0.4, delay: 0.5 });
-    }
+      "<+0.15"
+    );
 
     let finished = false;
     const safetyTimer = setTimeout(() => {
       if (!finished) finishPreloader();
-    }, 1500);
+    }, 2800);
 
     function finishPreloader() {
       if (finished) return;
       finished = true;
       clearTimeout(safetyTimer);
-      sessionStorage.setItem("kr-preloader-seen", "true");
+      ringRotateTween.kill();
 
-      // Split curtain / circular iris exit
-      const exitTl = gsap.timeline({
-        onComplete: () => {
-          document.documentElement.classList.remove("kr-preloader-locked");
-          document.body.classList.remove("kr-preloader-locked");
-          setVisible(false);
-          (window as unknown as { __preloaderDone: boolean }).__preloaderDone = true;
-          window.dispatchEvent(new CustomEvent("preloader:done"));
-        },
-      });
-
-      if (curtainTop && curtainBottom) {
-        exitTl.to(curtainTop, { y: "-100%", duration: 0.7, ease: "expo.inOut" }, 0);
-        exitTl.to(curtainBottom, { y: "100%", duration: 0.7, ease: "expo.inOut" }, 0);
-      }
-
-      exitTl.to(
-        preloader,
-        {
-          clipPath: "circle(0% at 50% 50%)",
-          opacity: 0,
-          duration: 0.5,
-          ease: "expo.inOut",
-        },
-        0
-      );
+      document.documentElement.classList.remove("kr-preloader-locked");
+      document.body.classList.remove("kr-preloader-locked");
+      setVisible(false);
+      (window as unknown as { __preloaderDone: boolean }).__preloaderDone = true;
+      window.dispatchEvent(new CustomEvent("preloader:done"));
     }
 
     const handleSkip = () => {
-      tl.progress(0.95);
       finishPreloader();
     };
 
@@ -251,7 +136,8 @@ export default function Preloader() {
 
     return () => {
       clearTimeout(safetyTimer);
-      tl.kill();
+      ringRotateTween.kill();
+      masterTl.kill();
       skipBtn?.removeEventListener("click", handleSkip);
       document.documentElement.classList.remove("kr-preloader-locked");
       document.body.classList.remove("kr-preloader-locked");
@@ -261,103 +147,110 @@ export default function Preloader() {
   if (!visible) return null;
 
   return (
-    <div id="preloader" className="kr-preloader" ref={containerRef} role="status" aria-label="Loading KR Arts And Science College">
-      <div className="kr-curtain kr-curtain-top" aria-hidden="true"></div>
-      <div className="kr-curtain kr-curtain-bottom" aria-hidden="true"></div>
+    <div
+      id="preloader"
+      ref={containerRef}
+      className="fixed inset-0 z-[9999] select-none flex items-center justify-center overflow-hidden"
+      role="status"
+      aria-label="Loading KR Arts And Science College"
+    >
+      {/* Dark Royal Navy Backdrop */}
+      <div
+        id="krPreloaderBg"
+        className="absolute inset-0 bg-[#011236] transition-opacity"
+      >
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] rounded-full bg-gradient-to-tr from-[#0334A0]/35 via-[#C59B27]/25 to-transparent blur-[100px] pointer-events-none" />
+      </div>
 
-      <div className="kr-gold-dot" id="krGoldDot" aria-hidden="true"></div>
+      {/* Center Stage Composition */}
+      <div
+        id="krSealStage"
+        className="relative z-20 flex items-center justify-center will-change-transform origin-center pointer-events-none"
+      >
+        {/* Dimension wrapper: 300px on mobile, 380px on tablet, 440px on desktop */}
+        <div className="relative w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] md:w-[440px] md:h-[440px] flex items-center justify-center">
 
-      <div className="kr-preloader-stage" id="krPreloaderStage">
-        <div className="kr-seal-wrap" id="krSealWrap">
-          <svg className="kr-seal-svg" id="krSealSvg" viewBox="0 0 500 500" aria-hidden="true">
-            <defs>
-              <path id="krSealTextArc" d="M 80, 250 A 170, 170 0 0, 1 420, 250" fill="none" />
-            </defs>
-
-            <circle className="kr-ring kr-ring-outer" cx="250" cy="250" r="238" />
-            <circle className="kr-ring kr-ring-progress" cx="250" cy="250" r="238" />
-            <circle className="kr-ring kr-ring-middle" cx="250" cy="250" r="211" />
-            <circle className="kr-ring kr-ring-inner" cx="250" cy="250" r="130" />
-
-            <g className="kr-seal-text-group" id="krSealTextGroup">
-              <text className="kr-seal-text">
-                <textPath href="#krSealTextArc" startOffset="50%" textAnchor="middle">
-                  {"KR ARTS AND SCIENCE COLLEGE".split("").map((char, idx) => (
-                    <tspan key={idx} className="kr-seal-char">
-                      {char === " " ? "\u00A0" : char}
-                    </tspan>
-                  ))}
-                </textPath>
-              </text>
-            </g>
-
-            <g className="kr-star-group kr-star-left" id="krStarLeft">
-              <g className="kr-star-anchor" transform="translate(80, 250)">
-                <g className="kr-star-flyer" id="krStarLeftFlyer">
-                  <polygon
-                    className="kr-star-poly"
-                    points="0,-14 3.23,-4.45 13.31,-4.33 5.23,1.70 8.23,11.33 0,5.5 -8.23,11.33 -5.23,1.70 -13.31,-4.33 -3.23,-4.45"
-                  />
-                </g>
-                <g className="kr-spark-group" id="krSparkLeft">
-                  {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, idx) => (
-                    <line key={idx} className="kr-spark-line" x1="0" y1="-12" x2="0" y2="-22" transform={`rotate(${angle})`} />
-                  ))}
-                </g>
-              </g>
-            </g>
-
-            <g className="kr-star-group kr-star-right" id="krStarRight">
-              <g className="kr-star-anchor" transform="translate(420, 250)">
-                <g className="kr-star-flyer" id="krStarRightFlyer">
-                  <polygon
-                    className="kr-star-poly"
-                    points="0,-14 3.23,-4.45 13.31,-4.33 5.23,1.70 8.23,11.33 0,5.5 -8.23,11.33 -5.23,1.70 -13.31,-4.33 -3.23,-4.45"
-                  />
-                </g>
-                <g className="kr-spark-group" id="krSparkRight">
-                  {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, idx) => (
-                    <line key={idx} className="kr-spark-line" x1="0" y1="-12" x2="0" y2="-22" transform={`rotate(${angle})`} />
-                  ))}
-                </g>
-              </g>
-            </g>
-          </svg>
-
-          <div className="kr-painting-wrap" id="krPaintingWrap">
+          {/* 1. ROTATING OUTER RING: ONLY this outer circle with college title, Tamil motto and stars rotates */}
+          <div
+            id="krRotatingOuterRing"
+            className="absolute inset-0 w-full h-full rounded-full will-change-transform origin-center"
+          >
+            {/* The Outer Ring Image — 100% STARLESS on load! Transparent center & transparent corners */}
             <img
-              src="/assets/logo-painting.webp"
-              alt="KR College Emblem Painting"
-              className="kr-painting-img"
-              id="krPaintingImg"
-              width="250"
-              height="250"
+              src="/kr-logo-outer-starless.png"
+              alt=""
+              className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_0_35px_rgba(3,52,160,0.4)]"
+              loading="eager"
+              decoding="sync"
             />
-            <div className="kr-painting-overlay" id="krPaintingOverlay" aria-hidden="true"></div>
-            <div className="kr-painting-shine" id="krPaintingShine" aria-hidden="true"></div>
-            <div className="kr-shutter-container" id="krShutterContainer" aria-hidden="true"></div>
+
+            {/* LEFT STAMP STAR: Centered in the white band at x = 163.5/1024 (15.97%) */}
+            <div
+              id="krStarLeft"
+              className="absolute top-1/2 -translate-y-1/2 left-[15.97%] -translate-x-1/2 flex items-center justify-center pointer-events-none"
+              style={{ opacity: 0, transform: "scale(3.5)", transformOrigin: "center center" }}
+            >
+              {/* Shockwave circle */}
+              <div
+                id="krShockLeft"
+                className="absolute w-12 h-12 rounded-full border-2 border-[#F5B83D] opacity-0 pointer-events-none"
+              />
+              {/* Crisp 5-point Gold Star */}
+              <svg
+                viewBox="0 0 24 24"
+                className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 fill-[#F5B83D] stroke-[#C59B27] stroke-[0.8] drop-shadow-[0_0_8px_rgba(245,184,61,0.8)]"
+              >
+                <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
+              </svg>
+            </div>
+
+            {/* RIGHT STAMP STAR: Centered in the white band at x = 861/1024 (84.08%) */}
+            <div
+              id="krStarRight"
+              className="absolute top-1/2 -translate-y-1/2 left-[84.08%] -translate-x-1/2 flex items-center justify-center pointer-events-none"
+              style={{ opacity: 0, transform: "scale(3.5)", transformOrigin: "center center" }}
+            >
+              {/* Shockwave circle */}
+              <div
+                id="krShockRight"
+                className="absolute w-12 h-12 rounded-full border-2 border-[#F5B83D] opacity-0 pointer-events-none"
+              />
+              {/* Crisp 5-point Gold Star */}
+              <svg
+                viewBox="0 0 24 24"
+                className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 fill-[#F5B83D] stroke-[#C59B27] stroke-[0.8] drop-shadow-[0_0_8px_rgba(245,184,61,0.8)]"
+              >
+                <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
+              </svg>
+            </div>
           </div>
-        </div>
 
-        <div className="kr-motto-wrap" id="krMottoWrap">
-          <div className="kr-motto" id="krMotto" lang="ta">
-            உள்ளுவதெல்லாம் உயர்வுள்ளல்
+          {/* 2. STEADY CENTER EMBLEM: Goddess Saraswati stays 100% upright & static, NEVER rotates! */}
+          <div
+            id="krStaticCenter"
+            className="absolute inset-0 w-full h-full pointer-events-none select-none z-20 flex items-center justify-center"
+          >
+            <img
+              src="/kr-logo-center-emblem.png"
+              alt="KR Arts and Science College Emblem"
+              className="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_0_20px_rgba(197,155,39,0.3)]"
+              loading="eager"
+              decoding="sync"
+            />
           </div>
+
         </div>
       </div>
 
-      <div className="kr-bottom-bar" id="krBottomBar">
-        <div className="kr-counter" id="krCounter" aria-hidden="true">
-          <span className="kr-counter-val" id="krCounterVal">000</span>
-        </div>
-        <button type="button" className="kr-skip-btn" id="krSkipBtn" aria-label="Skip introduction animation">
-          Skip
-        </button>
-      </div>
-
-      <div className="kr-sr-status sr-only" id="krSrStatus" aria-live="polite">
-        Loading KR Arts And Science College
-      </div>
+      {/* Skip Button */}
+      <button
+        id="krSkipBtn"
+        type="button"
+        className="absolute bottom-6 right-6 px-3.5 py-1 rounded-tl-[6px] rounded-br-[6px] bg-white/10 hover:bg-[#FBF2D4] text-white hover:text-[#021B4E] border border-white/20 hover:border-[#C59B27] text-[11px] font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer shadow-none z-40 pointer-events-auto"
+        aria-label="Skip opening animation"
+      >
+        Skip &rarr;
+      </button>
     </div>
   );
 }
