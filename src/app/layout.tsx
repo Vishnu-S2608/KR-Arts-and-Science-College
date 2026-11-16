@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-clip max-w-full">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -31,11 +31,11 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@800;900&family=Noto+Sans+Tamil:wght@400;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Sora:wght@400;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@800;900&family=Noto+Sans+Tamil:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Sora:wght@400;600;700;800&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="font-sans antialiased bg-white text-slate-800">
+      <body className="font-sans antialiased bg-white text-black overflow-x-clip max-w-full relative">
         <CustomCursor />
         <FloatingCounsellor />
         <SmoothScrollProvider>

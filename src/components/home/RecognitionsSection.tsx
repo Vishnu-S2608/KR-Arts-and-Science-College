@@ -45,13 +45,13 @@ export default function RecognitionsSection() {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
           <div className="flex items-center justify-center gap-3 mb-2.5">
-            <span className="w-8 sm:w-12 h-[2px] bg-[#C59B27] rounded-full" />
-            <span className="text-[11px] sm:text-xs font-bold tracking-widest text-[#0334A0] uppercase">
+            <span className="w-8 sm:w-12 h-[2px] bg-[#FFD700] rounded-full" />
+            <span className="text-[11px] sm:text-xs font-bold tracking-widest text-black uppercase">
               Official Accreditations &bull; Strategic Tie-Ups
             </span>
-            <span className="w-8 sm:w-12 h-[2px] bg-[#C59B27] rounded-full" />
+            <span className="w-8 sm:w-12 h-[2px] bg-[#FFD700] rounded-full" />
           </div>
-          <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#011640] tracking-tight">
+          <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-black tracking-tight">
             Trusted With Our Recognition
           </h2>
         </div>
@@ -64,19 +64,19 @@ export default function RecognitionsSection() {
               className="group flex flex-col items-center text-center p-4 rounded-tl-[20px] rounded-br-[20px] rounded-tr-none rounded-bl-none transition-all duration-300 hover:-translate-y-1"
             >
               {/* Signature Diagonal Logo Container */}
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-tl-[18px] rounded-br-[18px] rounded-tr-none rounded-bl-none bg-white border-2 border-slate-200/90 group-hover:border-[#C59B27] group-hover:bg-[#FAFBFD] flex items-center justify-center p-3.5 transition-all duration-300 shadow-none relative overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#C59B27]/0 to-transparent group-hover:via-[#C59B27] transition-all duration-500 pointer-events-none" />
+              <div className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 rounded-tl-[24px] rounded-br-[24px] rounded-tr-none rounded-bl-none bg-white border-2 border-slate-200/90 group-hover:border-[#FFD700] group-hover:bg-[#FAFBFD] flex items-center justify-center p-3 sm:p-4 transition-all duration-300 shadow-sm group-hover:shadow-md relative overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#FFD700]/0 to-transparent group-hover:via-[#FFD700] transition-all duration-500 pointer-events-none" />
                 <img
                   src={p.logo}
                   alt={p.alt}
-                  className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full max-w-[90%] max-h-[90%] object-contain group-hover:scale-105 transition-transform duration-300"
                   loading="lazy"
                 />
-                <div className="absolute bottom-0 left-0 w-0 group-hover:w-full h-[2px] bg-gradient-to-r from-[#0334A0] via-[#C59B27] to-[#F5B83D] transition-all duration-500 pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-0 group-hover:w-full h-[2px] bg-gradient-to-r from-black via-[#FFD700] to-[#FFD700] transition-all duration-500 pointer-events-none" />
               </div>
 
               {/* Partner Name */}
-              <h3 className="font-heading font-bold text-slate-900 text-sm sm:text-[15px] mt-4 leading-snug group-hover:text-[#0334A0] transition-colors">
+              <h3 className="font-heading font-bold text-black text-sm sm:text-[15px] mt-4 leading-snug group-hover:text-black transition-colors">
                 {p.name}
               </h3>
 

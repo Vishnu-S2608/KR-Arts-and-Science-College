@@ -36,13 +36,13 @@ export default function AdminSection() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-7">
           <div className="flex items-center justify-center gap-3 mb-3">
-            <span className="w-8 sm:w-12 h-[2px] bg-[#C59B27] rounded-full" />
-            <span className="text-[11px] sm:text-xs font-bold tracking-widest text-[#0334A0] uppercase">
+            <span className="w-8 sm:w-12 h-[2px] bg-[#FFD700] rounded-full" />
+            <span className="text-[11px] sm:text-xs font-bold tracking-widest text-black uppercase">
               Leadership &bull; Governance
             </span>
-            <span className="w-8 sm:w-12 h-[2px] bg-[#C59B27] rounded-full" />
+            <span className="w-8 sm:w-12 h-[2px] bg-[#FFD700] rounded-full" />
           </div>
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[#021B4E] tracking-tight">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-black tracking-tight">
             Institutional Leadership
           </h2>
         </div>
@@ -52,10 +52,10 @@ export default function AdminSection() {
           {LEADERS.map((leader, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-tl-[20px] rounded-br-[20px] rounded-tr-none rounded-bl-none p-5 sm:p-6 border-2 border-slate-200/90 hover:border-[#C59B27] hover:bg-gradient-to-b hover:from-white hover:to-[#FAFBFD] transition-all duration-300 group flex flex-col justify-between shadow-none hover:-translate-y-1.5 relative overflow-hidden cursor-pointer"
+              className="bg-white rounded-tl-[20px] rounded-br-[20px] rounded-tr-none rounded-bl-none p-5 sm:p-6 border-2 border-slate-200/90 hover:border-[#FFD700] hover:bg-gradient-to-b hover:from-white hover:to-[#FAFBFD] transition-all duration-300 group flex flex-col justify-between shadow-none hover:-translate-y-1.5 relative overflow-hidden cursor-pointer"
             >
               {/* Top Accent Shimmer on Hover */}
-              <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-[#C59B27]/0 to-transparent group-hover:via-[#C59B27] transition-all duration-500 pointer-events-none" />
+              <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-[#FFD700]/0 to-transparent group-hover:via-[#FFD700] transition-all duration-500 pointer-events-none" />
 
               <div>
                 {/* Real High-Resolution Portrait Photo */}
@@ -69,32 +69,32 @@ export default function AdminSection() {
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   />
                   {/* Role Pill Badge */}
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-tl-[8px] rounded-br-[8px] rounded-tr-none rounded-bl-none bg-[#021B4E]/90 backdrop-blur-sm text-[#F5B83D] border border-[#C59B27] text-[10px] sm:text-[11px] font-black uppercase tracking-wider flex items-center gap-1.5 shadow-none">
-                    <leader.icon className="w-3.5 h-3.5 text-[#F5B83D]" />
+                  <div className="absolute top-3 left-3 px-3 py-1 rounded-tl-[8px] rounded-br-[8px] rounded-tr-none rounded-bl-none bg-[#021B4E]/95 backdrop-blur-sm text-[#FFD700] border border-[#FFD700] text-[10px] sm:text-[11px] font-black uppercase tracking-wider flex items-center gap-1.5 shadow-none">
+                    <leader.icon className="w-3.5 h-3.5 text-[#FFD700]" />
                     <span>{leader.roleBadge}</span>
                   </div>
                 </div>
 
                 {/* Name & Designation */}
-                <h3 className="font-heading text-2xl font-bold text-[#021B4E] group-hover:text-[#0334A0] transition-colors">
+                <h3 className="font-heading text-2xl font-bold text-black group-hover:text-black transition-colors">
                   {leader.name}
                 </h3>
-                <div className="text-sm font-bold text-[#0334A0] mt-1 mb-3">
+                <div className="text-sm font-bold text-black mt-1 mb-3">
                   {leader.title}
                 </div>
 
                 {/* Description */}
-                <p className="text-sm text-slate-600 leading-relaxed">
+                <p className="text-sm text-black leading-relaxed">
                   {leader.bio}
                 </p>
               </div>
 
               {/* Card Footer Strip */}
               <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                <span className="font-semibold text-slate-700">
+                <span className="font-semibold text-black">
                   {leader.footerLeft}
                 </span>
-                <span className="text-[#0334A0] font-bold bg-[#FBF2D4] px-2.5 py-0.5 rounded-tl-[8px] rounded-br-[8px] rounded-tr-none rounded-bl-none border border-[#C59B27]/30">
+                <span className="text-black font-bold bg-[#FBF2D4] px-2.5 py-0.5 rounded-tl-[8px] rounded-br-[8px] rounded-tr-none rounded-bl-none border border-[#FFD700]/60">
                   {leader.footerRight}
                 </span>
               </div>

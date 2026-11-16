@@ -11,15 +11,15 @@ export default function AdmissionCTA() {
     >
       <div className="max-w-[1380px] mx-auto px-4 sm:px-6">
         {/* Compact Signature Diagonal Admission Banner */}
-        <div className="relative overflow-hidden rounded-tl-[24px] rounded-br-[24px] rounded-tr-none rounded-bl-none bg-[#011236] text-white p-6 sm:p-8 lg:p-9 border-2 border-[#C59B27] shadow-none group transition-all duration-300">
-          <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-[#F5B83D]/0 to-transparent group-hover:via-[#F5B83D] transition-all duration-500 pointer-events-none" />
+        <div className="relative overflow-hidden rounded-tl-[24px] rounded-br-[24px] rounded-tr-none rounded-bl-none bg-[#011236] text-white p-6 sm:p-8 lg:p-9 border-2 border-[#FFD700] shadow-none group transition-all duration-300">
+          <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-[#FFD700]/0 to-transparent group-hover:via-[#FFD700] transition-all duration-500 pointer-events-none" />
 
           <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             {/* Left: Admissions Open Title & Key Badges */}
             <div className="max-w-2xl">
               <div className="flex items-center gap-2.5 mb-2">
-                <span className="w-2 h-2 rounded-full bg-[#F5B83D]" />
-                <span className="text-[11px] sm:text-xs font-bold tracking-widest text-[#F5B83D] uppercase">
+                <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+                <span className="text-[11px] sm:text-xs font-bold tracking-widest text-[#FFD700] uppercase">
                   Admissions Open &bull; Academic Year 2026–2027
                 </span>
               </div>
@@ -46,7 +46,7 @@ export default function AdmissionCTA() {
             <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0">
               <Link
                 href="/apply"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-tl-[12px] rounded-br-[12px] rounded-tr-none rounded-bl-none text-xs sm:text-sm font-bold text-[#F5B83D] bg-[#021B4E] hover:bg-[#FBF2D4] hover:text-[#021B4E] border-2 border-[#C59B27] transition-all duration-300 shadow-none whitespace-nowrap"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-tl-[12px] rounded-br-[12px] rounded-tr-none rounded-bl-none text-xs sm:text-sm font-bold text-[#FFD700] bg-[#021B4E] hover:bg-[#FBF2D4] hover:text-black border-2 border-[#FFD700] transition-all duration-300 shadow-none whitespace-nowrap"
               >
                 <span>Apply Online for 2026</span>
                 <span>&rarr;</span>
@@ -54,7 +54,7 @@ export default function AdmissionCTA() {
 
               <a
                 href="tel:+918072297109"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-5 py-3 rounded-tl-[12px] rounded-br-[12px] rounded-tr-none rounded-bl-none text-xs sm:text-sm font-bold text-white bg-white/10 hover:bg-[#FBF2D4] hover:text-[#021B4E] border border-white/25 hover:border-[#C59B27] transition-all duration-300 shadow-none whitespace-nowrap"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-5 py-3 rounded-tl-[12px] rounded-br-[12px] rounded-tr-none rounded-bl-none text-xs sm:text-sm font-bold text-white bg-white/10 hover:bg-[#FBF2D4] hover:text-black border border-white/25 hover:border-[#FFD700] transition-all duration-300 shadow-none whitespace-nowrap"
               >
                 Call: +91 80722 97109
               </a>

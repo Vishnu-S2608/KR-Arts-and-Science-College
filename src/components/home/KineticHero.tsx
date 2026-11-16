@@ -107,30 +107,30 @@ export default function KineticHero() {
         <div className="flex flex-col items-center text-center mb-4 sm:mb-6">
           {/* 1. TOP STATUS EYEBROW: Motion-only Line Elongation on Hover */}
           <div className="group/eyebrow inline-flex items-center justify-center gap-3 mb-3 sm:mb-4 cursor-default select-none">
-            <span className="w-8 sm:w-14 h-[2px] bg-amber-400 rounded-full group-hover/eyebrow:w-16 sm:group-hover/eyebrow:w-24 transition-all duration-300 ease-out" />
-            <span className="text-[11px] sm:text-xs md:text-sm font-bold tracking-widest text-[#0334A0] uppercase group-hover/eyebrow:tracking-[0.2em] transition-all duration-300 ease-out">
+            <span className="w-8 sm:w-14 h-[2px] bg-[#FFD700] rounded-full group-hover/eyebrow:w-16 sm:group-hover/eyebrow:w-24 transition-all duration-300 ease-out" />
+            <span className="text-[11px] sm:text-xs md:text-sm font-bold tracking-widest hero-college-name text-[#0334A0] uppercase group-hover/eyebrow:tracking-[0.2em] transition-all duration-300 ease-out">
               KR Arts And Science College &bull; Peraiyur, Madurai
             </span>
-            <span className="w-8 sm:w-14 h-[2px] bg-amber-400 rounded-full group-hover/eyebrow:w-16 sm:group-hover/eyebrow:w-24 transition-all duration-300 ease-out" />
+            <span className="w-8 sm:w-14 h-[2px] bg-[#FFD700] rounded-full group-hover/eyebrow:w-16 sm:group-hover/eyebrow:w-24 transition-all duration-300 ease-out" />
           </div>
 
           {/* 2. GRAND HEADLINE: Pure Kinetic Letter-by-Letter Floating Effect (ZERO Color Change) */}
           <div className="relative group/title inline-block">
             <h1 className="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.08] max-w-5xl select-none flex flex-wrap justify-center items-baseline gap-x-2.5 sm:gap-x-4 gap-y-1">
-              <FloatingWord word="Where" colorClass="text-[#011640]" />
-              <FloatingWord word="Ambition" colorClass="text-[#011640]" />
+              <FloatingWord word="Where" colorClass="hero-navy-text text-[#011640]" />
+              <FloatingWord word="Ambition" colorClass="hero-navy-text text-[#011640]" />
 
               {/* Forced line break on sm and larger displays */}
               <span className="w-full h-0 hidden sm:block basis-full" />
 
-              <FloatingWord word="Meets" colorClass="text-[#011640]" />
-              <FloatingWord word="Opportunity" colorClass="text-[#C59B27]" />
-              <FloatingWord word="&" colorClass="text-[#011640]" />
-              <FloatingWord word="Excellence." colorClass="text-[#C59B27]" />
+              <FloatingWord word="Meets" colorClass="hero-navy-text text-[#011640]" />
+              <FloatingWord word="Opportunity" colorClass="text-[#FFD700]" />
+              <FloatingWord word="&" colorClass="hero-navy-text text-[#011640]" />
+              <FloatingWord word="Excellence." colorClass="text-[#FFD700]" />
             </h1>
 
             {/* Smooth Kinetic Line Reveal across width on hover (Pure motion transition) */}
-            <div className="mt-2 mx-auto w-0 group-hover/title:w-48 sm:group-hover/title:w-72 h-[2.5px] bg-[#C59B27] rounded-full transition-all duration-500 ease-out" />
+            <div className="mt-2 mx-auto w-0 group-hover/title:w-48 sm:group-hover/title:w-72 h-[2.5px] bg-[#FFD700] rounded-full transition-all duration-500 ease-out" />
           </div>
 
           {/* 3. TAMIL MOTTO: Smooth Levitation Float Transition on Hover (ZERO Color Change) */}
@@ -212,8 +212,15 @@ export default function KineticHero() {
                 <circle cx="366" cy="21" r="1.3" fill="#5A431A" />
               </svg>
 
-              {/* Traditional etched Tamil script text */}
-              <span className="relative z-10 font-tamil font-bold text-xs sm:text-sm md:text-[15px] text-[#2C1802] tracking-wider">
+              {/* Traditional etched Tamil script text - Ultra-bold dark black for crisp clarity */}
+              <span
+                className="relative z-10 font-tamil font-black text-sm sm:text-base md:text-[17px] text-black tracking-wide"
+                style={{
+                  fontFamily: "'Noto Sans Tamil', sans-serif",
+                  fontWeight: 900,
+                  color: "#000000",
+                }}
+              >
                 உள்ளுவதெல்லாம் உயர்வுள்ளல்
               </span>
             </div>
@@ -238,51 +245,51 @@ export default function KineticHero() {
 
             <a
               href="#programmes"
-              className="relative group overflow-hidden inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-tl-[14px] rounded-br-[14px] rounded-tr-none rounded-bl-none text-sm sm:text-base font-bold text-[#021B4E] bg-white hover:bg-[#FBF2D4] hover:text-[#021B4E] border-2 border-slate-200/90 hover:border-[#C59B27] transition-all duration-300 shadow-none"
+              className="relative group overflow-hidden inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-tl-[14px] rounded-br-[14px] rounded-tr-none rounded-bl-none text-sm sm:text-base font-bold text-black bg-white hover:bg-[#FBF2D4] hover:text-black border-2 border-slate-200/90 hover:border-[#FFD700] transition-all duration-300 shadow-none"
             >
-              <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#F5B83D] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#FFD700] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <span>Explore Programmes</span>
-              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#0334A0] via-[#C59B27] to-[#F5B83D] group-hover:w-full transition-all duration-300" />
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-black via-[#FFD700] to-[#FFD700] group-hover:w-full transition-all duration-300" />
             </a>
           </div>
         </div>
+      </div>
 
-        {/* 6. DUAL TRACK TYPOGRAPHIC MARQUEE (EXACTLY LIKE PHOTO 2) */}
-        <div className="pt-6 sm:pt-8 overflow-hidden select-none flex flex-col gap-3 sm:gap-4 w-full">
-          {/* Row 1: Soft-Tone Text — Right to Left motion */}
-          <div className="overflow-hidden whitespace-nowrap flex">
-            <div ref={marqueeA} className="flex shrink-0 will-change-transform">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="flex items-center shrink-0">
-                  {MARQUEE_ROW_1.map((item, idx) => (
-                    <span key={idx} className="flex items-center">
-                      <span className="font-marquee text-2xl sm:text-3xl lg:text-4xl uppercase text-[#0334A0]/30 tracking-wide font-extrabold">
-                        {item}
-                      </span>
-                      <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400 shrink-0 mx-5 sm:mx-7" />
+      {/* 6. DUAL TRACK TYPOGRAPHIC MARQUEE (Full Width Edge-to-Edge Responsive to Zoom & Ctrl -) */}
+      <div className="pt-6 sm:pt-8 overflow-hidden select-none flex flex-col gap-3 sm:gap-4 w-full">
+        {/* Row 1: Soft-Tone Text — Right to Left motion */}
+        <div className="overflow-hidden whitespace-nowrap flex w-full">
+          <div ref={marqueeA} className="flex shrink-0 will-change-transform">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="flex items-center shrink-0">
+                {MARQUEE_ROW_1.map((item, idx) => (
+                  <span key={idx} className="flex items-center">
+                    <span className="font-marquee text-2xl sm:text-3xl lg:text-4xl uppercase text-black/35 tracking-wide font-extrabold">
+                      {item}
                     </span>
-                  ))}
-                </div>
-              ))}
-            </div>
+                    <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#FFD700] shrink-0 mx-5 sm:mx-7" />
+                  </span>
+                ))}
+              </div>
+            ))}
           </div>
+        </div>
 
-          {/* Row 2: Deep Midnight Navy Solid Text — Left to Right motion */}
-          <div className="overflow-hidden whitespace-nowrap flex">
-            <div ref={marqueeB} className="flex shrink-0 will-change-transform">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="flex items-center shrink-0">
-                  {MARQUEE_ROW_2.map((item, idx) => (
-                    <span key={idx} className="flex items-center">
-                      <span className="font-marquee text-2xl sm:text-3xl lg:text-4xl uppercase text-[#021B4E] tracking-wide font-extrabold">
-                        {item}
-                      </span>
-                      <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400 shrink-0 mx-5 sm:mx-7" />
+        {/* Row 2: Deep Solid Black Text — Left to Right motion */}
+        <div className="overflow-hidden whitespace-nowrap flex w-full">
+          <div ref={marqueeB} className="flex shrink-0 will-change-transform">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="flex items-center shrink-0">
+                {MARQUEE_ROW_2.map((item, idx) => (
+                  <span key={idx} className="flex items-center">
+                    <span className="font-marquee text-2xl sm:text-3xl lg:text-4xl uppercase text-black tracking-wide font-extrabold">
+                      {item}
                     </span>
-                  ))}
-                </div>
-              ))}
-            </div>
+                    <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#FFD700] shrink-0 mx-5 sm:mx-7" />
+                  </span>
+                ))}
+              </div>
+            ))}
           </div>
         </div>
       </div>

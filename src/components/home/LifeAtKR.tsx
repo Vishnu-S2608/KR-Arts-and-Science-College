@@ -113,21 +113,21 @@ export default function LifeAtKR() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
           <div className="flex items-center justify-center gap-3 mb-3">
-            <span className="w-8 sm:w-12 h-[2px] bg-[#C59B27] rounded-full" />
-            <span className="text-[11px] sm:text-xs font-bold tracking-widest text-[#0334A0] uppercase">
+            <span className="w-8 sm:w-12 h-[2px] bg-[#FFD700] rounded-full" />
+            <span className="text-[11px] sm:text-xs font-bold tracking-widest text-black uppercase">
               Campus Life &bull; World-Class Facilities
             </span>
-            <span className="w-8 sm:w-12 h-[2px] bg-[#C59B27] rounded-full" />
+            <span className="w-8 sm:w-12 h-[2px] bg-[#FFD700] rounded-full" />
           </div>
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-black tracking-tight">
             An Inspiring Environment Crafted for Learning &amp; Growth
           </h2>
         </div>
 
         {/* Interactive Facilities Showcase: Equal Height for Left Options and Right Visual Stage */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          {/* Left Column: 6 Option Buttons (Plain & Simple, Navbar Full Blue, Bold Gold Outline on Hover/Active) */}
-          <div className="lg:col-span-5 flex flex-col justify-between gap-3 h-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+          {/* Left Column: 6 Option Buttons (Slimmer Width, More Padding & Spacing, Larger Text Size) */}
+          <div className="lg:col-span-4 flex flex-col justify-between gap-4 sm:gap-4.5 h-full">
             {FACILITIES.map((fac) => {
               const isActive = fac.id === activeId;
 
@@ -137,28 +137,28 @@ export default function LifeAtKR() {
                   type="button"
                   onMouseEnter={() => setActiveId(fac.id)}
                   onClick={() => setActiveId(fac.id)}
-                  className={`group flex-1 px-5 py-3.5 sm:px-6 sm:py-4 text-left transition-all duration-300 flex items-center justify-between cursor-pointer rounded-tl-[18px] rounded-br-[18px] rounded-tr-none rounded-bl-none shadow-none relative overflow-hidden ${
+                  className={`group flex-1 px-5 py-4 sm:px-6 sm:py-4.5 text-left transition-all duration-300 flex items-center justify-between cursor-pointer rounded-tl-[18px] rounded-br-[18px] rounded-tr-none rounded-bl-none shadow-none relative overflow-hidden ${
                     isActive
-                      ? "bg-[#021B4E] border-2 border-[#C59B27] translate-x-1.5"
-                      : "bg-[#021B4E]/8 border border-[#021B4E]/15 hover:bg-[#021B4E] hover:border-2 hover:border-[#C59B27] hover:translate-x-1"
+                      ? "bg-[#021B4E] border-2 border-[#FFD700] translate-x-1.5"
+                      : "bg-[#021B4E]/8 border border-[#021B4E]/15 hover:bg-[#021B4E] hover:border-2 hover:border-[#FFD700] hover:translate-x-1"
                   }`}
                 >
-                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#C59B27]/0 to-transparent group-hover:via-[#C59B27] transition-all duration-500 pointer-events-none" />
-                  <div className="pr-4">
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#FFD700]/0 to-transparent group-hover:via-[#FFD700] transition-all duration-500 pointer-events-none" />
+                  <div className="pr-3">
                     <h4
-                      className={`text-xs sm:text-sm font-bold tracking-wide transition-colors duration-200 ${
+                      className={`text-sm sm:text-base font-bold font-heading tracking-tight leading-snug transition-colors duration-200 ${
                         isActive
                           ? "text-white font-extrabold"
-                          : "text-[#021B4E] group-hover:text-white"
+                          : "text-black group-hover:text-white"
                       }`}
                     >
                       {fac.title}
                     </h4>
                     <span
-                      className={`text-[10px] sm:text-[11px] font-medium block mt-0.5 transition-colors duration-200 ${
+                      className={`text-xs sm:text-[13px] font-medium block mt-1 transition-colors duration-200 ${
                         isActive
-                          ? "text-[#FBF2D4]"
-                          : "text-slate-500 group-hover:text-[#FBF2D4]"
+                          ? "text-[#FFD700]"
+                          : "text-slate-600 group-hover:text-[#FFD700]"
                       }`}
                     >
                       {fac.category}
@@ -166,10 +166,10 @@ export default function LifeAtKR() {
                   </div>
 
                   <span
-                    className={`text-[11px] font-mono font-bold px-2.5 py-1 rounded-tl-[8px] rounded-br-[8px] rounded-tr-none rounded-bl-none transition-colors duration-200 shadow-none shrink-0 ${
+                    className={`text-xs sm:text-sm font-mono font-bold px-3 py-1.5 rounded-tl-[8px] rounded-br-[8px] rounded-tr-none rounded-bl-none transition-colors duration-200 shadow-none shrink-0 ${
                       isActive
-                        ? "bg-[#C59B27] text-[#021B4E] font-extrabold"
-                        : "bg-[#021B4E]/10 text-[#021B4E] group-hover:bg-[#C59B27] group-hover:text-[#021B4E]"
+                        ? "bg-[#FFD700] text-black font-extrabold"
+                        : "bg-[#021B4E]/10 text-black group-hover:bg-[#FFD700] group-hover:text-black"
                     }`}
                   >
                     {fac.number}
@@ -181,7 +181,7 @@ export default function LifeAtKR() {
           </div>
 
           {/* Right Column: Active Facility Visual Stage (Equal Height with Left Column) */}
-          <div className="lg:col-span-7 h-full flex flex-col">
+          <div className="lg:col-span-8 h-full flex flex-col">
             <div className="h-full flex flex-col justify-between bg-white border-2 border-slate-200/90 hover:border-[#C59B27] rounded-tl-[28px] rounded-br-[28px] rounded-tr-none rounded-bl-none p-6 sm:p-7 shadow-none relative overflow-hidden group transition-all duration-300">
               <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-[#C59B27]/0 to-transparent group-hover:via-[#C59B27] transition-all duration-500 pointer-events-none" />
 

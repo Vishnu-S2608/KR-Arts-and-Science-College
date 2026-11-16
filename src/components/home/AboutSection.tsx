@@ -30,6 +30,12 @@ export default function AboutSection() {
       alt: "Campus entrance gate of KR Arts and Science College",
     },
     {
+      id: "stripLabs",
+      title: "LABS",
+      src: "/images/campus/computer-lab.png",
+      alt: "Advanced computer and high-tech laboratories at KR Arts and Science College",
+    },
+    {
       id: "stripLibrary",
       title: "LIBRARY",
       src: "/images/campus/kr_lib.webp",
@@ -276,10 +282,10 @@ export default function AboutSection() {
               <div className="seal-inner-circle">
                 <img
                   className="seal-college-logo"
-                  src="/assets/logo.jpeg"
-                  alt="KR College Seal Logo"
-                  width="52"
-                  height="52"
+                  src="/kr-logo-official.png"
+                  alt="KR Arts and Science College Official Seal"
+                  width="56"
+                  height="56"
                 />
                 <svg
                   className="seal-text-ring-svg"

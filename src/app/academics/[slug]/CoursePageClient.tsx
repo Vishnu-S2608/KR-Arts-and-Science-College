@@ -50,7 +50,7 @@ export default function CoursePageClient({ course, allCourses }: Props) {
       </div>
 
       {/* 2. Department Hero Banner with Signature Diagonal Boxing */}
-      <section className="relative bg-[#021B4E] text-white overflow-hidden py-14 sm:py-18">
+      <section className="relative bg-[#021B4E] text-white overflow-hidden py-8 sm:py-10">
         <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(circle_at_20%_20%,rgba(3,52,160,0.6),transparent_50%),radial-gradient(circle_at_80%_80%,rgba(197,155,39,0.25),transparent_50%)]" />
 
         <div className="max-w-[1380px] mx-auto px-4 sm:px-6 relative z-10">
@@ -140,7 +140,7 @@ export default function CoursePageClient({ course, allCourses }: Props) {
       </section>
 
       {/* 3. Section Navigation Tabs Bar (Signature Diagonal Boxing) */}
-      <div className="sticky top-0 z-40 bg-white border-b border-slate-200">
+      <div className="sticky top-[76px] sm:top-[84px] z-40 bg-white border-b border-slate-200">
         <div className="max-w-[1380px] mx-auto px-4 sm:px-6">
           <div className="flex items-center gap-2 overflow-x-auto py-3 scrollbar-none">
             {[

@@ -135,7 +135,12 @@ export default function ChronicleSection() {
   const hasMarquee = filteredChronicles.length >= 4;
 
   const displayItems = hasMarquee
-    ? [...filteredChronicles, ...filteredChronicles]
+    ? [
+        ...filteredChronicles,
+        ...filteredChronicles,
+        ...filteredChronicles,
+        ...filteredChronicles,
+      ]
     : filteredChronicles;
 
   const scrollLeft = () => {
@@ -153,67 +158,40 @@ export default function ChronicleSection() {
   const renderCard = (item: FestivalMilestone, idx: number) => (
     <div
       key={`${item.id}-${idx}`}
-      className="group block w-[240px] sm:w-[260px] md:w-[275px] shrink-0 bg-white rounded-tl-[20px] rounded-br-[20px] rounded-tr-none rounded-bl-none border-2 border-slate-200/90 hover:border-[#C59B27] hover:-translate-y-2 transition-all duration-300 overflow-hidden shadow-none flex flex-col justify-between"
+      className="group block w-[250px] sm:w-[275px] md:w-[295px] shrink-0 bg-white rounded-tl-[20px] rounded-br-[20px] rounded-tr-none rounded-bl-none border-2 border-slate-200/90 hover:border-[#FFD700] hover:-translate-y-2 transition-all duration-300 overflow-hidden shadow-none flex flex-col justify-between cursor-pointer"
     >
       {/* Top Accent Line */}
-      <div className="h-[2.5px] bg-gradient-to-r from-transparent via-[#C59B27]/0 to-transparent group-hover:via-[#C59B27] transition-all duration-500 pointer-events-none" />
+      <div className="h-[2.5px] bg-gradient-to-r from-transparent via-[#FFD700]/0 to-transparent group-hover:via-[#FFD700] transition-all duration-500 pointer-events-none" />
 
-      <div>
-        {/* 1. TOP COLORED WAVE/SCOOP HEADER BLOCK (Our College Palette) */}
-        <div
-          className={`relative h-[115px] sm:h-[125px] w-full bg-gradient-to-br ${item.gradient} overflow-hidden p-3.5 flex flex-col justify-between`}
-        >
-          {/* Subtle Background Image with Light Sweep */}
-          <div className="absolute inset-0 opacity-25 group-hover:opacity-40 transition-opacity duration-500">
-            <Image
-              src={item.image}
-              alt={item.title}
-              fill
-              sizes="280px"
-              className="object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out"
-            />
-          </div>
+      <div className="flex flex-col h-full">
+        {/* 1. FULL IMAGE VIEW (Unobscured full view without cutout curve or center badge) */}
+        <div className="relative h-[200px] sm:h-[220px] w-full bg-slate-900 overflow-hidden shrink-0 border-b border-slate-100">
+          <Image
+            src={item.image}
+            alt={item.title}
+            fill
+            sizes="295px"
+            className="object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+          />
+          {/* Subtle top scrim for badge legibility only */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent pointer-events-none" />
 
-          <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none z-10" />
-
-          {/* Header Badges */}
-          <div className="relative z-10 flex items-center justify-between">
-            <span className="px-2.5 py-0.5 rounded-tl-[5px] rounded-br-[5px] text-[9px] font-bold bg-[#021B4E]/90 text-[#F5B83D] border border-[#C59B27]/50 uppercase tracking-wider backdrop-blur-sm shadow-none">
+          {/* Header Badges placed cleanly in corners */}
+          <div className="relative z-10 flex items-center justify-between p-3.5">
+            <span className="px-2.5 py-1 rounded-tl-[6px] rounded-br-[6px] text-[9.5px] font-bold bg-[#021B4E]/95 text-[#FFD700] border border-[#FFD700]/60 uppercase tracking-wider backdrop-blur-sm shadow-none">
               {item.category}
             </span>
-            <span className="text-[10px] font-mono font-bold text-white/90 bg-white/15 px-2 py-0.5 rounded-tl-[5px] rounded-br-[5px] backdrop-blur-sm border border-white/20">
+            <span className="text-[10px] font-mono font-bold text-white/95 bg-black/60 px-2.5 py-1 rounded-tl-[6px] rounded-br-[6px] backdrop-blur-sm border border-white/25">
               {item.year}
             </span>
           </div>
-
-          {/* Centered Distinct Emblem / Badge */}
-          <div className="relative z-10 self-center mb-0.5">
-            <div className="w-8 h-8 rounded-tl-[8px] rounded-br-[8px] rounded-tr-none rounded-bl-none bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-[#F5B83D] font-mono font-extrabold text-xs shadow-none group-hover:scale-110 transition-transform duration-300">
-              {String((idx % filteredChronicles.length) + 1).padStart(2, "0")}
-            </div>
-          </div>
-
-          {/* DOWNWARD SCOOP WAVE CURVE CUTOUT */}
-          <svg
-            className="absolute bottom-0 left-0 right-0 w-full h-6 text-white pointer-events-none"
-            viewBox="0 0 360 45"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M0,0 C120,45 240,45 360,0 L360,45 L0,45 Z"
-              fill="currentColor"
-            />
-          </svg>
         </div>
 
-        {/* 2. CARD BODY: TITLE & SHORT DESCRIPTION WITH GENEROUS PADDING */}
-        <div className="p-4 sm:p-5 pt-2 pb-5 text-center">
-          <h3 className="font-heading text-sm sm:text-base font-bold text-[#021B4E] group-hover:text-[#0334A0] transition-colors leading-snug line-clamp-2">
+        {/* 2. CARD BODY: TITLE ONLY (Sentences below heading removed per user request) */}
+        <div className="p-4 sm:p-5 text-center flex items-center justify-center flex-1 min-h-[68px]">
+          <h3 className="font-heading text-sm sm:text-base font-bold text-black group-hover:text-black transition-colors leading-snug">
             {item.title}
           </h3>
-          <p className="mt-1.5 text-xs text-slate-600 line-clamp-3 leading-relaxed">
-            {item.description}
-          </p>
         </div>
       </div>
     </div>
@@ -230,12 +208,12 @@ export default function ChronicleSection() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 sm:mb-12">
           <div>
             <div className="flex items-center gap-3 mb-2.5">
-              <span className="w-8 sm:w-12 h-[2px] bg-[#C59B27] rounded-full" />
-              <span className="text-[11px] sm:text-xs font-bold tracking-widest text-[#0334A0] uppercase">
+              <span className="w-8 sm:w-12 h-[2px] bg-[#FFD700] rounded-full" />
+              <span className="text-[11px] sm:text-xs font-bold tracking-widest text-black uppercase">
                 Annual Innovation Symposia &bull; Campus Milestones
               </span>
             </div>
-            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-black tracking-tight">
               SPARK Festival &amp; Documented Milestones
             </h2>
           </div>
@@ -248,7 +226,7 @@ export default function ChronicleSection() {
                   type="button"
                   onClick={scrollLeft}
                   aria-label="Scroll milestones left"
-                  className="w-10 h-10 rounded-tl-[10px] rounded-br-[10px] rounded-tr-none rounded-bl-none border border-slate-300 hover:border-[#C59B27] bg-white text-slate-700 hover:text-[#021B4E] hover:bg-[#FBF2D4] font-bold text-sm flex items-center justify-center transition-all shadow-none cursor-pointer"
+                  className="w-10 h-10 rounded-tl-[10px] rounded-br-[10px] rounded-tr-none rounded-bl-none border border-slate-300 hover:border-[#FFD700] bg-white text-black hover:text-black hover:bg-[#FBF2D4] font-bold text-sm flex items-center justify-center transition-all shadow-none cursor-pointer"
                 >
                   &larr;
                 </button>
@@ -256,7 +234,7 @@ export default function ChronicleSection() {
                   type="button"
                   onClick={scrollRight}
                   aria-label="Scroll milestones right"
-                  className="w-10 h-10 rounded-tl-[10px] rounded-br-[10px] rounded-tr-none rounded-bl-none border border-slate-300 hover:border-[#C59B27] bg-white text-slate-700 hover:text-[#021B4E] hover:bg-[#FBF2D4] font-bold text-sm flex items-center justify-center transition-all shadow-none cursor-pointer"
+                  className="w-10 h-10 rounded-tl-[10px] rounded-br-[10px] rounded-tr-none rounded-bl-none border border-slate-300 hover:border-[#FFD700] bg-white text-black hover:text-black hover:bg-[#FBF2D4] font-bold text-sm flex items-center justify-center transition-all shadow-none cursor-pointer"
                 >
                   &rarr;
                 </button>
@@ -264,10 +242,10 @@ export default function ChronicleSection() {
             )}
 
             <Link
-              href="/events"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-tl-[10px] rounded-br-[10px] rounded-tr-none rounded-bl-none text-xs sm:text-sm font-bold text-[#F5B83D] bg-[#021B4E] hover:bg-[#FBF2D4] hover:text-[#021B4E] border border-[#C59B27] transition-all duration-300 shadow-none ml-1"
+              href="/chronicle"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-tl-[10px] rounded-br-[10px] rounded-tr-none rounded-bl-none text-xs sm:text-sm font-bold text-[#FFD700] bg-[#021B4E] hover:bg-[#FBF2D4] hover:text-black border border-[#FFD700] transition-all duration-300 shadow-none ml-1"
             >
-              <span>All Events</span>
+              <span>All Chronicles &amp; Archives</span>
               <span>&rarr;</span>
             </Link>
           </div>
@@ -284,8 +262,8 @@ export default function ChronicleSection() {
                 onClick={() => setSelectedYear(f.key)}
                 className={`px-4 sm:px-5 py-2 rounded-tl-[10px] rounded-br-[10px] rounded-tr-none rounded-bl-none text-xs font-bold transition-all duration-200 cursor-pointer shadow-none whitespace-nowrap ${
                   isActive
-                    ? "bg-[#021B4E] text-[#F5B83D] border-2 border-[#C59B27]"
-                    : "bg-slate-100 text-slate-700 hover:bg-[#FBF2D4] hover:text-[#021B4E] border border-slate-200/90"
+                    ? "bg-[#021B4E] text-[#FFD700] border-2 border-[#FFD700]"
+                    : "bg-slate-100 text-black hover:bg-[#FBF2D4] hover:text-black border border-slate-200/90"
                 }`}
               >
                 {f.label}
@@ -299,15 +277,15 @@ export default function ChronicleSection() {
       {hasMarquee ? (
         <div
           ref={marqueeRef}
-          className="w-full overflow-x-auto scrollbar-none py-4 px-4 sm:px-6 cursor-grab active:cursor-grabbing"
+          className="w-full overflow-x-auto scrollbar-none py-6 px-4 sm:px-6 md:px-8 cursor-grab active:cursor-grabbing"
         >
-          <div className="animate-chronicle-marquee gap-6 sm:gap-7 flex items-stretch">
+          <div className="animate-chronicle-marquee gap-8 sm:gap-10 md:gap-12 lg:gap-14 flex items-stretch">
             {displayItems.map((item, idx) => renderCard(item, idx))}
           </div>
         </div>
       ) : (
-        <div className="max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8 py-2">
-          <div className="flex flex-wrap items-stretch justify-start gap-6 sm:gap-7">
+        <div className="max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-wrap items-stretch justify-start gap-8 sm:gap-10 md:gap-12 lg:gap-14">
             {filteredChronicles.map((item, idx) => renderCard(item, idx))}
           </div>
         </div>
@@ -316,19 +294,19 @@ export default function ChronicleSection() {
       {/* STRATEGIC BILATERAL MOUS SECTION (1 x 2 Side-by-Side Layout, Compact) */}
       <div className="max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-slate-200/80" id="global">
         <div className="flex items-center justify-center gap-3 mb-6">
-          <span className="w-8 sm:w-12 h-[2px] bg-[#C59B27] rounded-full" />
-          <span className="text-[11px] sm:text-xs font-bold tracking-widest text-[#0334A0] uppercase">
+          <span className="w-8 sm:w-12 h-[2px] bg-[#FFD700] rounded-full" />
+          <span className="text-[11px] sm:text-xs font-bold tracking-widest text-black uppercase">
             Strategic Bilateral MoUs &amp; Global Linkages
           </span>
-          <span className="w-8 sm:w-12 h-[2px] bg-[#C59B27] rounded-full" />
+          <span className="w-8 sm:w-12 h-[2px] bg-[#FFD700] rounded-full" />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
           {/* Banner 1: Thailand MoU (Shinawatra University) */}
-          <div className="bg-white border-2 border-slate-200/90 hover:border-[#C59B27] rounded-tl-[20px] rounded-br-[20px] rounded-tr-none rounded-bl-none overflow-hidden transition-all duration-300 shadow-none flex flex-col sm:flex-row items-stretch relative group">
-            <div className="w-full sm:w-[150px] lg:w-[165px] relative overflow-hidden bg-[#021B4E] border-b-2 sm:border-b-0 sm:border-r-2 border-[#C59B27] shrink-0 min-h-[140px] sm:min-h-0">
+          <div className="bg-white border-2 border-slate-200/90 hover:border-[#FFD700] rounded-tl-[20px] rounded-br-[20px] rounded-tr-none rounded-bl-none overflow-hidden transition-all duration-300 shadow-none flex flex-col sm:flex-row items-stretch relative group">
+            <div className="w-full sm:w-[150px] lg:w-[165px] relative overflow-hidden bg-[#021B4E] border-b-2 sm:border-b-0 sm:border-r-2 border-[#FFD700] shrink-0 min-h-[140px] sm:min-h-0">
               <Image
-                src="/images/thailand-mou-iciri.jpg"
+                src="/images/events/thailand-mou-iciri.jpg"
                 alt="Shinawatra University Thailand ICIRI 2026 MoU"
                 fill
                 sizes="(max-width: 640px) 100vw, 170px"
@@ -336,7 +314,7 @@ export default function ChronicleSection() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#021B4E]/80 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-2 left-0 right-0 text-center">
-                <span className="inline-block bg-[#021B4E]/95 px-2.5 py-0.5 rounded-tl-[5px] rounded-br-[5px] text-[9px] font-mono font-bold tracking-wider text-[#FBF2D4] border border-[#C59B27]/40 uppercase shadow-none">
+                <span className="inline-block bg-[#021B4E]/95 px-2.5 py-0.5 rounded-tl-[5px] rounded-br-[5px] text-[9px] font-mono font-bold tracking-wider text-[#FFD700] border border-[#FFD700]/60 uppercase shadow-none">
                   MOU 2026
                 </span>
               </div>
@@ -345,7 +323,7 @@ export default function ChronicleSection() {
             <div className="flex-1 p-4 sm:p-5 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-1.5 mb-1.5">
-                  <span className="px-2 py-0.5 rounded-tl-[5px] rounded-br-[5px] bg-[#F5B83D] text-[#021B4E] font-bold text-[9px] uppercase tracking-wider">
+                  <span className="px-2 py-0.5 rounded-tl-[5px] rounded-br-[5px] bg-[#FFD700] text-black font-bold text-[9px] uppercase tracking-wider">
                     NEW
                   </span>
                   <span className="px-2 py-0.5 rounded-tl-[5px] rounded-br-[5px] bg-[#021B4E] text-white font-bold text-[9px] uppercase tracking-wider">
@@ -353,12 +331,12 @@ export default function ChronicleSection() {
                   </span>
                 </div>
 
-                <h3 className="font-heading text-sm sm:text-base font-bold text-[#011640] tracking-tight leading-snug">
+                <h3 className="font-heading text-sm sm:text-base font-bold text-black tracking-tight leading-snug">
                   KR Arts &amp; Science Partners with{" "}
-                  <span className="italic text-[#C59B27]">Shinawatra Univ, Thailand</span>
+                  <span className="italic text-[#D4AF37]">Shinawatra Univ, Thailand</span>
                 </h3>
 
-                <p className="mt-1.5 text-xs text-slate-600 leading-relaxed line-clamp-2">
+                <p className="mt-1.5 text-xs text-black leading-relaxed line-clamp-2">
                   Bilateral treaty formalized at ICIRI 2026 opening cross-border research collaboration, faculty exchange, and dual academic progression.
                 </p>
               </div>
@@ -366,11 +344,11 @@ export default function ChronicleSection() {
               <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between flex-wrap gap-2">
                 <Link
                   href="/events/thailand-mou"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-tl-[8px] rounded-br-[8px] rounded-tr-none rounded-bl-none text-xs font-bold text-[#F5B83D] bg-[#021B4E] hover:bg-[#FBF2D4] hover:text-[#021B4E] border border-[#C59B27] transition-all duration-300 shadow-none"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-tl-[8px] rounded-br-[8px] rounded-tr-none rounded-bl-none text-xs font-bold text-[#FFD700] bg-[#021B4E] hover:bg-[#FBF2D4] hover:text-black border border-[#FFD700] transition-all duration-300 shadow-none"
                 >
                   <span>Read Story &rarr;</span>
                 </Link>
-                <span className="text-[10px] font-medium text-slate-400">
+                <span className="text-[10px] font-medium text-slate-500">
                   Pathum Thani, Thailand
                 </span>
               </div>
@@ -378,8 +356,8 @@ export default function ChronicleSection() {
           </div>
 
           {/* Banner 2: LKP Academy Aviation MoU */}
-          <div className="bg-white border-2 border-slate-200/90 hover:border-[#C59B27] rounded-tl-[20px] rounded-br-[20px] rounded-tr-none rounded-bl-none overflow-hidden transition-all duration-300 shadow-none flex flex-col sm:flex-row items-stretch relative group">
-            <div className="w-full sm:w-[150px] lg:w-[165px] relative overflow-hidden bg-[#021B4E] border-b-2 sm:border-b-0 sm:border-r-2 border-[#C59B27] shrink-0 min-h-[140px] sm:min-h-0">
+          <div className="bg-white border-2 border-slate-200/90 hover:border-[#FFD700] rounded-tl-[20px] rounded-br-[20px] rounded-tr-none rounded-bl-none overflow-hidden transition-all duration-300 shadow-none flex flex-col sm:flex-row items-stretch relative group">
+            <div className="w-full sm:w-[150px] lg:w-[165px] relative overflow-hidden bg-[#021B4E] border-b-2 sm:border-b-0 sm:border-r-2 border-[#FFD700] shrink-0 min-h-[140px] sm:min-h-0">
               <Image
                 src="/images/campus/campus-hero.png"
                 alt="LKP Academy Aviation Strategic MoU"
@@ -389,7 +367,7 @@ export default function ChronicleSection() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#021B4E]/80 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-2 left-0 right-0 text-center">
-                <span className="inline-block bg-[#021B4E]/95 px-2.5 py-0.5 rounded-tl-[5px] rounded-br-[5px] text-[9px] font-mono font-bold tracking-wider text-[#FBF2D4] border border-[#C59B27]/40 uppercase shadow-none">
+                <span className="inline-block bg-[#021B4E]/95 px-2.5 py-0.5 rounded-tl-[5px] rounded-br-[5px] text-[9px] font-mono font-bold tracking-wider text-[#FFD700] border border-[#FFD700]/60 uppercase shadow-none">
                   AVIATION 2026
                 </span>
               </div>
@@ -398,20 +376,20 @@ export default function ChronicleSection() {
             <div className="flex-1 p-4 sm:p-5 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-1.5 mb-1.5">
-                  <span className="px-2 py-0.5 rounded-tl-[5px] rounded-br-[5px] bg-[#021B4E] text-[#F5B83D] font-bold text-[9px] uppercase tracking-wider">
+                  <span className="px-2 py-0.5 rounded-tl-[5px] rounded-br-[5px] bg-[#021B4E] text-[#FFD700] font-bold text-[9px] uppercase tracking-wider">
                     INDUSTRY LINKAGE
                   </span>
-                  <span className="px-2 py-0.5 rounded-tl-[5px] rounded-br-[5px] bg-[#FBF2D4] text-[#021B4E] font-bold text-[9px] uppercase tracking-wider border border-[#C59B27]/40">
+                  <span className="px-2 py-0.5 rounded-tl-[5px] rounded-br-[5px] bg-[#FBF2D4] text-black font-bold text-[9px] uppercase tracking-wider border border-[#FFD700]/60">
                     AIRPORT INTERNSHIPS
                   </span>
                 </div>
 
-                <h3 className="font-heading text-sm sm:text-base font-bold text-[#011640] tracking-tight leading-snug">
+                <h3 className="font-heading text-sm sm:text-base font-bold text-black tracking-tight leading-snug">
                   Strategic Academic MoU with{" "}
-                  <span className="italic text-[#C59B27]">LKP Academy (Aviation)</span>
+                  <span className="italic text-[#D4AF37]">LKP Academy (Aviation)</span>
                 </h3>
 
-                <p className="mt-1.5 text-xs text-slate-600 leading-relaxed line-clamp-2">
+                <p className="mt-1.5 text-xs text-black leading-relaxed line-clamp-2">
                   Direct airline ground operations immersion, live airport terminal management training, and ticketing certifications for BBA students.
                 </p>
               </div>
@@ -419,11 +397,11 @@ export default function ChronicleSection() {
               <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between flex-wrap gap-2">
                 <Link
                   href="/events/lkp-aviation"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-tl-[8px] rounded-br-[8px] rounded-tr-none rounded-bl-none text-xs font-bold text-[#F5B83D] bg-[#021B4E] hover:bg-[#FBF2D4] hover:text-[#021B4E] border border-[#C59B27] transition-all duration-300 shadow-none"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-tl-[8px] rounded-br-[8px] rounded-tr-none rounded-bl-none text-xs font-bold text-[#FFD700] bg-[#021B4E] hover:bg-[#FBF2D4] hover:text-black border border-[#FFD700] transition-all duration-300 shadow-none"
                 >
                   <span>Read Story &rarr;</span>
                 </Link>
-                <span className="text-[10px] font-medium text-slate-400">
+                <span className="text-[10px] font-medium text-slate-500">
                   Madurai Airport Protocols
                 </span>
               </div>

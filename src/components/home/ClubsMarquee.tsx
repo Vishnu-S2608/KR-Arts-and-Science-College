@@ -72,16 +72,16 @@ export default function ClubsMarquee() {
     >
       <div className="flex flex-col gap-3 sm:gap-4 relative z-10">
         {/* Row 1: Soft-Tone Text — Right to Left motion */}
-        <div className="overflow-hidden whitespace-nowrap flex">
+        <div className="overflow-hidden whitespace-nowrap flex w-full">
           <div ref={marqueeA} className="flex shrink-0 will-change-transform">
-            {[...Array(4)].map((_, i) => (
+            {[...Array(8)].map((_, i) => (
               <div key={i} className="flex items-center shrink-0">
                 {CLUBS_ROW_1.map((item, idx) => (
                   <span key={idx} className="flex items-center">
-                    <span className="font-marquee text-2xl sm:text-3xl lg:text-4xl uppercase text-[#0334A0]/30 tracking-wide">
+                    <span className="font-marquee text-2xl sm:text-3xl lg:text-4xl uppercase text-black/40 font-bold tracking-wide">
                       {item}
                     </span>
-                    <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400 shrink-0 mx-5 sm:mx-7" />
+                    <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#FFD700] shrink-0 mx-5 sm:mx-7" />
                   </span>
                 ))}
               </div>
@@ -89,17 +89,17 @@ export default function ClubsMarquee() {
           </div>
         </div>
 
-        {/* Row 2: Deep Midnight Navy Solid Text — Left to Right motion */}
-        <div className="overflow-hidden whitespace-nowrap flex">
+        {/* Row 2: Pure Solid Black Text — Left to Right motion */}
+        <div className="overflow-hidden whitespace-nowrap flex w-full">
           <div ref={marqueeB} className="flex shrink-0 will-change-transform">
-            {[...Array(4)].map((_, i) => (
+            {[...Array(8)].map((_, i) => (
               <div key={i} className="flex items-center shrink-0">
                 {CLUBS_ROW_2.map((item, idx) => (
                   <span key={idx} className="flex items-center">
-                    <span className="font-marquee text-2xl sm:text-3xl lg:text-4xl uppercase text-[#021B4E] tracking-wide">
+                    <span className="font-marquee text-2xl sm:text-3xl lg:text-4xl uppercase text-black font-extrabold tracking-wide">
                       {item}
                     </span>
-                    <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400 shrink-0 mx-5 sm:mx-7" />
+                    <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#FFD700] shrink-0 mx-5 sm:mx-7" />
                   </span>
                 ))}
               </div>

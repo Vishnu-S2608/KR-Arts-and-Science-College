@@ -31,39 +31,52 @@ export default function ClubPageClient({ club, allClubs }: Props) {
         </div>
       </div>
 
-      {/* 2. Hero Banner with Signature Diagonal Boxing */}
-      <section className="relative bg-[#021B4E] text-white overflow-hidden py-14 sm:py-18">
+      {/* 2. Compact Hero Banner with Signature Diagonal Boxing (No Empty Background Space) */}
+      <section className="relative bg-[#021B4E] text-white overflow-hidden py-7 sm:py-9">
         <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(circle_at_20%_20%,rgba(3,52,160,0.6),transparent_50%),radial-gradient(circle_at_80%_80%,rgba(197,155,39,0.25),transparent_50%)]" />
 
         <div className="max-w-[1380px] mx-auto px-4 sm:px-6 relative z-10">
-          <div className="max-w-3xl">
-            {/* Badges Bar */}
-            <div className="flex flex-wrap items-center gap-2.5 mb-4">
-              <span className="px-3.5 py-1.5 rounded-tl-[8px] rounded-br-[8px] rounded-tr-none rounded-bl-none text-[11px] font-bold bg-[#C59B27] text-slate-950 uppercase tracking-wider shadow-none">
-                {club.badge}
-              </span>
-              <span className="px-3.5 py-1.5 rounded-tl-[8px] rounded-br-[8px] rounded-tr-none rounded-bl-none text-[11px] font-bold bg-white/10 text-white border border-white/20 shadow-none">
-                {club.category}
-              </span>
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 sm:gap-8">
+            {/* Left Column: Badges, Title & Motto */}
+            <div className="max-w-2xl">
+              <div className="flex flex-wrap items-center gap-2 mb-2.5">
+                <span className="px-3 py-1 rounded-tl-[7px] rounded-br-[7px] rounded-tr-none rounded-bl-none text-[10px] font-bold bg-[#C59B27] text-slate-950 uppercase tracking-wider shadow-none">
+                  {club.badge}
+                </span>
+                <span className="px-3 py-1 rounded-tl-[7px] rounded-br-[7px] rounded-tr-none rounded-bl-none text-[10px] font-bold bg-white/10 text-white border border-white/20 shadow-none">
+                  {club.category}
+                </span>
+              </div>
+
+              <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight">
+                {club.title}
+              </h1>
+
+              <p className="mt-1.5 text-xs sm:text-sm font-semibold text-[#F5B83D]">
+                Motto: &ldquo;{club.motto}&rdquo;
+              </p>
             </div>
 
-            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              {club.title}
-            </h1>
-
-            <p className="mt-2 text-sm sm:text-base font-semibold text-[#F5B83D]">
-              Motto: &ldquo;{club.motto}&rdquo;
-            </p>
-
-            <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed">
-              {club.tagline}
-            </p>
+            {/* Right Column: Tagline & Active Unit Details */}
+            <div className="lg:max-w-md lg:border-l lg:border-white/15 lg:pl-6 shrink-0">
+              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                {club.tagline}
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <span className="px-2.5 py-0.5 rounded-tl-[6px] rounded-br-[6px] text-[11px] font-semibold bg-white/10 border border-white/15 text-white">
+                  Active Student Unit
+                </span>
+                <span className="px-2.5 py-0.5 rounded-tl-[6px] rounded-br-[6px] text-[11px] font-semibold bg-white/10 border border-white/15 text-white">
+                  {club.affiliation}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* 3. Main Content Two-Column Layout */}
-      <div className="max-w-[1380px] mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <div className="max-w-[1380px] mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Main Column */}
           <main className="lg:col-span-8 space-y-10">
