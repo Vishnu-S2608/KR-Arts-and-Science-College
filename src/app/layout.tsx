@@ -12,7 +12,12 @@ export const metadata: Metadata = {
   description:
     "Official website of KR Arts And Science College, Peraiyur, Madurai. Affiliated to Madurai Kamaraj University, Est. 2023. Empowering rural minds with modern education and 100% placement achievement.",
   icons: {
-    icon: "/kr-logo-official.png",
+    icon: [
+      { url: "/kr-logo-official.png", type: "image/png" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    shortcut: "/kr-logo-official.png",
+    apple: "/kr-logo-official.png",
   },
 };
 
@@ -24,6 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="overflow-x-clip max-w-full">
       <head>
+        <link rel="icon" href="/kr-logo-official.png" type="image/png" />
+        <link rel="shortcut icon" href="/kr-logo-official.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/kr-logo-official.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
